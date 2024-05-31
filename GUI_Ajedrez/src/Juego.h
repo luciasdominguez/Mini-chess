@@ -1,15 +1,13 @@
 #pragma once
+#include <vector>
 #include "GUI_Tablero.h"
+#include "GUI_Pieza2.h"
+
 #include "GUI_Fila.h"
 #include "GUI_Casilla.h"
-#include <vector>
-#include "GUI_Pieza2.h"
 
 using std::vector;
 using ETSIDI::Vector2D;
-
-
-
 
 class Juego
 {
@@ -25,24 +23,20 @@ class Juego
 	//GUI_Pieza2 pieza2;
 	GUI_Tablero miTablero;
 
-	//lista_piezas[]
-
-
-	//vector<GUI_pieza*> lista_piezas;
-
-	
-
-	//enum color { blanca = 0, negra } color{};
-	//enum tipo { peon = 0, torre, caballo, alfil, reina, rey, vacio } tipo{};
-	//enum fila { f1 = 1, f2, f3, f4, f5, f6, f7, f8 } fila{};
-	//enum columa { A = 1, B, C, D, E, F, G, H } columna{};
+	//lista_piezas[];
+	vector<STRU_PIEZA> lista_datos_de_piezas; // los valores se actualizarán en la parte de logica
+	vector<GUI_Pieza> lista_de_piezas;
+	void generar_piezas();
+	void generar_listado_datos_piezas_OFF(); // funcion auxilar para generar un listado de piezas. hasta que las de la parte lógica
+	void actualizar_piezas();
 
 public:
 
 	Juego();
 	void dibuja_juego();
-	Vector2D calculo_posicion_pieza(Vector2D tam_tablero, Vector2D pos_tablero, enum fila fila, enum columna columna);
-	void leer_listado_piezas();
+	void dibujar_piezas();
+
+	void generar_listado_datos_piezas_NEW();
 
 	//GUI_Tablero miTablero;
 

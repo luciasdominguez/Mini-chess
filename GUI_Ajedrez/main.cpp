@@ -45,7 +45,6 @@ void OnDraw(void)
 {
 	//Borrado de la pantalla	
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
 	//Para definir el punto de vista
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
@@ -54,9 +53,11 @@ void OnDraw(void)
 		0.0, 7.5, 0.0,      // hacia que punto mira  (0,0,0) 
 		0.0, 1.0, 0.0);      // definimos hacia arriba (eje Y)    
 
-	//codigo de dibujo del tablero
-
+	//codigo de dibujo del tablero con las piezas en sus posiciones
 	juego.dibuja_juego();
+
+	//Para poner la piezas en la posición de salida
+	juego.generar_listado_datos_piezas_NEW();
 
 	//no borrar esta linea ni poner nada despues
 	glutSwapBuffers();
@@ -69,7 +70,6 @@ void OnKeyboardDown(unsigned char key, int x_t, int y_t)
 
 void OnTimer(int value)
 {
-
 	//no borrar estas lineas
 	glutTimerFunc(25, OnTimer, 0);
 	glutPostRedisplay();

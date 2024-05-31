@@ -5,42 +5,28 @@
 
 using namespace ETSIDI;
 
-enum class en_tipo
-{
-	peon=1,	torre,	caballo, alfil,	reina,	rey, tipo_ND=0
-};
 
-enum class en_color
-{
-	blanca = 1, negra, color_ND = 0
-};
-
-
-
-enum ENUM_TIPO { peon = 0, torre, caballo, alfil, reina, rey };
-enum ENUM_SUBTIPO { SB_no_aplica = 0, SB_rey , SB_reina, SB_caballo_rey, SB_caballo_reina, SB_alfil_rey, SB_alfil_reina, SB_torre_rey, SB_torre_reina};
+enum ENUM_PIEZA { PZ_peon_rey, PZ_rey, PZ_reina, PZ_peon_reina, PZ_peon_torre_rey, PZ_peon_torre_reina, PZ_peon_caballo_rey, PZ_peon_caballo_reina, PZ_peon_alfil_rey, PZ_peon_alfil_reina, PZ_caballo_rey, PZ_caballo_reina, PZ_alfil_rey, PZ_alfil_reina, PZ_torre_rey, PZ_torre_reina };
+enum ENUM_TIPO { peon, torre, caballo, alfil, reina, rey };
 enum ENUM_FILA { f1 = 1, f2, f3, f4, f5, f6, f7, f8, fila_ND = 0 };
 enum ENUM_COLUMNA { A = 1, B, C, D, E, F, G, H, columna_ND = 0 };
-enum ENUM_COLOR { blanca = 0, negra };
+enum ENUM_COLOR { blanca, negra };
 
 typedef struct STRU_PIEZA {
 	enum ENUM_TIPO c_tipo = peon;
-	enum ENUM_SUBTIPO c_subtipo = SB_torre_rey;
-	enum ENUM_FILA c_fila = f1;
-	enum ENUM_COLUMNA c_columna = A;
+	enum ENUM_PIEZA c_pieza = PZ_peon_rey;
+	enum ENUM_FILA c_fila = f2;
+	enum ENUM_COLUMNA c_columna = E;
 	enum ENUM_COLOR c_color = blanca;
 };
 
-class GUI_Pieza2
+class GUI_Pieza
 {
 	string textura;
-	//char* textura{};
 	int size_x{}, size_y{};
-	float pos_x{}, pos_y{}; /// posición según el sprite
+	float pos_x{}, pos_y{}; /// posición según escala del sprite
 
 	SpriteSequence* sprite;
-	//ENUM_COLOR color = color_ND;
-	//ENUM_TIPO tipo = tipo_ND;
 
 	STRU_PIEZA _datos_pieza;
 	void calculaPos(); /// calcula posicion en valores para el sprite en función de la posicion
@@ -49,8 +35,8 @@ class GUI_Pieza2
 
 
 public:
-	GUI_Pieza2();
-	GUI_Pieza2(STRU_PIEZA d);
+	GUI_Pieza();
+	GUI_Pieza(STRU_PIEZA d);
 
 	void dibuja_pieza();
 	void set_datosPieza(STRU_PIEZA datos);

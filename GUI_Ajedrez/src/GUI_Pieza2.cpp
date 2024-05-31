@@ -2,7 +2,7 @@
 
 
 
-GUI_Pieza2::GUI_Pieza2()
+GUI_Pieza::GUI_Pieza()
 {
 	    calculaTextura();	
 		calculaPos(); // calcula posición del sprite en función de la fila y columna de la pieza
@@ -12,7 +12,7 @@ GUI_Pieza2::GUI_Pieza2()
 
 
 
-GUI_Pieza2::GUI_Pieza2(STRU_PIEZA d)
+GUI_Pieza::GUI_Pieza(STRU_PIEZA d)
 {
 	_datos_pieza = d;
 	calculaTextura();
@@ -23,31 +23,13 @@ GUI_Pieza2::GUI_Pieza2(STRU_PIEZA d)
 }
 
 
-
-
-//GUI_Pieza2::GUI_Pieza2(ENUM_TIPO t, ENUM_COLOR c)
-//{
-//	_datos_pieza.c_tipo = t;
-//	_datos_pieza.c_color = c;
-//	calculaTextura();
-//	calculaPos();
-//}
-
-//GUI_Pieza2::GUI_Pieza2( en_tipo t, en_color c)
-//{
-//	/*_datos_pieza.c_tipo = (ENUM_TIPO)t;
-//	_datos_pieza.c_color = (ENUM_COLOR)c;
-//	calculaTextura();
-//	calculaPos();*/
-//}
-
-void GUI_Pieza2::dibuja_pieza()
+void GUI_Pieza::dibuja_pieza()
 {
 	glPushMatrix();
 	glTranslated(0, 0, 1);
 
 	// Dónde va la pieza en coordenadas del tablero
-	GUI_Pieza2::calculaPos();
+	GUI_Pieza::calculaPos();
 
 	sprite->flip(false, false);
 	//sprite.flip(true, false);
@@ -76,7 +58,7 @@ void GUI_Pieza2::dibuja_pieza()
 
 }
 
-void GUI_Pieza2::calculaPos() 
+void GUI_Pieza::calculaPos() 
 {   //Vector2D posicion_tablero{ -3.0, 0.2 };	// Posición esquina izq abajo	
 	float ref_x = 0, ref_y = 3.6, inc_casilla = 1.9, inc_desposito = 0.95;// referencia de casilla inferior izquierda
 	if (_datos_pieza.c_fila != fila_ND && _datos_pieza.c_columna != columna_ND)
@@ -92,67 +74,67 @@ void GUI_Pieza2::calculaPos()
 		if (_datos_pieza.c_tipo == peon) { ref_y = -1; }
 		else {ref_y = -3;};
 		pos_y = ref_y;
-
+		ref_x = -1.2;
 		switch (_datos_pieza.c_tipo)
 		{
 		case peon:
-			switch (_datos_pieza.c_subtipo) // En función del subtipo cambia la posición en la zona de almacen
+			switch (_datos_pieza.c_pieza) // En función del subtipo cambia la posición en la zona de almacen
 			{
-			case SB_torre_reina:
+			case PZ_peon_torre_reina:
 				pos_x = 1 * inc_desposito + ref_x + offset_color;
 				break;
-			case SB_caballo_reina:
+			case PZ_peon_caballo_reina:
 				pos_x = 2 * inc_desposito + ref_x + offset_color;
 				break;
-			case SB_alfil_reina:
+			case PZ_peon_alfil_reina:
 				pos_x = 3 * inc_desposito + ref_x + offset_color;
 				break;
-			case SB_reina:
+			case PZ_peon_reina:
 				pos_x = 4 * inc_desposito + ref_x + offset_color;
 				break;
-			case SB_rey:
+			case PZ_peon_rey:
 				pos_x = 5 * inc_desposito + ref_x + offset_color;
 				break;
-			case SB_alfil_rey:
+			case PZ_peon_alfil_rey:
 				pos_x = 6 * inc_desposito + ref_x + offset_color;
 				break;
-			case SB_caballo_rey:
+			case PZ_peon_caballo_rey:
 				pos_x = 7 * inc_desposito + ref_x + offset_color;
 				break;
-			case SB_torre_rey:
+			case PZ_peon_torre_rey:
 				pos_x = 8 * inc_desposito + ref_x + offset_color;
 				break;
 			}
 			break;
 		case torre:
-			switch (_datos_pieza.c_subtipo) // En función del subtipo cambia la posición en la zona de almacen
+			switch (_datos_pieza.c_pieza) // En función del subtipo cambia la posición en la zona de almacen
 			{
-				case SB_torre_reina:
+				case PZ_torre_reina:
 					pos_x = 1 * inc_desposito + ref_x + offset_color;
 					break;
-				case SB_torre_rey:
+				case PZ_torre_rey:
 					pos_x = 8 * inc_desposito + ref_x + offset_color;
 					break;
 			};
 			break;
 		case caballo:
-			switch (_datos_pieza.c_subtipo) // En función del subtipo cambia la posición en la zona de almacen
+			switch (_datos_pieza.c_pieza) // En función del subtipo cambia la posición en la zona de almacen
 			{
-				case SB_caballo_reina:
+				case PZ_caballo_reina:
 					pos_x = 2 * inc_desposito + ref_x + offset_color;
 					break;
-				case SB_caballo_rey:
+				case PZ_caballo_rey:
 					pos_x = 7 * inc_desposito + ref_x + offset_color;
 					break;
 			}
 			break;
 		case alfil:
-			switch (_datos_pieza.c_subtipo) // En función del subtipo cambia la posición en la zona de almacen
+			switch (_datos_pieza.c_pieza) // En función del subtipo cambia la posición en la zona de almacen
 			{
-				case SB_alfil_reina:
+				case PZ_alfil_reina:
 					pos_x = 3 * inc_desposito + ref_x + offset_color;
 					break;
-				case SB_alfil_rey:
+				case PZ_alfil_rey:
 					pos_x = 6 * inc_desposito + ref_x + offset_color;
 					break;
 			};
@@ -169,7 +151,7 @@ void GUI_Pieza2::calculaPos()
 
 }
 
-void GUI_Pieza2::calculaTextura()
+void GUI_Pieza::calculaTextura()
 {
 		
 	 //   char textura[] = "imagenes/wario.png"; // Valor por defecto
@@ -265,12 +247,12 @@ void GUI_Pieza2::calculaTextura()
 
 }
 
-void GUI_Pieza2::set_datosPieza(STRU_PIEZA datos)
+void GUI_Pieza::set_datosPieza(STRU_PIEZA datos)
 {
 	_datos_pieza = datos;
 }
 
-STRU_PIEZA GUI_Pieza2::get_datosPieza()
+STRU_PIEZA GUI_Pieza::get_datosPieza()
 {
 	return _datos_pieza;
 }
