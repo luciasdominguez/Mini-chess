@@ -8,17 +8,8 @@
 using std::vector;
 using ETSIDI::Vector2D;
 
-enum ENUM_TIPO { peon = 1, torre, caballo, alfil, reina, rey, tipo_ND=0 };
-enum ENUM_FILA { f1 = 1, f2, f3, f4, f5, f6, f7, f8, fila_ND=0 };
-enum ENUM_COLUMNA { A = 1, B, C, D, E, F, G, H, columna_ND=0 };
-enum ENUM_COLOR { blanca = 1, negra, color_ND=0 };
 
-typedef struct STRU_PIEZA {
-	enum ENUM_TIPO c_tipo;
-	enum ENUM_FILA c_fila;
-	enum ENUM_COLUMNA c_columna;
-	enum ENUM_COLOR c_color;
-};
+
 
 class Juego
 {
@@ -27,9 +18,13 @@ class Juego
 	//elementos.emplace(elementos.end());
 	//vector<GUI_pieza*> lista_piezas;
 	//vector<GUI_pieza*> lista;
-	GUI_Pieza2 pieza1;
-	GUI_Pieza2 pieza2;
+	//STRU_PIEZA d;
+	
+	//GUI_Pieza2 pieza1(d);
+	//GUI_Pieza2 pieza1;
+	//GUI_Pieza2 pieza2;
 	GUI_Tablero miTablero;
+
 	//lista_piezas[]
 
 

@@ -1,5 +1,5 @@
 #include "Juego.h"
-
+#include "GUI_Pieza2.h"
 
 Juego::Juego()
 {
@@ -14,15 +14,20 @@ void Juego::dibuja_juego()
 {
 	miTablero.dibuja_tablero();
 
-	//Vector2D t;
-
-
 
 	//calculo_posicion_pieza(miT->tamaño_tablero, miT->posicion_tablero, miP->fila, miP->columna );
+	////STRU_PIEZA p1_datos{ rey,SB_no_aplica, f5, A, blanca };
+	STRU_PIEZA p1_datos{ torre,SB_torre_reina, fila_ND, A, negra };
+	//STRU_PIEZA p2_datos{ caballo,SB_caballo_rey, f8, B, negra };
+	STRU_PIEZA p2_datos{ peon,SB_torre_reina, fila_ND, A, blanca };
 
+
+	GUI_Pieza2 pieza1({ torre,SB_torre_reina, fila_ND, columna_ND, negra });
+	//pieza1.set_datosPieza(p1_datos);
 	pieza1.dibuja_pieza();
+	GUI_Pieza2 pieza2(p2_datos);
+	//pieza2.set_datosPieza(p2_datos);
 	pieza2.dibuja_pieza();
-
 }
 
 void Juego::leer_listado_piezas()
