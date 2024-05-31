@@ -4,12 +4,9 @@
 
 GUI_Pieza::GUI_Pieza()
 {
-	    calculaTextura();	
-		calculaPos(); // calcula posición del sprite en función de la fila y columna de la pieza
-		//sprite = new SpriteSequence(textura, 5, 1, 100, true, pos_x, pos_y, 2, 2);
-
+	calculaTextura();	
+	calculaPos(); // calcula posición del sprite en función de la fila y columna de la pieza
 }
-
 
 
 GUI_Pieza::GUI_Pieza(STRU_PIEZA d)
@@ -19,7 +16,6 @@ GUI_Pieza::GUI_Pieza(STRU_PIEZA d)
 	const char* cstr = textura.c_str();
 	calculaPos(); // calcula posición del sprite en función de la fila y columna de la pieza
 	sprite = new SpriteSequence(cstr, 5, 1, 100, true, pos_x, pos_y, 2, 2);
-
 }
 
 
@@ -69,7 +65,7 @@ void GUI_Pieza::calculaPos()
 	else // La pieza no está en juego
 	{
 		float offset_color = 0;
-		if (_datos_pieza.c_color==negra) { offset_color = inc_desposito*9; }
+		if (_datos_pieza.c_color==blanca) { offset_color = inc_desposito*9; }
 	
 		if (_datos_pieza.c_tipo == peon) { ref_y = -1; }
 		else {ref_y = -3;};
@@ -153,20 +149,6 @@ void GUI_Pieza::calculaPos()
 
 void GUI_Pieza::calculaTextura()
 {
-		
-	 //   char textura[] = "imagenes/wario.png"; // Valor por defecto
-		//char toad[] = "imagenes/toad.png";
-		//char luigi[] = "imagenes/luigi.png";
-		//char yoshi[] = "imagenes/yoshi.png";
-		//char daisy[] = "imagenes/daisy.png";
-		//char peach[] = "imagenes/peach.png";
-		//char mario[] = "imagenes/mario.png";
-		//char huesitos[] = "imagenes/huesitos.png";
-		//char waluigi[] = "imagenes/waluigi.png";
-		//char donkey[] = "imagenes/donkey.png";
-		//char bowsy[] = "imagenes/bowsy.png";
-		//char bowser[] = "imagenes/bowser.png";
-		//char wario[] = "imagenes/wario.png";
 
 		//char textura[] = "imagenes/wario.png"; // Valor por defecto
 		string toad = "imagenes/toad.png";
@@ -186,10 +168,6 @@ void GUI_Pieza::calculaTextura()
 		ENUM_TIPO tipo = _datos_pieza.c_tipo;
 		ENUM_FILA c_fila = _datos_pieza.c_fila;
 		ENUM_COLUMNA c_columna = _datos_pieza.c_columna;
-		//ENUM_COLOR color = d.c_color;
-		//ENUM_TIPO tipo = d.c_tipo;
-		//ENUM_FILA c_fila = d.c_fila;
-		//ENUM_COLUMNA c_columna = d.c_columna;
 
 		// selección del sprite en función del tipo y del color
 		switch (color)
@@ -199,8 +177,6 @@ void GUI_Pieza::calculaTextura()
 			{
 			case peon:
 				textura=toad;
-				//size_x = 2;
-				//size_y = 2;
 				break;
 			case torre:
 				textura=luigi;

@@ -21,12 +21,6 @@
     <ClCompile Include="src\GUI_Tablero.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
-    <ClCompile Include="src\GUI_Casilla.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
-    <ClCompile Include="src\GUI_Fila.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
     <ClCompile Include="src\vector2D.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
@@ -39,12 +33,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\GUI_Tablero.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="src\GUI_Casilla.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="src\GUI_Fila.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
     <ClInclude Include="src\vector2D.h">

@@ -57,7 +57,8 @@ void OnDraw(void)
 	juego.dibuja_juego();
 
 	//Para poner la piezas en la posición de salida
-	juego.generar_listado_datos_piezas_NEW();
+	//juego.generar_listado_datos_piezas_NEW();
+
 
 	//no borrar esta linea ni poner nada despues
 	glutSwapBuffers();
@@ -65,11 +66,25 @@ void OnDraw(void)
 
 void OnKeyboardDown(unsigned char key, int x_t, int y_t)
 {
-
+	// Sintaxis de prueba.
+	
+	STRU_PIEZA cual{peon, PZ_peon_reina, f4, E, blanca};
+	switch (key)
+	{
+	case 'a':
+		juego.generar_listado_datos_piezas_2(cual);
+		break;
+	case 'n':
+		juego.generar_listado_datos_piezas_NEW();
+		break;
+	case ' ':
+		juego.generar_listado_datos_piezas_OFF();
+	}
 }
 
 void OnTimer(int value)
 {
+
 	//no borrar estas lineas
 	glutTimerFunc(25, OnTimer, 0);
 	glutPostRedisplay();

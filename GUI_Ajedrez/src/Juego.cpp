@@ -83,7 +83,7 @@ void Juego::generar_listado_datos_piezas_OFF()
 
 	pieza.c_columna = columna_ND;
 	pieza.c_fila = fila_ND;
-	pieza.c_color = blanca;
+	pieza.c_color = negra;
 
 	/////// BLANCAS //////////////
 	pieza.c_tipo = peon; /////////--- PEONES-----/////////
@@ -110,7 +110,7 @@ void Juego::generar_listado_datos_piezas_OFF()
 	pieza.c_pieza = PZ_rey; 					lista_datos_de_piezas.push_back(pieza);
 
 	/////// NEGRAS //////////////
-	pieza.c_color = negra;
+	pieza.c_color = blanca;
 	pieza.c_tipo = peon; /////////--- PEONES-----/////////
 	pieza.c_pieza = PZ_peon_torre_reina;		lista_datos_de_piezas.push_back(pieza);
 	pieza.c_pieza = PZ_peon_caballo_reina;		lista_datos_de_piezas.push_back(pieza);
@@ -230,3 +230,20 @@ void Juego::generar_listado_datos_piezas_NEW()
 	}
 }
 
+void Juego::generar_listado_datos_piezas_2(STRU_PIEZA pieza_a_mover)
+{
+	STRU_PIEZA pieza{};
+	int contador = 0;
+
+	for (auto it = lista_datos_de_piezas.begin(); it != lista_datos_de_piezas.end(); ++it)
+	{
+		contador++;
+		auto tip = (*it).c_tipo; auto pz_pieza = (*it).c_pieza; auto col = (*it).c_color;
+
+		if (pz_pieza == pieza_a_mover.c_pieza && col == pieza_a_mover.c_color)
+		{
+			(*it).c_columna = pieza_a_mover.c_columna;
+			(*it).c_fila = pieza_a_mover.c_fila;
+		}
+	}
+}

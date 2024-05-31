@@ -3,9 +3,6 @@
 #include "GUI_Tablero.h"
 #include "GUI_Pieza2.h"
 
-#include "GUI_Fila.h"
-#include "GUI_Casilla.h"
-
 using std::vector;
 using ETSIDI::Vector2D;
 
@@ -27,7 +24,6 @@ class Juego
 	vector<STRU_PIEZA> lista_datos_de_piezas; // los valores se actualizarán en la parte de logica
 	vector<GUI_Pieza> lista_de_piezas;
 	void generar_piezas();
-	void generar_listado_datos_piezas_OFF(); // funcion auxilar para generar un listado de piezas. hasta que las de la parte lógica
 	void actualizar_piezas();
 
 public:
@@ -37,8 +33,12 @@ public:
 	void dibujar_piezas();
 
 	void generar_listado_datos_piezas_NEW();
+	void generar_listado_datos_piezas_OFF(); // funcion auxilar para generar un listado de piezas. hasta que las de la parte lógica
+
 
 	//GUI_Tablero miTablero;
+
+	void generar_listado_datos_piezas_2(STRU_PIEZA pieza_a_mover);
 
 };
 

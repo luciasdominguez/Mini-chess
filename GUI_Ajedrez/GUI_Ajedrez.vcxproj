@@ -137,16 +137,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="src\GUI_Casilla.cpp" />
-    <ClCompile Include="src\GUI_Fila.cpp" />
     <ClCompile Include="src\GUI_Pieza2.cpp" />
     <ClCompile Include="src\GUI_Tablero.cpp" />
     <ClCompile Include="src\Juego.cpp" />
     <ClCompile Include="src\vector2D.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\GUI_Casilla.h" />
-    <ClInclude Include="src\GUI_Fila.h" />
     <ClInclude Include="src\GUI_Pieza2.h" />
     <ClInclude Include="src\GUI_Tablero.h" />
     <ClInclude Include="src\Juego.h" />
