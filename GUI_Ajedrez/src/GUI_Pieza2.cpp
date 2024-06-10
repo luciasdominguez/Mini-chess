@@ -2,14 +2,14 @@
 
 
 
-GUI_Pieza::GUI_Pieza()
+Pieza_GUI::Pieza_GUI()
 {
 	calculaTextura();	
 	calculaPos(); // calcula posición del sprite en función de la fila y columna de la pieza
 }
 
 
-GUI_Pieza::GUI_Pieza(STRU_PIEZA d)
+Pieza_GUI::Pieza_GUI(PIEZA_STRU d)
 {
 	_datos_pieza = d;
 	calculaTextura();
@@ -19,13 +19,13 @@ GUI_Pieza::GUI_Pieza(STRU_PIEZA d)
 }
 
 
-void GUI_Pieza::dibuja_pieza()
+void Pieza_GUI::dibuja_pieza()
 {
 	glPushMatrix();
 	glTranslated(0, 0, 1);
 
 	// Dónde va la pieza en coordenadas del tablero
-	GUI_Pieza::calculaPos();
+	Pieza_GUI::calculaPos();
 
 	sprite->flip(false, false);
 	//sprite.flip(true, false);
@@ -38,7 +38,7 @@ void GUI_Pieza::dibuja_pieza()
 	
 	sprite->setPos(pos_x,pos_y);
 
-	if (_datos_pieza.c_fila != fila_ND && _datos_pieza.c_columna != columna_ND)
+	if (_datos_pieza.c_fila != f_ND && _datos_pieza.c_columna != C_ND)
 	{
 		sprite->setSize(2, 2);
 	}
@@ -54,10 +54,10 @@ void GUI_Pieza::dibuja_pieza()
 
 }
 
-void GUI_Pieza::calculaPos() 
+void Pieza_GUI::calculaPos() 
 {   //Vector2D posicion_tablero{ -3.0, 0.2 };	// Posición esquina izq abajo	
 	float ref_x = 0, ref_y = 3.6, inc_casilla = 1.9, inc_desposito = 0.95;// referencia de casilla inferior izquierda
-	if (_datos_pieza.c_fila != fila_ND && _datos_pieza.c_columna != columna_ND)
+	if (_datos_pieza.c_fila != f_ND && _datos_pieza.c_columna != C_ND)
 	{
 		pos_x = ref_x + (8 - (int)_datos_pieza.c_fila) * inc_casilla;
 		pos_y = ref_y + (((int)_datos_pieza.c_columna) - 1) * inc_casilla;
@@ -147,7 +147,7 @@ void GUI_Pieza::calculaPos()
 
 }
 
-void GUI_Pieza::calculaTextura()
+void Pieza_GUI::calculaTextura()
 {
 
 		//char textura[] = "imagenes/wario.png"; // Valor por defecto
@@ -223,12 +223,12 @@ void GUI_Pieza::calculaTextura()
 
 }
 
-void GUI_Pieza::set_datosPieza(STRU_PIEZA datos)
+void Pieza_GUI::set_datosPieza(PIEZA_STRU datos)
 {
 	_datos_pieza = datos;
 }
 
-STRU_PIEZA GUI_Pieza::get_datosPieza()
+PIEZA_STRU Pieza_GUI::get_datosPieza()
 {
 	return _datos_pieza;
 }

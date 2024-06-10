@@ -137,16 +137,44 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="src\GUI_casilla.cpp" />
+    <ClCompile Include="src\GUI_gestion_partidas.cpp" />
+    <ClCompile Include="src\GUI_movimiento.cpp" />
+    <ClCompile Include="src\GUI_partida.cpp" />
     <ClCompile Include="src\GUI_Pieza2.cpp" />
     <ClCompile Include="src\GUI_Tablero.cpp" />
     <ClCompile Include="src\Juego.cpp" />
     <ClCompile Include="src\vector2D.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\GUI_casilla.h" />
+    <ClInclude Include="src\GUI_gestion_partidas.h" />
+    <ClInclude Include="src\GUI_movimiento.h" />
+    <ClInclude Include="src\GUI_partida.h" />
     <ClInclude Include="src\GUI_Pieza2.h" />
     <ClInclude Include="src\GUI_Tablero.h" />
     <ClInclude Include="src\Juego.h" />
     <ClInclude Include="src\vector2D.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="bin\imagenes\bowser.png" />
+    <Image Include="bin\imagenes\bowsy.png" />
+    <Image Include="bin\imagenes\casilla_EnFoco.png" />
+    <Image Include="bin\imagenes\casilla_Locked.png" />
+    <Image Include="bin\imagenes\daisy.png" />
+    <Image Include="bin\imagenes\donkey.png" />
+    <Image Include="bin\imagenes\huesitos.png" />
+    <Image Include="bin\imagenes\luigi.png" />
+    <Image Include="bin\imagenes\mario.png" />
+    <Image Include="bin\imagenes\peach.png" />
+    <Image Include="bin\imagenes\tablero.png" />
+    <Image Include="bin\imagenes\toad.png" />
+    <Image Include="bin\imagenes\waluigi.png" />
+    <Image Include="bin\imagenes\wario.png" />
+    <Image Include="bin\imagenes\yoshi.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="Anotaciones.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
