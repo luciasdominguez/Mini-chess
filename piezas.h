@@ -1,34 +1,29 @@
 #pragma once
-//#include "casillas.h"
 #include "clases.h"
-//#include "tablero.h"
-#include "gestor_movimientos.h"
-#include "tablero.h"
 
-enum class tipo {vacio, peon, torre, caballo, alfil, reina, rey};
 
-class ficha
-{
+enum class color { blanca, negra };
+enum class tipo{ vacio, peon, torre, caballo, alfil, reina, rey};
+
+class ficha {
 protected:
-	friend class casilla;
-	casilla* posicion;
+	int pos_fil; ///Fila en la que está la ficha
+	int pos_col; ///Columna en la que está la ficha
 	color c;
 	const tipo t = tipo::vacio;
 
 public:
-	ficha(casilla* _pos, color _color);
-	color leer_color() { return c; }
-	int pos_fila() { return posicion->leer_fila(); };
-	int pos_columna() { return posicion->leer_columna(); };
-	tipo leer_tipo() { return t; }
+	ficha(int fila, int columna, color color_ficha);
+	
+	tipo leer_tipo() const { return t; };
+	color leer_color() const { return c; };
 
 	virtual void mover(casilla& casillas) {};
 
-	friend class gestor_movimientos;
+	friend class Gestor_Movimientos;
 };
 
-
-class peon : public ficha {
+class peon : public ficha{
 
 public:
 	void mover(casilla& casillas) override;
@@ -69,9 +64,9 @@ private:
 
 class rey : public ficha {
 public:
-	void mover(casilla& casillas, const tablero& tablero);
+	void mover(casilla& casillas) override;
 	bool en_jaque(const casilla& c, const tablero& t); //Pide posición para poder comprobar también si se dará jaque en posiciones futuras
-	void comprobar_jaque(bool& fin, bool& jaque, const tablero& tablero, int i, int columna, tipo t);
+
 
 private:
 	const tipo t = tipo::rey;
