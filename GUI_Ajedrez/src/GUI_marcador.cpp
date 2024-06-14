@@ -1,4 +1,4 @@
-#include "GUI_casilla.h"
+#include "GUI_marcador.h"
 
 GUI_marcador::GUI_marcador(ENUM_FILA fl, ENUM_COLUMNA cl)
 {
@@ -172,7 +172,6 @@ void GUI_marcador_locked::reset_pieza_locked()
 {
 	pieza_Locked = nullptr;
 }
-
 
 
 void GUI_marcador_locked::set_Can_Lock(bool C)

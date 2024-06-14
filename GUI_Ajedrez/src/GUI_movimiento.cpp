@@ -2,7 +2,7 @@
 
 GUI_movimiento::GUI_movimiento()
 {
-	jugador = GRAVEDAD;
+	jugador = GRAVEDAD_N;
 	numero_en_la_partida = 1;
 }
 
@@ -129,25 +129,6 @@ void GUI_movimiento::ejemplo_movi_01()
 	pieza.c_tipo = peon;
 	pieza.c_pieza = PZ_peon_torre_reina;
 	pieza.c_columna = A;	pieza.c_fila = f2; lista_PiezasMovidas.push_back(pieza);
-	//pieza.c_pieza = PZ_peon_caballo_reina;
-	//pieza.c_columna = B;	pieza.c_fila = f2; lista_PiezasMovidas.push_back(pieza);
-	//pieza.c_pieza = PZ_peon_alfil_reina;
-	//pieza.c_columna = C;	pieza.c_fila = f2; lista_PiezasMovidas.push_back(pieza);
-	//pieza.c_pieza = PZ_peon_reina;
-	//pieza.c_columna = D;	pieza.c_fila = f2; lista_PiezasMovidas.push_back(pieza);
-	//pieza.c_pieza = PZ_peon_rey;
-	//pieza.c_columna = E;	pieza.c_fila = f2; lista_PiezasMovidas.push_back(pieza);
-	//pieza.c_pieza = PZ_peon_alfil_rey;
-	//pieza.c_columna = F;	pieza.c_fila = f2; lista_PiezasMovidas.push_back(pieza);
-	//pieza.c_pieza = PZ_peon_caballo_rey;
-	//pieza.c_columna = G;	pieza.c_fila = f2; lista_PiezasMovidas.push_back(pieza);
-	//pieza.c_pieza = PZ_peon_torre_rey;
-	//pieza.c_columna = H;	pieza.c_fila = f2; lista_PiezasMovidas.push_back(pieza);
-	//pieza.c_tipo = torre; //////////////////
-	//pieza.c_pieza = PZ_torre_reina;
-	//pieza.c_columna = A;	pieza.c_fila = f1; lista_PiezasMovidas.push_back(pieza);
-	//pieza.c_pieza = PZ_torre_rey;
-	//pieza.c_columna = H;	pieza.c_fila = f1; lista_PiezasMovidas.push_back(pieza);
 }
 
 void GUI_movimiento::ejemplo_movi_02()
@@ -172,7 +153,7 @@ void GUI_movimiento::ejemplo_movi_03()
 void GUI_movimiento::ejemplo_movi_04()
 {
 	PIEZA_STRU pieza{};
-	pieza.c_color = blanca;
+	pieza.c_color = negra;
 	pieza.c_tipo = peon;
 	pieza.c_pieza = PZ_peon_reina;
 	pieza.c_columna = D;	pieza.c_fila = f2; lista_PiezasMovidas.push_back(pieza);

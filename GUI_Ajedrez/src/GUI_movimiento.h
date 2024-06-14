@@ -4,7 +4,7 @@
 
 using std::vector;
 
-enum ENUM_JUGADOR { BLANCAS=0, NEGRAS, GRAVEDAD};
+enum ENUM_JUGADOR { BLANCAS=0, NEGRAS, GRAVEDAD_N, GRAVEDAD_B};
 
 
 class GUI_movimiento   // es una lista de piezas que se han movido y quien las movió
@@ -12,7 +12,7 @@ class GUI_movimiento   // es una lista de piezas que se han movido y quien las m
 	int numero_en_la_partida = 1;
 public:
 	GUI_movimiento();
-	ENUM_JUGADOR jugador = GRAVEDAD;
+	ENUM_JUGADOR jugador = GRAVEDAD_N;
 	vector<PIEZA_STRU> lista_PiezasMovidas; // los valores se actualizarán en la parte de logica
 
 	GUI_movimiento(const vector<PIEZA_STRU>& lista_datos_de_piezas)

@@ -1,7 +1,8 @@
 #include "GUI_Tablero.h"
 
-
-
+GUI_Tablero::GUI_Tablero()
+{
+}
 
 void GUI_Tablero::dibuja_tablero()
 {
@@ -18,14 +19,11 @@ void GUI_Tablero::dibuja_tablero()
 	glTexCoord2d(1, 0);glVertex2d(posicion_tablero.x + tamaño_tablero.x, posicion_tablero.y + tamaño_tablero.y);
 	glTexCoord2d(0, 0);glVertex2d(posicion_tablero.x, posicion_tablero.y + tamaño_tablero.y);
 
-
-	/*glTexCoord2d(0, 1);glVertex2d(-3, 0.2);
-	glTexCoord2d(1, 1);glVertex2d(17, 0.2);
-	glTexCoord2d(1, 0);glVertex2d(17, 20.2);
-	glTexCoord2d(0, 0);glVertex2d(-3, 20.2);*/
 	glEnd();
 	glEnable(GL_LIGHTING);
 	glDisable(GL_TEXTURE_2D);
 }
+
+
 
 

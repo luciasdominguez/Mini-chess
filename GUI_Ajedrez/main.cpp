@@ -2,7 +2,7 @@
 #include "freeglut.h"
 #include "GUI_Tablero.h"
 #include "GUI_pieza.h"
-#include "GUI_casilla.h"
+#include "GUI_marcador.h"
 #include "Juego.h"
 
 Juego juego;
@@ -60,7 +60,7 @@ void OnDraw(void)
 		0.0, 7.5, 0.0,      // hacia que punto mira  (0,0,0) 
 		0.0, 1.0, 0.0);      // definimos hacia arriba (eje Y)    
 
-	//codigo de dibujo del tablero con las piezas en sus posiciones
+	//dibujo del tablero con las piezas en sus posiciones, los cursores...
 	juego.dibuja_juego();
 
 	/////////////////////////////////////////
@@ -70,12 +70,15 @@ void OnDraw(void)
 
 void OnKeyboardDown(unsigned char key, int x_t, int y_t)
 {
-	// Sintaxis de prueba.
-	
-	//STRU_PIEZA una_pieza{ blanca,PZ_peon_reina, f4, E };
 	int tam_partida = juego.get_partida().size();
 	switch (key)
 	{
+	case 'a':  // se carga una partida ejemplo (la lista de los movimientos)
+		juego.cargar_partida("P1");
+		juego.carga_partida_al_GUI(0);
+		movimientos_partida = juego.get_partida().size();
+		movimientos_partida_ahora = juego.get_partida().size();
+		break;
 	case 'e':  // se carga una partida ejemplo (la lista de los movimientos)
 		juego.cargar_partida_ejemplo();
 		juego.carga_partida_al_GUI(0);
@@ -97,10 +100,12 @@ void OnKeyboardDown(unsigned char key, int x_t, int y_t)
 			if (movimientos_partida_ahora < 1) movimientos_partida_ahora = 1;
 			if (movimientos_partida_ahora > movimientos_partida) movimientos_partida_ahora = movimientos_partida;
 			juego.carga_partida_al_GUI(movimientos_partida_ahora);
+
 		}
 		if (movimientos_partida_ahora < movimientos_partida) {
 			juego.get_casilla_cursor()->reset_cursor_casilla();
 		}
+		//juego.gestion_nuevo_turno();
 		break;
 	case '+':
 		//partida = juego.get_partida();
@@ -110,10 +115,12 @@ void OnKeyboardDown(unsigned char key, int x_t, int y_t)
 			if (movimientos_partida_ahora < 1) movimientos_partida_ahora = 1;
 			if (movimientos_partida_ahora > movimientos_partida) movimientos_partida_ahora = movimientos_partida;
 			juego.carga_partida_al_GUI(movimientos_partida_ahora);
+			//juego.get_jugador_actual();
 		}
 		if (movimientos_partida_ahora < movimientos_partida) {
 			juego.get_casilla_cursor()->reset_cursor_casilla();
 		}
+		juego.turno_();
 		break;
 	case '5':
 		juego.check_pieza_movible();   // verfica si en la casilla hay una pieza movible
@@ -138,59 +145,43 @@ void OnKeyboardDown(unsigned char key, int x_t, int y_t)
 		break;
 	case '0':
 		if (juego.get_pieza_locked() != nullptr)  // que haya una pieza locked
-		{	
-			juego.mueve_pieza_locked();
+		{	//se carga el movimiento en la posición de la partida en la que nos
+			// encontremos. Los movimientos que hubieran después son borrados.
+			juego.mueve_pieza_locked(movimientos_partida_ahora);
 			movimientos_partida = juego.get_partida().size();
 			movimientos_partida_ahora= juego.get_partida().size();
 			juego.get_casilla_locked()->set_estado_locked(TRANS,nullptr);
-			//juego.check_pieza_movible();
+			auto j=juego.get_jugador_actual();
 			juego.carga_partida_al_GUI(0);
 		}
-	
-		//////////if (juego.get_casilla_cursor()->get_estado() == Locked) {
-		//////////	//juego.check_pieza_movible();
-		//////////	juego.set_casilla_cursor(OFF);  // se quita el cursor
-		//////////	juego.mueve_pieza_locked();
-		//////////	juego.carga_partida_al_GUI(0);
-		//////////	juego.get_casilla_cursor()->reset_pieza_locked();
-		//////////	juego.reset_pieza_locked();
-		//////////	juego.get_casilla_cursor()->set_Can_Lock(false);
-		//////////	juego.check_pieza_movible();
-		//////////}
+		break;
+	case '*': // que pase turno la gravedad
+		juego.avanza_siguiente_turno();
+		juego.carga_partida_al_GUI(0);
 		break;
 	case '8':
-		juego.get_casilla_cursor()->incrementa_posicion(0, 1);
-		juego.check_pieza_movible();
-
-
+		juego.get_casilla_cursor()->incrementa_posicion(0, 1);juego.check_pieza_movible();
 		break;
 	case '9':
-		juego.get_casilla_cursor()->incrementa_posicion(-1, 1);
-		juego.check_pieza_movible();
+		juego.get_casilla_cursor()->incrementa_posicion(-1, 1);juego.check_pieza_movible();
 		break;
 	case '6':
-		juego.get_casilla_cursor()->incrementa_posicion(-1, 0);
-		juego.check_pieza_movible();
+		juego.get_casilla_cursor()->incrementa_posicion(-1, 0);juego.check_pieza_movible();
 		break;
 	case '3':
-		juego.get_casilla_cursor()->incrementa_posicion(-1, -1);
-		juego.check_pieza_movible();
+		juego.get_casilla_cursor()->incrementa_posicion(-1, -1);juego.check_pieza_movible();
 		break;
 	case '2':
-		juego.get_casilla_cursor()->incrementa_posicion(0, -1);
-		juego.check_pieza_movible();
+		juego.get_casilla_cursor()->incrementa_posicion(0, -1);juego.check_pieza_movible();
 		break;
 	case '1':
-		juego.get_casilla_cursor()->incrementa_posicion(1, -1);
-		juego.check_pieza_movible();
+		juego.get_casilla_cursor()->incrementa_posicion(1, -1);juego.check_pieza_movible();
 		break;
 	case '4':
-		juego.get_casilla_cursor()->incrementa_posicion(1, 0);
-		juego.check_pieza_movible();
+		juego.get_casilla_cursor()->incrementa_posicion(1, 0);juego.check_pieza_movible();
 		break;
 	case '7':
-		juego.get_casilla_cursor()->incrementa_posicion(1, 1);
-		juego.check_pieza_movible();
+		juego.get_casilla_cursor()->incrementa_posicion(1, 1);juego.check_pieza_movible();
 		break;
 	case ' ':
 		juego.generar_listado_datos_piezas_OFF();  //Para poner todas la piezas en el almacén
