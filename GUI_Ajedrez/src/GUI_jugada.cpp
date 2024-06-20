@@ -1,37 +1,42 @@
-#include "GUI_movimiento.h"
+#include "GUI_jugada.h"
 
-GUI_movimiento::GUI_movimiento()
+GUI_jugada::GUI_jugada()
 {
 	jugador = GRAVEDAD_N;
 	numero_en_la_partida = 1;
 }
 
-void GUI_movimiento::set_jugador(ENUM_JUGADOR jug)
+void GUI_jugada::set_jugador(ENUM_JUGADOR jug)
 {
 	jugador = jug;
 }
 
-int GUI_movimiento::get_numero_en_la_partida()
+int GUI_jugada::get_numero_en_la_partida()
 {
 	return numero_en_la_partida;
 }
 
-void GUI_movimiento::vaciar_movimiento()
+vector<PIEZA_STRU> GUI_jugada::get_lista_piezas_movidas()
+{
+	return lista_PiezasMovidas;
+}
+
+void GUI_jugada::vaciar_jugada()
 {
 	lista_PiezasMovidas.erase(lista_PiezasMovidas.begin(), lista_PiezasMovidas.end());
 }
 
-void GUI_movimiento::nuevo_movimiento()
+void GUI_jugada::nueva_jugada()
 {
 
 }
 
-void GUI_movimiento::add_pieza_a_movimiento(PIEZA_STRU pz)
+void GUI_jugada::add_pieza_a_jugada(PIEZA_STRU pz)
 {
 	lista_PiezasMovidas.push_back(pz);
 }
 
-void GUI_movimiento::inicio_partida()
+void GUI_jugada::inicio_partida()
 {
 	PIEZA_STRU pieza{};
 	
@@ -122,7 +127,7 @@ void GUI_movimiento::inicio_partida()
 	pieza.c_columna = E;	pieza.c_fila = f8; lista_PiezasMovidas.push_back(pieza);
 }
 
-void GUI_movimiento::ejemplo_movi_01()
+void GUI_jugada::ejemplo_jugada_01()
 {
 	PIEZA_STRU pieza{};
 	pieza.c_color = blanca;
@@ -131,7 +136,7 @@ void GUI_movimiento::ejemplo_movi_01()
 	pieza.c_columna = A;	pieza.c_fila = f2; lista_PiezasMovidas.push_back(pieza);
 }
 
-void GUI_movimiento::ejemplo_movi_02()
+void GUI_jugada::ejemplo_jugada_02()
 {
 	PIEZA_STRU pieza{};
 	pieza.c_color = blanca;
@@ -141,7 +146,7 @@ void GUI_movimiento::ejemplo_movi_02()
 
 }
 
-void GUI_movimiento::ejemplo_movi_03()
+void GUI_jugada::ejemplo_jugada_03()
 {
 	PIEZA_STRU pieza{};
 	pieza.c_color = blanca;
@@ -150,7 +155,7 @@ void GUI_movimiento::ejemplo_movi_03()
 	pieza.c_columna = C;	pieza.c_fila = f2; lista_PiezasMovidas.push_back(pieza);
 }
 
-void GUI_movimiento::ejemplo_movi_04()
+void GUI_jugada::ejemplo_jugada_04()
 {
 	PIEZA_STRU pieza{};
 	pieza.c_color = negra;

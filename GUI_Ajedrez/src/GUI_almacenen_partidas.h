@@ -7,7 +7,11 @@
 #include "json.hpp"
 #include "GUI_Pieza2.h"
 #include "GUI_partida.h"
-//#include "juego.h"
+#include "listado_partidas.h"
+#include <fstream>
+#include <json.hpp>
+using json = nlohmann::json;
+
 
 ////////////////// pruebas
 //////#include "dnc/JSON.hpp"
@@ -112,9 +116,7 @@ NLOHMANN_JSON_SERIALIZE_ENUM(ENUM_PIEZA,
         { PZ_torre_rey,             "PZ_torre_rey" },
         { PZ_torre_reina,           "PZ_torre_reina" }
     })
-
-    // json string to enum
-
+// json string to enum
 
 /////////////////////////////
 ///////////////////
@@ -155,40 +157,22 @@ NLOHMANN_JSON_SERIALIZE_ENUM(ENUM_PIEZA,
 //////std::cout << j_running << " -> " << running
 //////<< ", " << j_blue << " -> " << static_cast<int>(blue) << std::endl;
 
-
-
 /// ////////////
 
 
-class GUI_almacenen_partidas
+class GUI_gestor_partidas
 {
-    //////json j_partidas =
-    //////{
-    //////    {"pi", 3.141},
-    //////    {"happy", true},
-    //////    {"name", "Niels"},
-    //////    {"nothing", nullptr},
-    //////    {
-    //////        "answer", {
-    //////            {"everything", 42}
-    //////        }
-    //////    },
-    //////    {"list", {1, 0, 2}},
-    //////    {
-    //////        "object", {
-    //////            {"currency", "USD"},
-    //////            {"value", 42.99}
-    //////        }
-    //////    }
-    //////};
-
-    vector<GUI_partida> almacen_de_partidas;
+    vector<GUI_partida> almacen_de_partidas;  //limitado a 9 partidas
+    GUI_partida partida_i;
+    json partidas_json;
 
 public:
-    GUI_almacenen_partidas(); // lee del json la lista de partidas
-    bool inserta_partida(string nombre_partida, vector<GUI_movimiento> partida);
-    void nuevo_movimiento(vector<PIEZA_STRU> posiciones);
-    vector<GUI_movimiento> get_or_new_partida(string nombre);
-    vector<GUI_movimiento> get_partida_ejemplo();
+    GUI_gestor_partidas(); // lee del json la lista de partidas
+    bool insert_update_partida(string nombre_partida, vector<GUI_jugada> partida);
+    void nueva_jugada(vector<PIEZA_STRU> posiciones);
+    void actualiza_objeto_json();
+    GUI_partida get_or_new_partida(string nombre);
+    GUI_partida get_partida_ejemplo();
+    vector<string> get_nombres_partidas();
 };
 

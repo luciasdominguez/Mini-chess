@@ -10,30 +10,36 @@ string GUI_partida::get_nombre()
 	return nombre;
 }
 
-vector<GUI_movimiento> GUI_partida::get_movimientos()
+vector<GUI_jugada> GUI_partida::get_jugadas()
 {
-	return partida;
+	return lista_jugadas;
 }
 
 void GUI_partida::vaciar_partida()
 {
-	partida.erase(partida.begin(), partida.end());
+	lista_jugadas.erase(lista_jugadas.begin(), lista_jugadas.end());
 
 }
 
-void GUI_partida::add_movimiento_a_partida(GUI_movimiento mv)
+void GUI_partida::borrar_jugadas_desde_N(int desde)
 {
-	partida.push_back(mv);
+	if (desde<=lista_jugadas.size())
+	lista_jugadas.erase(lista_jugadas.begin()+ desde, lista_jugadas.end());
 }
 
-void GUI_partida::set_nombre(string n)
+void GUI_partida::add_jugada_a_partida(GUI_jugada jug)
+{
+	lista_jugadas.push_back(jug);
+}
+
+void GUI_partida::set_nombre_de_partida(string n)
 {
 	nombre = n;
 }
 
-void GUI_partida::set_partida(vector<GUI_movimiento> lista_movis)
+void GUI_partida::set_jugadas_de_partida(vector<GUI_jugada> lista_movis)
 {
-	partida = lista_movis;
+	lista_jugadas = lista_movis;
 }
 
 

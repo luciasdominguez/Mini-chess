@@ -1,15 +1,15 @@
 [
 	{
 		"nombre": "P1",
-		"movimientos": [
+		"jugadas": [
 			{
-				"movi": 1,
+				"jugada": 1,
 				"jugador": "BLANCAS",
 				"piezas": [
 					{
-						"tipo": "rey",
+						"tipo": "reina",
 						"color": "blanca",
-						"pieza": "PZ_rey",
+						"pieza": "PZ_reina",
 						"fila": "f1",
 						"columna": "A"
 					},
@@ -23,7 +23,7 @@
 				]
 			},
 			{
-				"movi": 2,
+				"jugada": 2,
 				"jugador": "NEGRAS",
 				"piezas": [
 					{
@@ -39,21 +39,21 @@
 	},
 	{
 		"nombre": "P2",
-		"movimientos": [
+		"jugadas": [
 			{
-				"movi": 1,
+				"jugada": 1,
 				"juegador": "NEGRAS",
 				"piezas": [
 					{
 						"tipo": "peon",
-						"color": "blanca",
+						"color": "negra",
 						"pieza": "PZ_peon_rey",
 						"fila": "f7",
 						"columna": "A"
 					},
 					{
 						"tipo": "peon",
-						"color": "blanca",
+						"color": "negra",
 						"pieza": "PZ_peon_reina",
 						"fila": "f8",
 						"columna": "B"

@@ -9,9 +9,11 @@ Juego::Juego()
 	//turno_ = BLANCAS;
 	casilla_cursor = new GUI_marcador_cursor(f5, E);
 	turno = new GUI_turno;
+	gestor_de_partidas = new GUI_gestor_partidas;
+	estado_Partidas_Jugadas = new GUI_estado_P_J;
 	//casilla_lckd = new GUI_marcador_locked(f_ND, C_ND);
 	casilla_lckd = new GUI_marcador_locked(f6, C);
-	Movimiento_ultimo.jugador = BLANCAS;  /// quien empieza
+	jugada_ultima.jugador = BLANCAS;  /// quien empieza
 	//casilla_destino = new GUI_casilla(OFF, f6, D);
 }
 
@@ -19,13 +21,15 @@ void Juego::carga_partida_al_GUI(int destino)
 {
 	//generar_partida();  // los movimientos de la partida se recogen con esta función
 	generar_listado_datos_piezas_OFF(); // se ponen todas las piezas en almacen
-	int size_partida = partida_actual.size();
+	vector<GUI_jugada> lista_jugadas = partida_actual.get_jugadas();
+	int size_partida = lista_jugadas.size();
+
 	// para un numero negativo o cero se asume que se cogen todos los movimientos
-	if (destino <= 0) destino = partida_actual.size(); // para valores menores que cero se carga toda la partida
+	if (destino <= 0) destino = size_partida; // para valores menores que cero se carga toda la partida
 	if (destino > size_partida) destino = size_partida;
-	for (auto it_in = partida_actual.begin(); it_in != (partida_actual.begin() + destino); ++it_in)
+	for (auto it_in = lista_jugadas.begin(); it_in != (lista_jugadas.begin() + destino); ++it_in)
 	{
-		vector<PIEZA_STRU> Lista_Pz_Mov = (*it_in).lista_PiezasMovidas;
+		vector<PIEZA_STRU> Lista_Pz_Mov = (*it_in).get_lista_piezas_movidas();
 		for (auto it_in_2 = Lista_Pz_Mov.begin(); it_in_2 != (Lista_Pz_Mov.end()); ++it_in_2)
 		{
 			listado_datos_piezas___un_movimiento(*it_in_2);
@@ -35,53 +39,70 @@ void Juego::carga_partida_al_GUI(int destino)
 
 }
 
+GUI_partida Juego::get_partida_actual()
+{
+	return partida_actual;
+}
+
+void Juego::guarda_partida_actual()
+{
+	gestor_de_partidas->insert_update_partida(partida_actual.get_nombre(), partida_actual.get_jugadas());
+}
+
 void Juego::dibuja_juego()
 {
 	miTablero.dibuja_tablero();
-	turno->dibuja_turno(Movimiento_ahora.jugador);
+	turno->dibuja_turno(jugada_ahora.jugador);
+	estado_Partidas_Jugadas->dibuja_seleccion_partida();
 	actualizar_piezas();
 	dibujar_piezas();
 	casilla_cursor->dibuja_sprite();
 	casilla_lckd->dibuja_sprite();
+	listado_partidas.set_nombres_partidas(gestor_de_partidas->get_nombres_partidas());
+	listado_partidas.imprime_nombres();
 }
 
 
 ENUM_JUGADOR Juego::get_jugador_actual()
 {
-	return Movimiento_ahora.jugador;
+	return jugada_ahora.jugador;
 }
 
 void Juego::cargar_partida(string nombre)
 {  /// si el nombre no se encuentra se genera una partida con ese nombre
-	partida_actual= almacen_de_partidas.get_or_new_partida(nombre);
-	Movimiento_ultimo = partida_actual[partida_actual.size() - 1]; //el ultimo movimiento de la partida
-	switch (Movimiento_ultimo.jugador)
+	partida_actual= gestor_de_partidas->get_or_new_partida(nombre);
+
+
+	jugada_ultima = partida_actual.get_jugadas()[partida_actual.get_jugadas().size() - 1];
+
+	//el ultimo movimiento de la partida
+	switch (jugada_ultima.jugador)
 	{
-		case BLANCAS: 		Movimiento_ahora.jugador = GRAVEDAD_B;	break;
-		case GRAVEDAD_B: 	Movimiento_ahora.jugador = NEGRAS;		break;
-		case NEGRAS:		Movimiento_ahora.jugador = GRAVEDAD_N;	break;
-		case GRAVEDAD_N:	Movimiento_ahora.jugador = BLANCAS;		break;
-		default:			Movimiento_ahora.jugador = GRAVEDAD_N;	break;
+		case BLANCAS: 		jugada_ahora.jugador = GRAVEDAD_B;	break;
+		case GRAVEDAD_B: 	jugada_ahora.jugador = NEGRAS;		break;
+		case NEGRAS:		jugada_ahora.jugador = GRAVEDAD_N;	break;
+		case GRAVEDAD_N:	jugada_ahora.jugador = BLANCAS;		break;
+		default:			jugada_ahora.jugador = GRAVEDAD_N;	break;
 	};
 	avanza_siguiente_turno();
 }
 
 void Juego::cargar_partida_ejemplo()
 {
-	partida_actual = almacen_de_partidas.get_partida_ejemplo();
-	Movimiento_ultimo=partida_actual[partida_actual.size()-1]; //el ultimo movimiento de la partida
-	switch (Movimiento_ultimo.jugador)
+	partida_actual = gestor_de_partidas->get_partida_ejemplo();
+	jugada_ultima=partida_actual.get_jugadas()[partida_actual.get_jugadas().size()-1]; //el ultimo movimiento de la partida
+	switch (jugada_ultima.jugador)
 	{
-		case BLANCAS: 		Movimiento_ahora.jugador = GRAVEDAD_B;	break;
-		case GRAVEDAD_B: 	Movimiento_ahora.jugador = NEGRAS;		break;
-		case NEGRAS:		Movimiento_ahora.jugador = GRAVEDAD_N;	break;
-		case GRAVEDAD_N:	Movimiento_ahora.jugador = BLANCAS;		break;
-		default:			Movimiento_ahora.jugador = GRAVEDAD_N;	break;
+		case BLANCAS: 		jugada_ahora.jugador = GRAVEDAD_B;	break;
+		case GRAVEDAD_B: 	jugada_ahora.jugador = NEGRAS;		break;
+		case NEGRAS:		jugada_ahora.jugador = GRAVEDAD_N;	break;
+		case GRAVEDAD_N:	jugada_ahora.jugador = BLANCAS;		break;
+		default:			jugada_ahora.jugador = GRAVEDAD_N;	break;
 	};
 	avanza_siguiente_turno();
 }
 
-vector<GUI_movimiento> Juego::get_partida()
+GUI_partida Juego::get_partida()
 {
 	return partida_actual;
 }
@@ -106,8 +127,8 @@ void Juego::check_pieza_movible()
 						break;
 					}
 					else if // no hay casilla EN ROJO, pero estamos en una casilla elegible
-						(((*it_in)._datos_pieza.c_color == blanca && Movimiento_ahora.jugador == BLANCAS) ||
-						(*it_in)._datos_pieza.c_color == negra && Movimiento_ahora.jugador == NEGRAS)
+						(((*it_in)._datos_pieza.c_color == blanca && jugada_ahora.jugador == BLANCAS) ||
+						(*it_in)._datos_pieza.c_color == negra && jugada_ahora.jugador == NEGRAS)
 					{   // se ha encontrado una pieza en la posción de la casilla y del color del turno
 						casilla_lckd->set_Can_Lock(false);
 						auto position = it_in - todas_piezas_GUI.begin();
@@ -128,7 +149,6 @@ void Juego::check_pieza_movible()
 		}
 		}
 	}
-
 }
 
 GUI_marcador_cursor* Juego::get_casilla_cursor()
@@ -141,31 +161,59 @@ void Juego::reset_pieza_locked()
 	cual_pieza_locked = nullptr;
 }
 
+ESTADO_GENERAL Juego::get_selector_partidas_jugadas()
+{
+	return estado_Partidas_Jugadas->get_partidas_o_jugadas();
+}
+
+void Juego::cambia_selector_partidas_jugadas()
+{
+	auto s=estado_Partidas_Jugadas->get_partidas_o_jugadas();
+	if (s == en_seleccion_partida) 
+		estado_Partidas_Jugadas->set_partidas_o_jugadas(en_jugadas);
+	else 
+		estado_Partidas_Jugadas->set_partidas_o_jugadas(en_seleccion_partida);
+	
+}
+
+T_listado_partidas Juego::get_listado_partidas()
+{
+	return listado_partidas;
+}
+
+GUI_gestor_partidas Juego::get_almacen_partidas()
+{
+	return (*gestor_de_partidas);
+}
+
 void Juego::avanza_siguiente_turno() 
 {
-	switch (Movimiento_ahora.jugador) //BLANCAS=0, NEGRAS, GRAVEDAD_N, GRAVEDA_B
+	switch (jugada_ahora.jugador) //BLANCAS=0, NEGRAS, GRAVEDAD_N, GRAVEDA_B
 	{
-		case NEGRAS:		Movimiento_ahora.jugador = GRAVEDAD_N;	break;
-		case GRAVEDAD_N:	Movimiento_ahora.jugador = BLANCAS;		break;
-		case BLANCAS:		Movimiento_ahora.jugador = GRAVEDAD_B;	break;
-		case GRAVEDAD_B:	Movimiento_ahora.jugador = NEGRAS;	break;
-		default:			Movimiento_ahora.jugador = GRAVEDAD_N;	break;
+		case NEGRAS:		jugada_ahora.jugador = GRAVEDAD_N;	break;
+		case GRAVEDAD_N:	jugada_ahora.jugador = BLANCAS;		break;
+		case BLANCAS:		jugada_ahora.jugador = GRAVEDAD_B;	break;
+		case GRAVEDAD_B:	jugada_ahora.jugador = NEGRAS;	break;
+		default:			jugada_ahora.jugador = GRAVEDAD_N;	break;
 	};
-
 }
 
 void Juego::turno_()
 {
-	switch (Movimiento_ahora.jugador) //BLANCAS=0, NEGRAS, GRAVEDAD_N, GRAVEDA_B
+	switch (jugada_ahora.jugador) //BLANCAS=0, NEGRAS, GRAVEDAD_N, GRAVEDA_B
 	{
-	case NEGRAS:		Movimiento_ahora.jugador = NEGRAS;	break;
-	case GRAVEDAD_N:	Movimiento_ahora.jugador = GRAVEDAD_N;		break;
-	case BLANCAS:		Movimiento_ahora.jugador = BLANCAS;	break;
-	case GRAVEDAD_B:	Movimiento_ahora.jugador = BLANCAS;	break;
-	default:			Movimiento_ahora.jugador = GRAVEDAD_N;	break;
+	case NEGRAS:		jugada_ahora.jugador = NEGRAS;	break;
+	case GRAVEDAD_N:	jugada_ahora.jugador = GRAVEDAD_N;		break;
+	case BLANCAS:		jugada_ahora.jugador = BLANCAS;	break;
+	case GRAVEDAD_B:	jugada_ahora.jugador = BLANCAS;	break;
+	default:			jugada_ahora.jugador = GRAVEDAD_N;	break;
 	};
 }
 
+void Juego::dibuja_lista_partidas()
+{
+	gestor_de_partidas;
+}
 
 
 void Juego::generar_piezas()
@@ -227,20 +275,18 @@ void Juego::incrementa_cursor(int inc_f, int inc_c)
 
 void Juego::mueve_pieza_locked(int n_posicion_movimiento) // se debe mover a la posición que marca Casilla
 {
-	Movimiento_ahora.vaciar_movimiento();
+	jugada_ahora.vaciar_jugada();
 	if (cual_pieza_locked != nullptr) {
 		Pieza_GUI aux = (*cual_pieza_locked); // pieza que queremos mover
 		auto cas = get_casilla_cursor();
 		aux._datos_pieza.c_fila = cas->fila; aux._datos_pieza.c_columna = cas->columna;
-		Movimiento_ahora.add_pieza_a_movimiento(aux._datos_pieza);
-		if (n_posicion_movimiento > partida_actual.size()) n_posicion_movimiento = partida_actual.size();
+		jugada_ahora.add_pieza_a_jugada(aux._datos_pieza);
+		if (n_posicion_movimiento > partida_actual.get_jugadas().size()) n_posicion_movimiento = partida_actual.get_jugadas().size();
 		if (n_posicion_movimiento <0) n_posicion_movimiento = 0;
-		partida_actual.erase(partida_actual.begin()+ n_posicion_movimiento, partida_actual.end());
-		partida_actual.push_back(Movimiento_ahora);
+		partida_actual.borrar_jugadas_desde_N(n_posicion_movimiento);
+		partida_actual.add_jugada_a_partida(jugada_ahora);
 		avanza_siguiente_turno();
-
 	}
-
 }
 
 Pieza_GUI* Juego::get_pieza_locked()

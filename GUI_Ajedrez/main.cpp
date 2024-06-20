@@ -4,11 +4,12 @@
 #include "GUI_pieza.h"
 #include "GUI_marcador.h"
 #include "Juego.h"
+#include "aux.h"
 
 Juego juego;
 //vector<GUI_movimiento> partida;
-int movimientos_partida = 0;
-int movimientos_partida_ahora = 0;
+int jugadas_partida = 0;
+int jugadas_partida_ahora = 0;
 int indice_movimientos_partida = 0;
 
 
@@ -18,6 +19,7 @@ int indice_movimientos_partida = 0;
 void OnDraw(void);		 //esta funcion sera llamada para dibujar
 void OnTimer(int value); //esta funcion sera llamada cuando transcurra una temporizacion
 void OnKeyboardDown(unsigned char key, int x, int y); //cuando se pulse una tecla	
+
 
 int main(int argc, char* argv[])
 {
@@ -70,122 +72,173 @@ void OnDraw(void)
 
 void OnKeyboardDown(unsigned char key, int x_t, int y_t)
 {
-	int tam_partida = juego.get_partida().size();
-	switch (key)
-	{
-	case 'a':  // se carga una partida ejemplo (la lista de los movimientos)
-		juego.cargar_partida("P1");
-		juego.carga_partida_al_GUI(0);
-		movimientos_partida = juego.get_partida().size();
-		movimientos_partida_ahora = juego.get_partida().size();
-		break;
-	case 'e':  // se carga una partida ejemplo (la lista de los movimientos)
-		juego.cargar_partida_ejemplo();
-		juego.carga_partida_al_GUI(0);
-		movimientos_partida = juego.get_partida().size();
-		movimientos_partida_ahora = juego.get_partida().size();
-		break;
-	case 'n': 
-		//Se genera la partida con el nombre "Nueva" con las posiciones iniciales
-		juego.cargar_partida("Nueva"); 
-		juego.carga_partida_al_GUI(0);
-		movimientos_partida = juego.get_partida().size();
-		movimientos_partida_ahora = juego.get_partida().size();
-		break;
-	case '-':
-		//partida = juego.get_partida();
-		if (tam_partida >0) // error -------- se debe gestionar si no hay partida
+	string s = getDate();
+	if (juego.get_selector_partidas_jugadas() == en_seleccion_partida)
+	{  // operativa del teclado en estado de "seleccion_partida"
+		switch (key)
 		{
-			movimientos_partida_ahora--;
-			if (movimientos_partida_ahora < 1) movimientos_partida_ahora = 1;
-			if (movimientos_partida_ahora > movimientos_partida) movimientos_partida_ahora = movimientos_partida;
-			juego.carga_partida_al_GUI(movimientos_partida_ahora);
-
-		}
-		if (movimientos_partida_ahora < movimientos_partida) {
-			juego.get_casilla_cursor()->reset_cursor_casilla();
-		}
-		//juego.gestion_nuevo_turno();
-		break;
-	case '+':
-		//partida = juego.get_partida();
-		if (tam_partida > 0) // error -------- se debe gestionar si no hay partida ---
-		{
-			movimientos_partida_ahora++;
-			if (movimientos_partida_ahora < 1) movimientos_partida_ahora = 1;
-			if (movimientos_partida_ahora > movimientos_partida) movimientos_partida_ahora = movimientos_partida;
-			juego.carga_partida_al_GUI(movimientos_partida_ahora);
-			//juego.get_jugador_actual();
-		}
-		if (movimientos_partida_ahora < movimientos_partida) {
-			juego.get_casilla_cursor()->reset_cursor_casilla();
-		}
-		juego.turno_();
-		break;
-	case '5':
-		juego.check_pieza_movible();   // verfica si en la casilla hay una pieza movible
-		juego.get_casilla_cursor()->switch_cursor_casilla();
- 		break;
-	case '.':
-		if (juego.get_pieza_locked() != nullptr)  // que haya una pieza
-		{
-			auto pz_lck = juego.get_pieza_locked();
-			switch (juego.get_casilla_locked()->get_estado_locked())
-			{
-			case ROJO:
-				if(juego.get_casilla_cursor()->get_fila()    == juego.get_casilla_locked()->get_fila() &&
-				   juego.get_casilla_cursor()->get_columna() == juego.get_casilla_locked()->get_columna())
-				   // solo se puede cambiar a naranja si estoy en la casilla original que permitió el cambio a ROJO
-				   juego.get_casilla_locked()->set_estado_locked(NARANJA, pz_lck);
-				break;
-			case NARANJA:
-				juego.get_casilla_locked()->set_estado_locked(ROJO, pz_lck);
-			};
-		};
-		break;
-	case '0':
-		if (juego.get_pieza_locked() != nullptr)  // que haya una pieza locked
-		{	//se carga el movimiento en la posición de la partida en la que nos
-			// encontremos. Los movimientos que hubieran después son borrados.
-			juego.mueve_pieza_locked(movimientos_partida_ahora);
-			movimientos_partida = juego.get_partida().size();
-			movimientos_partida_ahora= juego.get_partida().size();
-			juego.get_casilla_locked()->set_estado_locked(TRANS,nullptr);
-			auto j=juego.get_jugador_actual();
+		case 's': // se pasa a estado de "jugadas
 			juego.carga_partida_al_GUI(0);
+			juego.get_almacen_partidas().actualiza_objeto_json();
+			exit(0);
+			break;
+		case 'n':  
+			//Se genera la partida con el nombre del día y la hora. Contiene las posiciones iniciales de un partida normal
+			juego.cargar_partida(s);
+			jugadas_partida = juego.get_partida().get_jugadas().size();
+			jugadas_partida_ahora = jugadas_partida;
+			juego.cambia_selector_partidas_jugadas();
+			juego.carga_partida_al_GUI(0);
+			break;
+		case 'e':  // se carga una partida ejemplo (la lista de los movimientos)
+			juego.cargar_partida_ejemplo();
+			jugadas_partida = juego.get_partida().get_jugadas().size();
+			jugadas_partida_ahora = jugadas_partida;
+			juego.cambia_selector_partidas_jugadas();
+			juego.carga_partida_al_GUI(0);
+			break;
+
+		case 'p': // se pasa a estado de "jugadas
+			juego.cambia_selector_partidas_jugadas();
+			juego.carga_partida_al_GUI(0);
+			break;
+
+		case '1':  case '2':  case '3': case '4': case '5':   case '6': case '7': case '8': case '9':
+			auto aux = juego.get_listado_partidas().get_nombres_partidas();
+			int i = (int)key - 48;
+			if (i <= aux.size()) {
+				string S = aux.at(i - 1);
+				string S2=S.substr(3);
+				juego.cargar_partida(S2);
+				jugadas_partida = juego.get_partida().get_jugadas().size();
+				jugadas_partida_ahora = jugadas_partida;
+				juego.cambia_selector_partidas_jugadas();
+				juego.carga_partida_al_GUI(0);
+			}
+			else { // que suene un aviso
+
+			};
+			break;
+	
 		}
-		break;
-	case '*': // que pase turno la gravedad
-		juego.avanza_siguiente_turno();
-		juego.carga_partida_al_GUI(0);
-		break;
-	case '8':
-		juego.get_casilla_cursor()->incrementa_posicion(0, 1);juego.check_pieza_movible();
-		break;
-	case '9':
-		juego.get_casilla_cursor()->incrementa_posicion(-1, 1);juego.check_pieza_movible();
-		break;
-	case '6':
-		juego.get_casilla_cursor()->incrementa_posicion(-1, 0);juego.check_pieza_movible();
-		break;
-	case '3':
-		juego.get_casilla_cursor()->incrementa_posicion(-1, -1);juego.check_pieza_movible();
-		break;
-	case '2':
-		juego.get_casilla_cursor()->incrementa_posicion(0, -1);juego.check_pieza_movible();
-		break;
-	case '1':
-		juego.get_casilla_cursor()->incrementa_posicion(1, -1);juego.check_pieza_movible();
-		break;
-	case '4':
-		juego.get_casilla_cursor()->incrementa_posicion(1, 0);juego.check_pieza_movible();
-		break;
-	case '7':
-		juego.get_casilla_cursor()->incrementa_posicion(1, 1);juego.check_pieza_movible();
-		break;
-	case ' ':
-		juego.generar_listado_datos_piezas_OFF();  //Para poner todas la piezas en el almacén
-		break;
+
+	}
+	else  // operativa del teclado en estado de "jugadas"
+	{
+		int tam_partida = juego.get_partida().get_jugadas().size();
+		switch (key)
+		{
+		case 's': // se pasa a estado de "jugadas
+			juego.get_almacen_partidas().actualiza_objeto_json();
+			exit(0);
+			break;
+
+		case 'n':
+			//////Se genera la partida con el nombre "Nueva" con las posiciones iniciales
+			////juego.cargar_partida("Nueva");
+			////juego.carga_partida_al_GUI(0);
+			////jugadas_partida = juego.get_partida().get_jugadas().size();
+			////jugadas_partida_ahora = jugadas_partida;
+			break;
+
+		case 'p': // se pasa a estado de seleccionar partida
+			juego.cambia_selector_partidas_jugadas();
+			juego.carga_partida_al_GUI(0);
+			break;
+
+		case '-':
+			//partida = juego.get_partida();
+			if (tam_partida > 0) // error -------- se debe gestionar si no hay partida
+			{
+				jugadas_partida_ahora--;
+				if (jugadas_partida_ahora < 1) jugadas_partida_ahora = 1;
+				if (jugadas_partida_ahora > jugadas_partida) jugadas_partida_ahora = jugadas_partida;
+				juego.carga_partida_al_GUI(jugadas_partida_ahora);
+
+			}
+			if (jugadas_partida_ahora < jugadas_partida) {
+				juego.get_casilla_cursor()->reset_cursor_casilla();
+			}
+			//juego.gestion_nuevo_turno();
+			break;
+
+		case '+':
+			//partida = juego.get_partida();
+			if (tam_partida > 0) // error -------- se debe gestionar si no hay partida ---
+			{
+				jugadas_partida_ahora++;
+				if (jugadas_partida_ahora < 1) jugadas_partida_ahora = 1;
+				if (jugadas_partida_ahora > jugadas_partida) jugadas_partida_ahora = jugadas_partida;
+				juego.carga_partida_al_GUI(jugadas_partida_ahora);
+				//juego.get_jugador_actual();
+			}
+			if (jugadas_partida_ahora < jugadas_partida) {
+				juego.get_casilla_cursor()->reset_cursor_casilla();
+			}
+			juego.turno_();
+			break;
+
+		case '5': // activación del cursor para ir a seleccionar una pieza
+			juego.check_pieza_movible();   // verfica si en la casilla hay una pieza movible
+			juego.get_casilla_cursor()->switch_cursor_casilla();
+			break;
+
+		case '.':  //seleccion de pieza que se quiere mover
+			if (juego.get_pieza_locked() != nullptr)  // que haya una pieza
+			{
+				auto pz_lck = juego.get_pieza_locked();
+				switch (juego.get_casilla_locked()->get_estado_locked())
+				{
+				case ROJO:
+					if (juego.get_casilla_cursor()->get_fila() == juego.get_casilla_locked()->get_fila() &&
+						juego.get_casilla_cursor()->get_columna() == juego.get_casilla_locked()->get_columna())
+						// solo se puede cambiar a naranja si estoy en la casilla original que permitió el cambio a ROJO
+						juego.get_casilla_locked()->set_estado_locked(NARANJA, pz_lck);
+					break;
+				case NARANJA:
+					juego.get_casilla_locked()->set_estado_locked(ROJO, pz_lck);
+				};
+			};
+			break;
+
+		case '0':  // ejecución del movimiento de la pieza seleccionada previamente
+			if (juego.get_pieza_locked() != nullptr)  // Que haya una pieza locked
+			{	//se carga el movimiento en la posición de la partida en la que nos
+				// encontremos. Los movimientos que hubieran después son borrados.
+				juego.mueve_pieza_locked(jugadas_partida_ahora);
+				jugadas_partida = juego.get_partida().get_jugadas().size();
+				jugadas_partida_ahora = juego.get_partida().get_jugadas().size();
+				juego.get_casilla_locked()->set_estado_locked(TRANS, nullptr);
+				auto j = juego.get_jugador_actual();
+				juego.guarda_partida_actual();
+				juego.carga_partida_al_GUI(0);
+			}
+			break;
+
+		case '*': // que pase turno!!!!
+			juego.avanza_siguiente_turno();
+			juego.carga_partida_al_GUI(0);
+			break;
+		case '8':
+			juego.get_casilla_cursor()->incrementa_posicion(0, 1);juego.check_pieza_movible();break;
+		case '9':
+			juego.get_casilla_cursor()->incrementa_posicion(-1, 1);juego.check_pieza_movible();break;
+		case '6':
+			juego.get_casilla_cursor()->incrementa_posicion(-1, 0);juego.check_pieza_movible();break;
+		case '3':
+			juego.get_casilla_cursor()->incrementa_posicion(-1, -1);juego.check_pieza_movible();break;
+		case '2':
+			juego.get_casilla_cursor()->incrementa_posicion(0, -1);juego.check_pieza_movible();break;
+		case '1':
+			juego.get_casilla_cursor()->incrementa_posicion(1, -1);juego.check_pieza_movible();break;
+		case '4':
+			juego.get_casilla_cursor()->incrementa_posicion(1, 0);juego.check_pieza_movible();break;
+		case '7':
+			juego.get_casilla_cursor()->incrementa_posicion(1, 1);juego.check_pieza_movible();break;
+		case ' ':
+			juego.generar_listado_datos_piezas_OFF();  //Para poner todas la piezas en el almacén
+			break;
+		}
 	}
 }
 
