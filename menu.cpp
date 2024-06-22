@@ -8,7 +8,7 @@ int main()
 	int a, b; 
 	cout << "1- VAMOS A JUGAR\n";
 	cout << "2- CONTROLES\n";
-	cout << "3- Salir\n";
+	cout << "3- SALIR\n";
 	cout << "La opcion deseada es: ";
 	cin >> a; 
 	do {
@@ -16,8 +16,10 @@ int main()
 		{
 		case 1:
 		case 2:
+			
+			break; 
 		case 3:
-			cout << "¿Seguro que desea salir?  SI o NO\n";
+			cout << "Â¿Seguro que desea salir?  SI o NO\n";
 			cout << "1- SI\n";
 			cout << "2- NO\n";
 			cout << "La opcion elegida es: ";
