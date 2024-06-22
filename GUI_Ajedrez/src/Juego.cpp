@@ -70,7 +70,7 @@ ENUM_JUGADOR Juego::get_jugador_actual()
 
 void Juego::cargar_partida(string nombre)
 {  /// si el nombre no se encuentra se genera una partida con ese nombre
-	partida_actual= gestor_de_partidas->get_or_new_partida(nombre);
+	partida_actual = gestor_de_partidas->get_or_new_partida(nombre);
 
 
 	jugada_ultima = partida_actual.get_jugadas()[partida_actual.get_jugadas().size() - 1];
@@ -78,11 +78,11 @@ void Juego::cargar_partida(string nombre)
 	//el ultimo movimiento de la partida
 	switch (jugada_ultima.jugador)
 	{
-		case BLANCAS: 		jugada_ahora.jugador = GRAVEDAD_B;	break;
-		case GRAVEDAD_B: 	jugada_ahora.jugador = NEGRAS;		break;
-		case NEGRAS:		jugada_ahora.jugador = GRAVEDAD_N;	break;
-		case GRAVEDAD_N:	jugada_ahora.jugador = BLANCAS;		break;
-		default:			jugada_ahora.jugador = GRAVEDAD_N;	break;
+	case BLANCAS: 		jugada_ahora.jugador = GRAVEDAD_B;	break;
+	case GRAVEDAD_B: 	jugada_ahora.jugador = NEGRAS;		break;
+	case NEGRAS:		jugada_ahora.jugador = GRAVEDAD_N;	break;
+	case GRAVEDAD_N:	jugada_ahora.jugador = BLANCAS;		break;
+	default:			jugada_ahora.jugador = GRAVEDAD_N;	break;
 	};
 	avanza_siguiente_turno();
 }
@@ -90,14 +90,14 @@ void Juego::cargar_partida(string nombre)
 void Juego::cargar_partida_ejemplo()
 {
 	partida_actual = gestor_de_partidas->get_partida_ejemplo();
-	jugada_ultima=partida_actual.get_jugadas()[partida_actual.get_jugadas().size()-1]; //el ultimo movimiento de la partida
+	jugada_ultima = partida_actual.get_jugadas()[partida_actual.get_jugadas().size() - 1]; //el ultimo movimiento de la partida
 	switch (jugada_ultima.jugador)
 	{
-		case BLANCAS: 		jugada_ahora.jugador = GRAVEDAD_B;	break;
-		case GRAVEDAD_B: 	jugada_ahora.jugador = NEGRAS;		break;
-		case NEGRAS:		jugada_ahora.jugador = GRAVEDAD_N;	break;
-		case GRAVEDAD_N:	jugada_ahora.jugador = BLANCAS;		break;
-		default:			jugada_ahora.jugador = GRAVEDAD_N;	break;
+	case BLANCAS: 		jugada_ahora.jugador = GRAVEDAD_B;	break;
+	case GRAVEDAD_B: 	jugada_ahora.jugador = NEGRAS;		break;
+	case NEGRAS:		jugada_ahora.jugador = GRAVEDAD_N;	break;
+	case GRAVEDAD_N:	jugada_ahora.jugador = BLANCAS;		break;
+	default:			jugada_ahora.jugador = GRAVEDAD_N;	break;
 	};
 	avanza_siguiente_turno();
 }
@@ -113,7 +113,7 @@ void Juego::check_pieza_movible()
 
 	if (casilla_lckd != nullptr)
 	{
-		if (casilla_lckd->get_estado_locked()==ROJO)
+		if (casilla_lckd->get_estado_locked() == ROJO)
 		{ // ya hay una casilla locked (EN ROJO). Nada que hacer
 		}
 		else
@@ -128,7 +128,7 @@ void Juego::check_pieza_movible()
 					}
 					else if // no hay casilla EN ROJO, pero estamos en una casilla elegible
 						(((*it_in)._datos_pieza.c_color == blanca && jugada_ahora.jugador == BLANCAS) ||
-						(*it_in)._datos_pieza.c_color == negra && jugada_ahora.jugador == NEGRAS)
+							(*it_in)._datos_pieza.c_color == negra && jugada_ahora.jugador == NEGRAS)
 					{   // se ha encontrado una pieza en la posción de la casilla y del color del turno
 						casilla_lckd->set_Can_Lock(false);
 						auto position = it_in - todas_piezas_GUI.begin();
@@ -146,7 +146,7 @@ void Juego::check_pieza_movible()
 					casilla_lckd->set_Can_Lock(false);
 					casilla_lckd->set_estado_locked(TRANS, nullptr);
 				}
-		}
+			}
 		}
 	}
 }
@@ -168,12 +168,12 @@ ESTADO_GENERAL Juego::get_selector_partidas_jugadas()
 
 void Juego::cambia_selector_partidas_jugadas()
 {
-	auto s=estado_Partidas_Jugadas->get_partidas_o_jugadas();
-	if (s == en_seleccion_partida) 
+	auto s = estado_Partidas_Jugadas->get_partidas_o_jugadas();
+	if (s == en_seleccion_partida)
 		estado_Partidas_Jugadas->set_partidas_o_jugadas(en_jugadas);
-	else 
+	else
 		estado_Partidas_Jugadas->set_partidas_o_jugadas(en_seleccion_partida);
-	
+
 }
 
 T_listado_partidas Juego::get_listado_partidas()
@@ -186,15 +186,15 @@ GUI_gestor_partidas Juego::get_almacen_partidas()
 	return (*gestor_de_partidas);
 }
 
-void Juego::avanza_siguiente_turno() 
+void Juego::avanza_siguiente_turno()
 {
 	switch (jugada_ahora.jugador) //BLANCAS=0, NEGRAS, GRAVEDAD_N, GRAVEDA_B
 	{
-		case NEGRAS:		jugada_ahora.jugador = GRAVEDAD_N;	break;
-		case GRAVEDAD_N:	jugada_ahora.jugador = BLANCAS;		break;
-		case BLANCAS:		jugada_ahora.jugador = GRAVEDAD_B;	break;
-		case GRAVEDAD_B:	jugada_ahora.jugador = NEGRAS;	break;
-		default:			jugada_ahora.jugador = GRAVEDAD_N;	break;
+	case NEGRAS:		jugada_ahora.jugador = GRAVEDAD_N;	break;
+	case GRAVEDAD_N:	jugada_ahora.jugador = BLANCAS;		break;
+	case BLANCAS:		jugada_ahora.jugador = GRAVEDAD_B;	break;
+	case GRAVEDAD_B:	jugada_ahora.jugador = NEGRAS;	break;
+	default:			jugada_ahora.jugador = GRAVEDAD_N;	break;
 	};
 }
 
@@ -282,7 +282,7 @@ void Juego::mueve_pieza_locked(int n_posicion_movimiento) // se debe mover a la 
 		aux._datos_pieza.c_fila = cas->fila; aux._datos_pieza.c_columna = cas->columna;
 		jugada_ahora.add_pieza_a_jugada(aux._datos_pieza);
 		if (n_posicion_movimiento > partida_actual.get_jugadas().size()) n_posicion_movimiento = partida_actual.get_jugadas().size();
-		if (n_posicion_movimiento <0) n_posicion_movimiento = 0;
+		if (n_posicion_movimiento < 0) n_posicion_movimiento = 0;
 		partida_actual.borrar_jugadas_desde_N(n_posicion_movimiento);
 		partida_actual.add_jugada_a_partida(jugada_ahora);
 		avanza_siguiente_turno();
@@ -375,4 +375,62 @@ void Juego::listado_datos_piezas___un_movimiento(PIEZA_STRU pieza_a_mover)
 			(*it).c_fila = pieza_a_mover.c_fila;
 		}
 	}
+}
+
+bool Juego::comprobar_movimiento() {
+	if (cual_pieza_locked != nullptr) {
+		bool movimiento;
+		casilla cas;
+		cas.set_fila (get_casilla_cursor()->get_fila());
+		cas.set_columna(get_casilla_cursor()->get_columna());
+		int col = cual_pieza_locked->_datos_pieza.c_columna;
+		int fila = cual_pieza_locked->_datos_pieza.c_fila;
+		switch (cual_pieza_locked->_datos_pieza.c_tipo) {
+		case peon:
+			Peon pieza_aux;
+			pieza_aux.set_fila(fila);
+			pieza_aux.set_columna(col);
+			movimiento = pieza_aux.mover(cas);
+			break;
+
+		case torre:
+			Torre pieza_aux;
+			pieza_aux.set_fila(fila);
+			pieza_aux.set_columna(col);
+			movimiento = pieza_aux.mover(cas);
+			break;
+		case caballo:
+			Caballo pieza_aux;
+			pieza_aux.set_fila(fila);
+			pieza_aux.set_columna(col);
+			movimiento = pieza_aux.mover(cas);
+			break;
+
+		case alfil:
+			Alfil pieza_aux;
+			pieza_aux.set_fila(fila);
+			pieza_aux.set_columna(col);
+			movimiento = pieza_aux.mover(cas);
+			break;
+
+		case reina:
+			Reina pieza_aux;
+			pieza_aux.set_fila(fila);
+			pieza_aux.set_columna(col);
+			movimiento = pieza_aux.mover(cas);
+			break;
+
+		case rey:
+			Rey pieza_aux;
+			pieza_aux.set_fila(fila);
+			pieza_aux.set_columna(col);
+			movimiento = pieza_aux.mover(cas);
+			break;
+		default: 
+			return false;
+		}
+		return movimiento;
+		
+	}
+
 }

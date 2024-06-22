@@ -23,8 +23,8 @@ void GUI_partida::vaciar_partida()
 
 void GUI_partida::borrar_jugadas_desde_N(int desde)
 {
-	if (desde<=lista_jugadas.size())
-	lista_jugadas.erase(lista_jugadas.begin()+ desde, lista_jugadas.end());
+	if (desde <= lista_jugadas.size())
+		lista_jugadas.erase(lista_jugadas.begin() + desde, lista_jugadas.end());
 }
 
 void GUI_partida::add_jugada_a_partida(GUI_jugada jug)
@@ -41,5 +41,3 @@ void GUI_partida::set_jugadas_de_partida(vector<GUI_jugada> lista_movis)
 {
 	lista_jugadas = lista_movis;
 }
-
-

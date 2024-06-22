@@ -17,4 +17,3 @@ public:
 	void set_nombre_de_partida(string);
 	void set_jugadas_de_partida(vector<GUI_jugada> lista_jugadas);
 };
-

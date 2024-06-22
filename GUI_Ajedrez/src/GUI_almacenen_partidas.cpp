@@ -27,7 +27,7 @@ GUI_gestor_partidas::GUI_gestor_partidas()
     {
         while (getline(fichero_json_partidas, line))
         {
-            partidas_json_en_texto.append(line) ;
+            partidas_json_en_texto.append(line);
         }
         fichero_json_partidas.close();
         partidas_json = nlohmann::json::parse(partidas_json_en_texto);
@@ -35,7 +35,7 @@ GUI_gestor_partidas::GUI_gestor_partidas()
         cout << std::setw(4) << partidas_json << '\n';  //salida con formato
     }
     else cout << "Fichero JSON de partidas no se ha podido abrir";
-    
+
     // asignacion de cadenas a enum y viceversa. En las macros del .h estan todas las conversiones
 
     GUI_partida partida;
@@ -52,29 +52,29 @@ GUI_gestor_partidas::GUI_gestor_partidas()
         for (auto it_mov = js_jugadas.begin(); it_mov != js_jugadas.end(); ++it_mov)
         {
             auto js_jugada = it_mov.value();
-            auto numero   =   js_jugada["jugada"];
-            auto jugador  =   js_jugada["jugador"]; 
-            auto js_piezas=   js_jugada["piezas"];
+            auto numero = js_jugada["jugada"];
+            auto jugador = js_jugada["jugador"];
+            auto js_piezas = js_jugada["piezas"];
             nueva_jugada.set_jugador(jugador);
             nueva_jugada.vaciar_jugada();
             PIEZA_STRU nueva_pieza;
             for (auto it_pz = js_piezas.begin(); it_pz != js_piezas.end(); ++it_pz)
             {
-                auto js_pieza   = it_pz.value();
-                auto tipo       = js_pieza["tipo"];
-                auto color      = js_pieza["color"];
-                auto pieza      = js_pieza["pieza"];
-                auto fila       = js_pieza["fila"];
-                auto columna    = js_pieza["columna"];
-                nueva_pieza.c_color     = color;
-                nueva_pieza.c_tipo      = tipo;
-                nueva_pieza.c_pieza     = pieza;
-                nueva_pieza.c_fila      = fila;
-                nueva_pieza.c_columna   = columna;
+                auto js_pieza = it_pz.value();
+                auto tipo = js_pieza["tipo"];
+                auto color = js_pieza["color"];
+                auto pieza = js_pieza["pieza"];
+                auto fila = js_pieza["fila"];
+                auto columna = js_pieza["columna"];
+                nueva_pieza.c_color = color;
+                nueva_pieza.c_tipo = tipo;
+                nueva_pieza.c_pieza = pieza;
+                nueva_pieza.c_fila = fila;
+                nueva_pieza.c_columna = columna;
                 nueva_jugada.add_pieza_a_jugada(nueva_pieza);
             }
             partida.add_jugada_a_partida(nueva_jugada);
-            
+
         }
         // despues de recorrer todo el objeto json, ya se han cargado el almacen de partidas del juego
         almacen_de_partidas.push_back(partida);
@@ -85,14 +85,14 @@ GUI_gestor_partidas::GUI_gestor_partidas()
 void GUI_gestor_partidas::actualiza_objeto_json()
 {//tambien actualiza el fichero json de texto.
     json js_lista_partidas = json::array();
-        json js_partida = json::object();
-            json js_nombre_partida = "";
-            json js_jugadas = json::array();
-                json js_jugada = json::object();
-                    json js_jugador = "";
-                    json js_n_jugada = 1;
-                    json js_piezas = json::array();
-                        json js_pieza=json::object();
+    json js_partida = json::object();
+    json js_nombre_partida = "";
+    json js_jugadas = json::array();
+    json js_jugada = json::object();
+    json js_jugador = "";
+    json js_n_jugada = 1;
+    json js_piezas = json::array();
+    json js_pieza = json::object();
 
     js_lista_partidas.clear();
 
@@ -102,16 +102,16 @@ void GUI_gestor_partidas::actualiza_objeto_json()
         //   en una partida
         /////////////////////////
         auto jugadas = (*it_part).get_jugadas();
-        string nombre_partida=(*it_part).get_nombre();
+        string nombre_partida = (*it_part).get_nombre();
         js_nombre_partida = nombre_partida;
 
         js_jugadas.clear();
         int n_jugada = 1;
-        for (auto it_jug = jugadas.begin(); it_jug != jugadas.end(); ++it_jug) 
+        for (auto it_jug = jugadas.begin(); it_jug != jugadas.end(); ++it_jug)
         {   ////////////////////////
             //   en una jugada
             /////////////////////////
-            
+
             //-- se asigna el numero de la jugada
             js_n_jugada = n_jugada;
             //--se asigna el jugador de la jugada
@@ -129,7 +129,7 @@ void GUI_gestor_partidas::actualiza_objeto_json()
                 auto pieza_pz = (*it_pieza).c_pieza;
                 auto fila_pz = (*it_pieza).c_fila;
                 auto columna_pz = (*it_pieza).c_columna;
-                js_pieza= json::object({{"tipo",tipo_pz},{"color",color_pz},{"pieza",pieza_pz},{"fila",fila_pz},{"columna",columna_pz} });
+                js_pieza = json::object({ {"tipo",tipo_pz},{"color",color_pz},{"pieza",pieza_pz},{"fila",fila_pz},{"columna",columna_pz} });
                 js_piezas.push_back(js_pieza);
             }
             js_jugada = { {"jugada",js_n_jugada},{"jugador",js_jugador},{"piezas",js_piezas} };
@@ -146,7 +146,7 @@ void GUI_gestor_partidas::actualiza_objeto_json()
         fichero_json_partidas << std::setw(4) << js_lista_partidas << '\n';
     }
     else cout << "Fichero JSON de partidas no se ha podido abrir";
- 
+
 
 }
 
@@ -190,9 +190,9 @@ void GUI_gestor_partidas::nueva_jugada(vector<PIEZA_STRU> posiciones)
 GUI_partida GUI_gestor_partidas::get_or_new_partida(string _nombre)
 {    // se busca la partida en la lista de partida y se devuelve si existe.
     vector<GUI_jugada> aux;
-    bool existe_la_partida=false;
+    bool existe_la_partida = false;
 
-    for (auto it_in = almacen_de_partidas.begin(); it_in != almacen_de_partidas.end(); ++it_in) 
+    for (auto it_in = almacen_de_partidas.begin(); it_in != almacen_de_partidas.end(); ++it_in)
     {   // (*it_in) es una partida,
         if ((*it_in).get_nombre() == _nombre) {  // si existe la partida será la "partida_actual"
             return (*it_in);
@@ -205,7 +205,7 @@ GUI_partida GUI_gestor_partidas::get_or_new_partida(string _nombre)
         }
     };
     // ------ si la partida no existe, se genera una partida nueva con el primer movimiento = todo al inicio
-    if (!existe_la_partida) 
+    if (!existe_la_partida)
     {
         GUI_partida nueva_partida;
         GUI_jugada posicion_de_salida;
@@ -220,7 +220,7 @@ GUI_partida GUI_gestor_partidas::get_or_new_partida(string _nombre)
 
         return nueva_partida;
     }
- 
+
 }
 
 GUI_partida GUI_gestor_partidas::get_partida_ejemplo()
@@ -250,4 +250,3 @@ vector<string> GUI_gestor_partidas::get_nombres_partidas()
     }
     return nombres;
 }
-

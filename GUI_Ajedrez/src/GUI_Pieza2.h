@@ -1,6 +1,7 @@
 #pragma once
 #include "ETSIDI.h"
 #include <string>
+
 //#include "GUI_Tablero.h"
 
 using namespace ETSIDI;
@@ -22,6 +23,7 @@ typedef struct PIEZA_STRU {
 
 class Pieza_GUI
 {
+	friend class gestor_movimientos;
 	string textura;
 	int size_x{}, size_y{};
 	float pos_x{}, pos_y{}; /// posición según escala del sprite

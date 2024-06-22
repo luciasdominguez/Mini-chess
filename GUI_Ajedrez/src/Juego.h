@@ -8,6 +8,7 @@
 #include "GUI_turno.h"
 #include "listado_partidas.h"
 #include "GUI_estado_P_J.h"
+#include "fichas.h"
 
 using std::vector;
 using ETSIDI::Vector2D;
@@ -25,9 +26,9 @@ class Juego
 	GUI_marcador_cursor* casilla_cursor;
 	GUI_marcador_locked* casilla_lckd;
 	Pieza_GUI* cual_pieza_locked;
-	T_listado_partidas listado_partidas;
+	//T_listado_partidas listado_partidas;
 
-	
+
 	void generar_piezas();
 	void actualizar_piezas();
 
@@ -36,7 +37,6 @@ protected:
 	GUI_jugada jugada_ahora;
 public:
 	Juego();
-
 	void carga_partida_al_GUI(int); // partida = lista de movimientos
 	GUI_partida get_partida_actual();
 	void guarda_partida_actual();
@@ -65,9 +65,11 @@ public:
 	GUI_gestor_partidas get_almacen_partidas();
 
 
+	bool comprobar_movimiento();
+
+
 
 	//GUI_Tablero miTablero;
 	friend GUI_gestor_partidas;
 	friend GUI_Tablero;
 };
-
