@@ -7,9 +7,9 @@ void GUI_estado_P_J::calcula_Pos_Est_general(ESTADO_GENERAL est_gen)
 	//enum ESTADO_GENERAL { en_select_partida = 0, en_jugadas};
 	switch (est_gen)
 	{
-	case en_seleccion_partida:	
+	case modo_seleccion_partida:	
 		inc_y = 0;	break;
-	case en_jugadas:			
+	case modo_juego:			
 		inc_y = -12.4;	break;
 	}
 	pos_x = ref_x;

@@ -148,6 +148,8 @@
     <ClCompile Include="src\GUI_Tablero.cpp" />
     <ClCompile Include="src\GUI_turno.cpp" />
     <ClCompile Include="src\Juego.cpp" />
+    <ClCompile Include="src\logica.cpp" />
+    <ClCompile Include="src\T_listado_jugadas.cpp" />
     <ClCompile Include="src\vector2D.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -162,6 +164,8 @@
     <ClInclude Include="src\GUI_Tablero.h" />
     <ClInclude Include="src\GUI_turno.h" />
     <ClInclude Include="src\Juego.h" />
+    <ClInclude Include="src\logica.h" />
+    <ClInclude Include="src\T_listado_jugadas.h" />
     <ClInclude Include="src\vector2D.h" />
   </ItemGroup>
   <ItemGroup>

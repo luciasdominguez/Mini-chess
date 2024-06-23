@@ -30,20 +30,6 @@ void T_listado_partidas::imprime_nombres()
 		ETSIDI::printxy((*str).c_str(), -16.5, Pos_partida_1 - (float)offset_linea);
 		offset_linea++;
 	}
-
-
-	ETSIDI::setTextColor(1, 1, 0);
-	ETSIDI::printxy("PARTIDA:", -16.5, Pos_partida_1 - 11.2);
-	ETSIDI::setTextColor(1, 0.7, 0);
-	ETSIDI::printxy("lista de jugadas:", -16.5, Pos_partida_1 - 12.2);
-	ETSIDI::setTextColor(0.4, 0.4, 0.4);
-	ETSIDI::printxy("a5", -16.5, Pos_partida_1 - 13.2);
-	ETSIDI::setTextColor(1, 1, 1);
-	//auto R0 = R"("Hello -- world")";
-	string r0 = (">");
-
-	ETSIDI::printxy(r0.c_str(), -16.5, Pos_partida_1 - 14.2);
-
 }
 
 void T_listado_partidas::set_nombres_partidas(vector<string> nombres)

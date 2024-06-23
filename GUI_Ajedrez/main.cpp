@@ -8,8 +8,8 @@
 
 Juego juego;
 //vector<GUI_movimiento> partida;
-int jugadas_partida = 0;
-int jugadas_partida_ahora = 0;
+int n_jugadas_partida = 0;
+int indicador_jugada_en_partida = 0;
 int indice_movimientos_partida = 0;
 
 
@@ -73,34 +73,41 @@ void OnDraw(void)
 void OnKeyboardDown(unsigned char key, int x_t, int y_t)
 {
 	string s = getDate();
-	if (juego.get_selector_partidas_jugadas() == en_seleccion_partida)
+	vector<string> L;
+	vector<PIEZA_STRU> lista_Piezas;
+	bool en_el_final_partida = false;
+	GUI_jugada jugada_gravedad;
+	GUI_jugada jugada_final;
+
+	if (juego.get_selector_partidas_jugadas() == modo_seleccion_partida)
 	{  // operativa del teclado en estado de "seleccion_partida"
 		switch (key)
 		{
-		case 's': // se pasa a estado de "jugadas
-			juego.carga_partida_al_GUI(0);
+
+		case 's': // 
+			juego.carga_partida_al_GUI(0,true);
 			juego.get_almacen_partidas().actualiza_objeto_json();
 			exit(0);
 			break;
 		case 'n':  
 			//Se genera la partida con el nombre del día y la hora. Contiene las posiciones iniciales de un partida normal
 			juego.cargar_partida(s);
-			jugadas_partida = juego.get_partida().get_jugadas().size();
-			jugadas_partida_ahora = jugadas_partida;
-			juego.cambia_selector_partidas_jugadas();
-			juego.carga_partida_al_GUI(0);
+			n_jugadas_partida = juego.get_partida_actual().get_jugadas().size();
+			indicador_jugada_en_partida = n_jugadas_partida;
+			juego.cambia_selector_partidas_jugadas();  // se cambia a "modo juego"
+			juego.carga_partida_al_GUI(0,true);
 			break;
 		case 'e':  // se carga una partida ejemplo (la lista de los movimientos)
 			juego.cargar_partida_ejemplo();
-			jugadas_partida = juego.get_partida().get_jugadas().size();
-			jugadas_partida_ahora = jugadas_partida;
-			juego.cambia_selector_partidas_jugadas();
-			juego.carga_partida_al_GUI(0);
+			n_jugadas_partida = juego.get_partida_actual().get_jugadas().size();
+			indicador_jugada_en_partida = n_jugadas_partida;
+			juego.cambia_selector_partidas_jugadas();  // se canbia a "modo juego"
+			juego.carga_partida_al_GUI(0,true);
 			break;
 
-		case 'p': // se pasa a estado de "jugadas
+		case 'j': // se pasa a "modo juego"
 			juego.cambia_selector_partidas_jugadas();
-			juego.carga_partida_al_GUI(0);
+			juego.carga_partida_al_GUI(0,true);
 			break;
 
 		case '1':  case '2':  case '3': case '4': case '5':   case '6': case '7': case '8': case '9':
@@ -110,10 +117,9 @@ void OnKeyboardDown(unsigned char key, int x_t, int y_t)
 				string S = aux.at(i - 1);
 				string S2=S.substr(3);
 				juego.cargar_partida(S2);
-				jugadas_partida = juego.get_partida().get_jugadas().size();
-				jugadas_partida_ahora = jugadas_partida;
-				juego.cambia_selector_partidas_jugadas();
-				juego.carga_partida_al_GUI(0);
+				n_jugadas_partida = juego.get_partida_actual().get_jugadas().size();
+				indicador_jugada_en_partida = n_jugadas_partida;
+				juego.carga_partida_al_GUI(0,true);
 			}
 			else { // que suene un aviso
 
@@ -125,12 +131,17 @@ void OnKeyboardDown(unsigned char key, int x_t, int y_t)
 	}
 	else  // operativa del teclado en estado de "jugadas"
 	{
-		int tam_partida = juego.get_partida().get_jugadas().size();
+		int tam_partida = juego.get_partida_actual().get_jugadas().size();
+
 		switch (key)
 		{
-		case 's': // se pasa a estado de "jugadas
-			juego.get_almacen_partidas().actualiza_objeto_json();
-			exit(0);
+		//case 's': // se pasa a estado de "jugadas
+		//	juego.get_almacen_partidas().actualiza_objeto_json();
+		//	exit(0);
+		//	break;
+		case 'z':
+			//L = juego.get_partida_actual().get_lista_movimientos();
+			//juego.get_listado_jugadas().set_nombres_jugadas(L);
 			break;
 
 		case 'n':
@@ -143,22 +154,29 @@ void OnKeyboardDown(unsigned char key, int x_t, int y_t)
 
 		case 'p': // se pasa a estado de seleccionar partida
 			juego.cambia_selector_partidas_jugadas();
-			juego.carga_partida_al_GUI(0);
+			juego.carga_partida_al_GUI(0,true);
 			break;
 
 		case '-':
 			//partida = juego.get_partida();
+
 			if (tam_partida > 0) // error -------- se debe gestionar si no hay partida
 			{
-				jugadas_partida_ahora--;
-				if (jugadas_partida_ahora < 1) jugadas_partida_ahora = 1;
-				if (jugadas_partida_ahora > jugadas_partida) jugadas_partida_ahora = jugadas_partida;
-				juego.carga_partida_al_GUI(jugadas_partida_ahora);
+				indicador_jugada_en_partida--;
+				if (indicador_jugada_en_partida < 1) {
+					indicador_jugada_en_partida = 1;
+					en_el_final_partida = true;
+				};
+
+				if (indicador_jugada_en_partida > n_jugadas_partida) indicador_jugada_en_partida = n_jugadas_partida;
+				
+				juego.carga_partida_al_GUI(indicador_jugada_en_partida, en_el_final_partida);
 
 			}
-			if (jugadas_partida_ahora < jugadas_partida) {
+			if (indicador_jugada_en_partida < n_jugadas_partida) {
 				juego.get_casilla_cursor()->reset_cursor_casilla();
 			}
+			//juego.turno_();
 			//juego.gestion_nuevo_turno();
 			break;
 
@@ -166,16 +184,23 @@ void OnKeyboardDown(unsigned char key, int x_t, int y_t)
 			//partida = juego.get_partida();
 			if (tam_partida > 0) // error -------- se debe gestionar si no hay partida ---
 			{
-				jugadas_partida_ahora++;
-				if (jugadas_partida_ahora < 1) jugadas_partida_ahora = 1;
-				if (jugadas_partida_ahora > jugadas_partida) jugadas_partida_ahora = jugadas_partida;
-				juego.carga_partida_al_GUI(jugadas_partida_ahora);
-				//juego.get_jugador_actual();
+				bool despues_de_ultima_partida=false;
+				indicador_jugada_en_partida++;
+				if (indicador_jugada_en_partida < 1) indicador_jugada_en_partida = 1;
+				if (indicador_jugada_en_partida >= n_jugadas_partida) {
+					// Si se intenta ir mas alla de la ultima partida hay que 
+					// cargar la ultima partida pero el turno siguiente
+					despues_de_ultima_partida = true;
+					indicador_jugada_en_partida = n_jugadas_partida;
+				}
+	
+				juego.carga_partida_al_GUI(indicador_jugada_en_partida, despues_de_ultima_partida);
+
 			}
-			if (jugadas_partida_ahora < jugadas_partida) {
+			if (indicador_jugada_en_partida < n_jugadas_partida) {
 				juego.get_casilla_cursor()->reset_cursor_casilla();
 			}
-			juego.turno_();
+			//juego.turno_();
 			break;
 
 		case '5': // activación del cursor para ir a seleccionar una pieza
@@ -203,21 +228,54 @@ void OnKeyboardDown(unsigned char key, int x_t, int y_t)
 
 		case '0':  // ejecución del movimiento de la pieza seleccionada previamente
 			if (juego.get_pieza_locked() != nullptr)  // Que haya una pieza locked
-			{	//se carga el movimiento en la posición de la partida en la que nos
+			{	//se carga la jugada en la posición de la partida en la que nos
 				// encontremos. Los movimientos que hubieran después son borrados.
-				juego.mueve_pieza_locked(jugadas_partida_ahora);
-				jugadas_partida = juego.get_partida().get_jugadas().size();
-				jugadas_partida_ahora = juego.get_partida().get_jugadas().size();
+				indicador_jugada_en_partida = juego.get_partida_actual().get_jugadas().size();
+				juego.mueve_pieza_locked(indicador_jugada_en_partida);
+				n_jugadas_partida = juego.get_partida_actual().get_jugadas().size();
 				juego.get_casilla_locked()->set_estado_locked(TRANS, nullptr);
 				auto j = juego.get_jugador_actual();
 				juego.guarda_partida_actual();
-				juego.carga_partida_al_GUI(0);
+				juego.carga_partida_al_GUI(0,true);  //aqui se calcula a quien le toca el siguiente turno
+				//juego.avanza_turno(); // se actualiza a quien le toca mover como turno actual
+				
+				jugada_final = juego.get_partida_actual().get_jugadas().back();
+				jugada_gravedad.vaciar_jugada();
+
+				// test 
+				int test = 0;
+				if (j == BLANCAS) test = 1; else test = 2;
+				// fin test
+		
+				if (juego.logica.analiza_jugada(juego.get_partida_actual(), jugada_final, jugada_gravedad,test))
+				{// Si el analisis es correcto se actualiza la jugada actual 
+				 // La función devuelve en la primera variable todas las piezas que se han movido debido al movimiento intruducida
+				 // La función devuelve en la segunda variable todas las piezas que mueve la gravedad 
+				 
+					//juego.get_partida_actual().add_jugada_a_partida(jugada_gravedad);
+					//partida_actual.get_jugadas().size()
+					juego.add_jugada_libre(9999,jugada_gravedad.get_lista_piezas_movidas());
+					juego.guarda_partida_actual();
+					juego.carga_partida_al_GUI(0, true);
+				}
+				else //Si no es valida se anula la jugada
+				{
+					int a = 0;
+				}
+			
 			}
 			break;
 
 		case '*': // que pase turno!!!!
-			juego.avanza_siguiente_turno();
-			juego.carga_partida_al_GUI(0);
+			//juego.avanza_siguiente_turno();
+			//juego.carga_partida_al_GUI(0);
+			lista_Piezas.clear();
+			indicador_jugada_en_partida = juego.get_partida_actual().get_jugadas().size();
+			juego.add_jugada_libre(indicador_jugada_en_partida,lista_Piezas);
+			juego.guarda_partida_actual();
+			juego.carga_partida_al_GUI(0,true);
+			//juego.avanza_turno();
+
 			break;
 		case '8':
 			juego.get_casilla_cursor()->incrementa_posicion(0, 1);juego.check_pieza_movible();break;

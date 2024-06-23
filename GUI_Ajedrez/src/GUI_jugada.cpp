@@ -9,6 +9,19 @@ GUI_jugada::GUI_jugada()
 void GUI_jugada::set_jugador(ENUM_JUGADOR jug)
 {
 	jugador = jug;
+	switch (jug) //BLANCAS=0, NEGRAS, GRAVEDAD_N, GRAVEDA_B
+	{
+	case NEGRAS:		jugador_siguiente = GRAVEDAD_N;	break;
+	case GRAVEDAD_N:	jugador_siguiente = BLANCAS;		break;
+	case BLANCAS:		jugador_siguiente = GRAVEDAD_B;	break;
+	case GRAVEDAD_B:	jugador_siguiente = NEGRAS;	break;
+	default:			jugador_siguiente = GRAVEDAD_N;	break;
+	};
+}
+
+void GUI_jugada::set_numero_en_la_partida(int num)
+{
+	numero_en_la_partida = num;
 }
 
 int GUI_jugada::get_numero_en_la_partida()
@@ -39,6 +52,7 @@ void GUI_jugada::add_pieza_a_jugada(PIEZA_STRU pz)
 void GUI_jugada::inicio_partida()
 {
 	PIEZA_STRU pieza{};
+
 	
 	/////// BLANCAS //////////////
 	pieza.c_color = blanca;

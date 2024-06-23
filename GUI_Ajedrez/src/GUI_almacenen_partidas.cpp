@@ -102,7 +102,7 @@ void GUI_gestor_partidas::actualiza_objeto_json()
         //   en una partida
         /////////////////////////
         auto jugadas = (*it_part).get_jugadas();
-        string nombre_partida=(*it_part).get_nombre();
+        string nombre_partida=(*it_part).get_nombre_partida();
         js_nombre_partida = nombre_partida;
 
         js_jugadas.clear();
@@ -156,7 +156,7 @@ bool GUI_gestor_partidas::insert_update_partida(string nombre_partida, vector<GU
     bool partida_existe = false;
     for (auto it_in = almacen_de_partidas.begin(); it_in != almacen_de_partidas.end(); ++it_in)
     {
-        string nm = (*it_in).get_nombre();
+        string nm = (*it_in).get_nombre_partida();
         if (nm == nombre_partida) partida_existe = true;
     }
     GUI_partida _partida;
@@ -194,14 +194,9 @@ GUI_partida GUI_gestor_partidas::get_or_new_partida(string _nombre)
 
     for (auto it_in = almacen_de_partidas.begin(); it_in != almacen_de_partidas.end(); ++it_in) 
     {   // (*it_in) es una partida,
-        if ((*it_in).get_nombre() == _nombre) {  // si existe la partida será la "partida_actual"
+        if ((*it_in).get_nombre_partida() == _nombre) {  // si existe la partida será la "partida_actual"
             return (*it_in);
 
-            //aux = partida_i.get_jugadas(); // cogemos las jugadas de la partida encontrada
-            //existe_la_partida = true;
-            //partida_i.set_nombre_de_partida(_nombre);
-            //partida_i.set_jugadas_de_partida()
-            //return aux;
         }
     };
     // ------ si la partida no existe, se genera una partida nueva con el primer movimiento = todo al inicio
@@ -245,7 +240,7 @@ vector<string> GUI_gestor_partidas::get_nombres_partidas()
     nombres.clear();
     for (auto it_part = almacen_de_partidas.begin(); it_part != almacen_de_partidas.end(); ++it_part)
     {
-        string s = (*it_part).get_nombre();
+        string s = (*it_part).get_nombre_partida();
         nombres.push_back(s);
     }
     return nombres;
