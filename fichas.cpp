@@ -40,7 +40,7 @@ void peon::mover(casilla& casilla) {
 }
 
 //TORRE
-void torre::mover(casilla& casilla) {
+void torre::mover(casilla& casilla, const tablero& tablero) {
 	int mov_f = casilla.leer_fila() - pos_fila(), mov_c = casilla.leer_columna() - pos_columna();
 	colision f_casilla = gestor_movimientos::comprobar_ocupacion(this, casilla);
 
@@ -49,7 +49,12 @@ void torre::mover(casilla& casilla) {
 		//Mensaje error
 		return;
 	}
-	//NO ESTA COMPLETO, AHORA MISMO ES CAPAZ DE ATRAVESAR PIEZAS
+	
+	if (gestor_movimientos::comprobar_colision(*this, casilla, tablero)) {
+		//Mensaje error
+		return;
+	}
+
 	gestor_movimientos::cambiar_ocupación(this, &casilla);
 
 }
@@ -70,7 +75,7 @@ void caballo::mover(casilla& casilla) {
 }
 
 //ALFIL
-void alfil::mover(casilla& casilla) {
+void alfil::mover(casilla& casilla, const tablero& tablero) {
 	int mov_f = casilla.leer_fila() - pos_fila(), mov_c = casilla.leer_columna() - pos_columna();
 	colision f_casilla = gestor_movimientos::comprobar_ocupacion(this, casilla);
 
@@ -79,13 +84,18 @@ void alfil::mover(casilla& casilla) {
 		//Mensaje error
 		return;
 	}
-	//NO ESTA COMPLETO, AHORA MISMO ES CAPAZ DE ATRAVESAR PIEZAS
+
+	if (gestor_movimientos::comprobar_colision(*this, casilla, tablero)) {
+		//Mensaje error
+		return;
+	}
+
 	gestor_movimientos::cambiar_ocupación(this, &casilla);
 
 }
 
 //REINA
-void reina::mover(casilla& casilla) {
+void reina::mover(casilla& casilla, const tablero& tablero) {
 	int mov_f = casilla.leer_fila() - pos_fila(), mov_c = casilla.leer_columna() - pos_columna();
 	colision f_casilla = gestor_movimientos::comprobar_ocupacion(this, casilla);
 
@@ -94,7 +104,12 @@ void reina::mover(casilla& casilla) {
 		//Mensaje error
 		return;
 	}
-	//NO ESTA COMPLETO, AHORA MISMO ES CAPAZ DE ATRAVESAR PIEZAS
+
+	if (gestor_movimientos::comprobar_colision(*this,casilla,tablero)) {
+		//Mensaje error
+		return;
+	}
+
 	gestor_movimientos::cambiar_ocupación(this, &casilla);
 
 }
