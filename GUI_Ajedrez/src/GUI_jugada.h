@@ -11,7 +11,7 @@ enum ENUM_JUGADOR { BLANCAS=0, NEGRAS, GRAVEDAD_N, GRAVEDAD_B};
 
 class GUI_jugada   // es una lista de piezas que se han movido y quien las movió
 {
-	int numero_en_la_partida = 1;
+	int numero_en_la_partida = 0;
 
 
 public:

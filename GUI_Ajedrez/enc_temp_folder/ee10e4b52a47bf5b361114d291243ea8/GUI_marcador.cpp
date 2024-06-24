@@ -90,7 +90,7 @@ void GUI_marcador::set_posicion(ENUM_FILA f, ENUM_COLUMNA c)
 	fila = f; columna = c;
 }
 
-/////////////////////////////////////
+//////////////////////////////////////////////////////
 /////////////////////////////////////
 
 GUI_marcador_cursor::GUI_marcador_cursor( ENUM_FILA f, ENUM_COLUMNA c)

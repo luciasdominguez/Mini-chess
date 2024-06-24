@@ -5,7 +5,7 @@ bool Cl_logica::analiza_jugada(GUI_partida partida_in, GUI_jugada& jugada_propia
 {
 	bool jugada_correcta = false;
 	PIEZA_STRU pz;
-	// Se analiza si la "jugada_propia" es correcta. Si o fues correcta se devuelve false
+	// Se analiza si la "jugada_propia" es correcta. Si no fues correcta se devuelve false
 	//
 
 	jugada_correcta = true;     //test
@@ -14,7 +14,7 @@ bool Cl_logica::analiza_jugada(GUI_partida partida_in, GUI_jugada& jugada_propia
 
 	if (!jugada_correcta) return false;
 
-	// Si la jugada es correcta se devuelve true y se genera la jugada_propia que será la ultima que ha entrado 
+	// Si la jugada es correcta se devuelve true y se genera la "jugada_propia" que será la ultima que ha entrado 
 	// pero añadiendo, si es el caso, el resto de piezas afectadas (por haber comido una pieza contraria, un enroque ...
 	// Tambien se devuelve en "jugada_gravedad" la lista de las piezas que se ven afectadas por la gravedad.
 
@@ -31,7 +31,7 @@ bool Cl_logica::analiza_jugada(GUI_partida partida_in, GUI_jugada& jugada_propia
 		pz.c_color = negra; pz.c_tipo = alfil; pz.c_pieza = PZ_alfil_rey; pz.c_columna = C; pz.c_fila = f6;
 	}
 	jugada_gravedad.add_pieza_a_jugada(pz);
-
+	//FIN TEST "jugada_gravedad"
 	
 	return true;
 	

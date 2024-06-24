@@ -3,7 +3,7 @@
 GUI_jugada::GUI_jugada()
 {
 	jugador = GRAVEDAD_N;
-	numero_en_la_partida = 1;
+	numero_en_la_partida = 0;
 }
 
 void GUI_jugada::set_jugador(ENUM_JUGADOR jug)

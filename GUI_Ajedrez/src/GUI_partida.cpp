@@ -31,7 +31,7 @@ void GUI_partida::borrar_jugadas_desde_N(int desde)
 
 void GUI_partida::add_jugada_a_partida(GUI_jugada jug)
 {
-	jug.set_numero_en_la_partida(lista_jugadas.size()+1);
+	jug.set_numero_en_la_partida(lista_jugadas.size());
 	lista_jugadas.push_back(jug);
 }
 

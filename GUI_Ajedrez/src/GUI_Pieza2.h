@@ -36,7 +36,7 @@ class Pieza_GUI
 	PIEZA_STRU _datos_pieza;
 	void calculaPos(); /// calcula posicion en valores para el sprite en función de la posicion
 	void calculaTextura();
-
+	bool animada=false;
 
 
 public:
@@ -44,6 +44,7 @@ public:
 	Pieza_GUI(PIEZA_STRU d);
 
 	void dibuja_pieza();
+	void anima_pieza(bool anima);
 	void set_datosPieza(PIEZA_STRU datos);
 	PIEZA_STRU get_datosPieza();
 
