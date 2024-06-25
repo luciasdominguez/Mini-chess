@@ -10,7 +10,7 @@ class Cl_logica
 	
 
 public:
-	bool analiza_jugada(GUI_partida partida_in, GUI_jugada &jugada_propia, GUI_jugada &jugada_gravedad, int caso);  // Si la ultima jugada en valida devuelve true;
+	int analiza_jugada(GUI_partida partida_in, GUI_jugada &jugada_propia, GUI_jugada &jugada_gravedad, int caso);  // Si la ultima jugada en valida devuelve true;
 
 	
 };

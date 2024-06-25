@@ -108,8 +108,16 @@ void OnKeyboardDown(unsigned char key, int x_t, int y_t)
 			break;
 
 		case 'j': // se pasa a "modo juego"
-			juego.cambia_selector_partidas_jugadas();
-			juego.carga_partida_al_GUI(-1, true);
+			n_jugadas_partida = juego.get_N_jugadas_partida_actual();
+			if (n_jugadas_partida!=0) {
+				juego.cambia_selector_partidas_jugadas();
+				juego.carga_partida_al_GUI(-1, true);
+			}
+
+			if (juego.get_partida_actual().get_jaque_mate()) {
+				juego.cambia_selector_partidas_jugadas();
+				juego.carga_partida_al_GUI(1, true);
+			}
 			break;
 
 		case '1':  case '2':  case '3': case '4': case '5':   case '6': case '7': case '8': case '9':
@@ -268,22 +276,33 @@ void OnKeyboardDown(unsigned char key, int x_t, int y_t)
 				// test 
 				int test = 0;
 				if (j == BLANCAS) test = 1; else test = 2;
+				test = 3;
 				// fin test
-		
-				if (juego.logica.analiza_jugada(juego.get_partida_actual(), jugada_final, juego.jugada_gravedad,test))
-				{// Si el analisis es correcto se actualiza la jugada actual 
-				 // La función devuelve en la primera variable todas las piezas que se han movido debido al movimiento intruducida
-				 // La función devuelve en la segunda variable todas las piezas que mueve la gravedad 
 
-					///juego.add_jugada_libre(9999,jugada_gravedad.get_lista_piezas_movidas());
-					///juego.guarda_partida_actual();
-					///juego.carga_partida_al_GUI(0, true);
+				int resultado_jugada = juego.logica.analiza_jugada(juego.get_partida_actual(), jugada_final, juego.jugada_gravedad, test);
+				// La función ha devuelto en la primera variable todas las piezas que se han movido debido al movimiento intruducida
+				// La función ha devuelto en la segunda variable todas las piezas que mueve la gravedad	
+				
+				switch (resultado_jugada) {
+					case 0: 
+						// La jugada era ilegal
+						juego.jugada_gravedad.vaciar_jugada();
+						break;
+					case 1:
+						// Si el analisis es correcto se actualiza la jugada actual (puede afectar a otras piezas)
+						//.....
+						// ....
+						//
+						break;
+					case 2:
+						// fin de partida
+						//...
+						juego.cambia_selector_partidas_jugadas();
+						juego.carga_partida_al_GUI(1, true);
+						juego.get_partida_actual().set_jaque_mate(true);
+						break;
 				}
-				else //Si no es valida se anula la jugada
-				{
-					juego.jugada_gravedad.vaciar_jugada();
-					                               // 
-				}
+		
 			}
 			break;
 

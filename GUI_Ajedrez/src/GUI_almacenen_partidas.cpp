@@ -45,7 +45,9 @@ GUI_gestor_partidas::GUI_gestor_partidas()
         auto js_partida = it_part.value();          // partida en el json
         auto js_jugadas = js_partida["jugadas"];    // jugadas de la partida en el json
         auto nombre_partida = js_partida["nombre"];
+        auto jaque_mate = js_partida["jaque_mate"];
         partida.set_nombre_de_partida(nombre_partida);
+        partida.set_jaque_mate(jaque_mate);
         partida.vaciar_partida();
         //---------------
         GUI_jugada nueva_jugada;
@@ -87,6 +89,7 @@ void GUI_gestor_partidas::actualiza_objeto_json()
     json js_lista_partidas = json::array();
         json js_partida = json::object();
             json js_nombre_partida = "";
+            json js_jaque_mate = false;
             json js_jugadas = json::array();
                 json js_jugada = json::object();
                     json js_jugador = "";
@@ -104,6 +107,8 @@ void GUI_gestor_partidas::actualiza_objeto_json()
         auto jugadas = (*it_part).get_jugadas();
         string nombre_partida=(*it_part).get_nombre_partida();
         js_nombre_partida = nombre_partida;
+        bool jaque = (*it_part).get_jaque_mate();
+        js_jaque_mate = jaque;
 
         js_jugadas.clear();
         int n_jugada = 1;
@@ -137,7 +142,7 @@ void GUI_gestor_partidas::actualiza_objeto_json()
             //-----
             n_jugada++;
         }
-        js_partida = { {"nombre",js_nombre_partida},{"jugadas",js_jugadas} };
+        js_partida = { {"nombre",js_nombre_partida},{"jaque_mate",js_jaque_mate} ,{"jugadas",js_jugadas} ,};
         js_lista_partidas.push_back(js_partida);  //
     }
     std::ofstream fichero_json_partidas("lista_de_partidas.json");

@@ -4,7 +4,7 @@ using namespace std;
 
 GUI_partida::GUI_partida()
 {
-
+	jaque_mate = false;
 }
 
 string GUI_partida::get_nombre_partida()
@@ -40,10 +40,20 @@ void GUI_partida::set_nombre_de_partida(string n)
 	nombre = n;
 }
 
+void GUI_partida::set_jaque_mate(bool mate)
+{
+	jaque_mate = mate;
+}
+
 
 void GUI_partida::set_jugadas_de_partida(vector<GUI_jugada> lista_j)
 {
 	lista_jugadas = lista_j;
+}
+
+bool GUI_partida::get_jaque_mate()
+{
+	return jaque_mate;
 }
 
 vector<string> GUI_partida::get_lista_movimientos()
