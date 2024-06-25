@@ -1,0 +1,28 @@
+[
+    {
+        "jugadas": [
+            {
+                "jugada": 1,
+                "jugador": "NEGRAS",
+                "jaque_mate": false,
+                "piezas": [
+                    {
+                        "color": "blanca",
+                        "columna": "A",
+                        "fila": "f7",
+                        "pieza": "PZ_peon_rey",
+                        "tipo": "peon"
+                    },
+                    {
+                        "color": "negra",
+                        "columna": "B",
+                        "fila": "f8",
+                        "pieza": "PZ_peon_reina",
+                        "tipo": "peon"
+                    }
+                ]
+            }
+        ]
+        "nombre": "P2"
+    }
+]

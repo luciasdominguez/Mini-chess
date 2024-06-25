@@ -4,12 +4,12 @@ using namespace std;
 
 GUI_partida::GUI_partida()
 {
-	jaque_mate = false;
+	//jaque_mate = false;
 }
 
 string GUI_partida::get_nombre_partida()
 {
-	return nombre;
+	return nombre_partida;
 }
 
 vector<GUI_jugada> GUI_partida::get_jugadas()
@@ -37,13 +37,13 @@ void GUI_partida::add_jugada_a_partida(GUI_jugada jug)
 
 void GUI_partida::set_nombre_de_partida(string n)
 {
-	nombre = n;
+	nombre_partida = n;
 }
 
-void GUI_partida::set_jaque_mate(bool mate)
-{
-	jaque_mate = mate;
-}
+//void GUI_partida::set_jaque_mate(bool mate)
+//{
+//	jaque_mate = mate;
+//}
 
 
 void GUI_partida::set_jugadas_de_partida(vector<GUI_jugada> lista_j)
@@ -51,10 +51,10 @@ void GUI_partida::set_jugadas_de_partida(vector<GUI_jugada> lista_j)
 	lista_jugadas = lista_j;
 }
 
-bool GUI_partida::get_jaque_mate()
-{
-	return jaque_mate;
-}
+//bool GUI_partida::get_jaque_mate()
+//{
+//	return jaque_mate;
+//}
 
 vector<string> GUI_partida::get_lista_movimientos()
 {

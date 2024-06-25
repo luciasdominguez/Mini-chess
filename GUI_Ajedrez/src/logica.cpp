@@ -44,6 +44,9 @@ int Cl_logica::analiza_jugada(GUI_partida partida_in, GUI_jugada& jugada_propia,
 			jugada_gravedad.add_pieza_a_jugada(pz);
 			break;
 		case 3:
+			pz.c_color = negra; pz.c_tipo = reina; pz.c_pieza = PZ_reina; pz.c_columna = H; pz.c_fila = f5;
+			jugada_gravedad.jaque_mate = true;
+			jugada_gravedad.add_pieza_a_jugada(pz);
 			return 2;
 	}
 

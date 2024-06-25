@@ -9,6 +9,7 @@ Juego::Juego()
 	//turno_ = BLANCAS;
 	casilla_cursor = new GUI_marcador_cursor(f5, E);
 	turno = new GUI_turno;
+	Mns_jaque_mate = new GUI_jaque_mate;
 	gestor_de_partidas = new GUI_gestor_partidas;
 	estado_Partidas_Jugadas = new GUI_estado_P_J;
 	//casilla_lckd = new GUI_marcador_locked(f_ND, C_ND);
@@ -58,6 +59,7 @@ void Juego::carga_partida_al_GUI(int jugada_destino, bool en_la_ultima)
 		jugada_actual = jug;
 		cont1++;
 	}
+	get_msg_jaque_mate()->set_ver_jaque_mate(jj.jaque_mate);
 	if (en_la_ultima) 
 		avanza_turno();
 }
@@ -65,7 +67,10 @@ void Juego::carga_partida_al_GUI(int jugada_destino, bool en_la_ultima)
 
 void Juego::guarda_partida_actual()
 {
-	gestor_de_partidas->insert_update_partida(partida_actual.get_nombre_partida(), partida_actual.get_jugadas());
+	auto aux = partida_actual;
+	//bbb auto jq = aux.get_jaque_mate();
+	//gestor_de_partidas->insert_update_partida(aux.get_nombre_partida(), aux.get_jugadas(), aux.get_jaque_mate());
+	gestor_de_partidas->insert_update_partida(aux.get_nombre_partida(), aux.get_jugadas());
 }
 
 void Juego::dibuja_juego()
@@ -74,6 +79,8 @@ void Juego::dibuja_juego()
 	//turno->dibuja_turno(jugada_actual.jugador);
 	//turno->dibuja_turno(turno_para_);
 	turno->dibuja_turno(quien_mueve_ahora);
+	auto parti= get_partida_actual();
+	Mns_jaque_mate->dibuja_jaque_mate();
 	estado_Partidas_Jugadas->dibuja_seleccion_partida();
 	actualizar_piezas();
 	dibujar_piezas();
@@ -212,6 +219,16 @@ int Juego::get_N_jugadas_partida_actual()
 	return get_partida_actual().get_jugadas().size();
 }
 
+GUI_jaque_mate* Juego::get_msg_jaque_mate()
+{
+	return Mns_jaque_mate;
+}
+
+////////void Juego::jaque_mate_partida_actual(bool jaque)
+////////{
+////////	partida_actual.set_jaque_mate(jaque);
+////////}
+
 void Juego::avanza_turno()
 { 
 	calcula_siguiente_turno();
@@ -325,9 +342,10 @@ void Juego::mueve_pieza_locked(int n_posicion_jugada) // se debe añadir la pieza
 	}
 }
 
-void Juego::add_jugada_libre(int n_posicion_jugada, vector<PIEZA_STRU> lista_Piezas) {
+void Juego::add_jugada_libre(int n_posicion_jugada, vector<PIEZA_STRU> lista_Piezas, bool jaque) {
 	jugada_actual.vaciar_jugada();
 	jugada_actual.jugador = quien_mueve_ahora;
+	jugada_actual.jaque_mate = jaque;
 	for (auto it = lista_Piezas.begin(); it != lista_Piezas.end(); ++it)
 	{
 		jugada_actual.add_pieza_a_jugada(*it);

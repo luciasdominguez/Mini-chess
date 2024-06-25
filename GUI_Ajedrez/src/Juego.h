@@ -18,6 +18,7 @@ class Juego
 {
 	GUI_Tablero miTablero;
 	GUI_turno* turno;
+	GUI_jaque_mate* Mns_jaque_mate;
 	GUI_estado_P_J* estado_Partidas_Jugadas;
 	GUI_gestor_partidas* gestor_de_partidas;
 	GUI_partida partida_actual;		// una partida es una lista de jugadas.
@@ -50,7 +51,7 @@ public:
 	void dibujar_piezas();
 	void incrementa_cursor(int inc_f, int inc_c);
 	void mueve_pieza_locked(int n_posicion_jugada);
-	void add_jugada_libre(int n_posicion_jugada, vector<PIEZA_STRU> lista_Piezas);
+	void add_jugada_libre(int n_posicion_jugada, vector<PIEZA_STRU> lista_Piezas, bool jaque_mate);
 	Pieza_GUI* get_pieza_locked();
 	GUI_marcador_locked* get_casilla_locked();
 	void calcula_siguiente_turno();  // calcula el turno siguiente
@@ -70,6 +71,9 @@ public:
 	T_listado_jugadas get_listado_jugadas();
 	GUI_gestor_partidas get_almacen_partidas();
 	int get_N_jugadas_partida_actual();
+	GUI_jaque_mate* get_msg_jaque_mate();
+	//bbb void jaque_mate_partida_actual(bool jaque);
+
 	void avanza_turno();
 	Cl_logica  logica;
 	GUI_jugada jugada_gravedad;

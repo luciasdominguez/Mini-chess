@@ -114,10 +114,10 @@ void OnKeyboardDown(unsigned char key, int x_t, int y_t)
 				juego.carga_partida_al_GUI(-1, true);
 			}
 
-			if (juego.get_partida_actual().get_jaque_mate()) {
-				juego.cambia_selector_partidas_jugadas();
-				juego.carga_partida_al_GUI(1, true);
-			}
+			//////if (juego.get_partida_actual().get_jaque_mate()) {
+			//////	juego.cambia_selector_partidas_jugadas();
+			//////	juego.carga_partida_al_GUI(1, true);
+			//////}
 			break;
 
 		case '1':  case '2':  case '3': case '4': case '5':   case '6': case '7': case '8': case '9':
@@ -181,7 +181,7 @@ void OnKeyboardDown(unsigned char key, int x_t, int y_t)
 						index_jugada_en_partida = (n_jugadas_partida-1);
 				if (index_jugada_en_partida == (n_jugadas_partida-1)) 
 						en_el_final_partida = true;
-				
+				juego.get_msg_jaque_mate()->set_ver_jaque_mate(false);
 				juego.carga_partida_al_GUI(index_jugada_en_partida, en_el_final_partida);
 
 			}
@@ -226,6 +226,7 @@ void OnKeyboardDown(unsigned char key, int x_t, int y_t)
 			
 			if ((index_jugada_en_partida == n_jugadas_partida - 1) &&  // Si estamos en una jugada que no sea la ultima (de momento) no se puede activar el cursor
 				(juego.get_jugador_actual() == BLANCAS || juego.get_jugador_actual() == NEGRAS) // Si juegan BLANCAS o NEGRAS
+				&& juego.get_msg_jaque_mate()->get_ver_jaque_mate() == false
 				)
 				{
 					juego.check_pieza_movible();   // verfica si en la casilla hay una pieza movible
@@ -235,7 +236,7 @@ void OnKeyboardDown(unsigned char key, int x_t, int y_t)
 			break;
 
 		case '.':  //seleccion de pieza que se quiere mover
-			if (juego.get_pieza_locked() != nullptr)  // que haya una pieza
+			if (juego.get_pieza_locked() != nullptr && juego.get_msg_jaque_mate()->get_ver_jaque_mate() == false)  // que haya una pieza
 			{
 				auto pz_lck = juego.get_pieza_locked();
 				auto estado_locked = juego.get_casilla_locked()->get_estado_locked();
@@ -252,9 +253,10 @@ void OnKeyboardDown(unsigned char key, int x_t, int y_t)
 				};
 			};
 			break;
-
+			//juego.get_msg_jaque_mate()->set_ver_mensaje
 		case '0':  // ejecución del movimiento de la pieza seleccionada previamente
-			if (juego.get_pieza_locked() != nullptr)  // Que haya una pieza locked
+			if (juego.get_pieza_locked() != nullptr && juego.get_msg_jaque_mate()->get_ver_jaque_mate()==false)  
+				// Que haya una pieza locked y no sea fin por jaque mate
 			{	//se carga la jugada en la posición de la partida en la que nos
 				// encontremos. Los movimientos que hubieran después son borrados.
 				index_jugada_en_partida = juego.get_partida_actual().get_jugadas().size()-1;
@@ -279,7 +281,9 @@ void OnKeyboardDown(unsigned char key, int x_t, int y_t)
 				test = 3;
 				// fin test
 
-				int resultado_jugada = juego.logica.analiza_jugada(juego.get_partida_actual(), jugada_final, juego.jugada_gravedad, test);
+				auto partida_act = juego.get_partida_actual();
+
+				int resultado_jugada = juego.logica.analiza_jugada(partida_act, jugada_final, juego.jugada_gravedad, test);
 				// La función ha devuelto en la primera variable todas las piezas que se han movido debido al movimiento intruducida
 				// La función ha devuelto en la segunda variable todas las piezas que mueve la gravedad	
 				
@@ -287,28 +291,38 @@ void OnKeyboardDown(unsigned char key, int x_t, int y_t)
 					case 0: 
 						// La jugada era ilegal
 						juego.jugada_gravedad.vaciar_jugada();
+						juego.get_msg_jaque_mate()->set_ver_jaque_mate(false);
 						break;
 					case 1:
 						// Si el analisis es correcto se actualiza la jugada actual (puede afectar a otras piezas)
 						//.....
 						// ....
+						// 
+						juego.get_msg_jaque_mate()->set_ver_jaque_mate(false);
 						//
 						break;
 					case 2:
-						// fin de partida
+						// fin de partida por jaque mate
 						//...
-						juego.cambia_selector_partidas_jugadas();
+
+						// partida_act.set_jaque_mate(true);
+						//juego.get_partida_actual().set_jaque_mate(true);
+
+						partida_act = juego.get_partida_actual();
+						//bbb juego.jaque_mate_partida_actual(true);
+						
+						//juego.get_partida_actual().get_jugadas().
 						juego.carga_partida_al_GUI(1, true);
-						juego.get_partida_actual().set_jaque_mate(true);
+
+						//juego.cambia_selector_partidas_jugadas();
+						//juego.
 						break;
 				}
 		
 			}
 			break;
 
-		case '*': // que pase turno!!!!
-			//juego.avanza_siguiente_turno();
-			//juego.carga_partida_al_GUI(0);
+		case '*': // que juegue la gravedad
 
 			if (juego.get_jugador_actual() == GRAVEDAD_B || juego.get_jugador_actual() == GRAVEDAD_N)
 			{  // Si le toca a la gravedad ....
@@ -316,14 +330,18 @@ void OnKeyboardDown(unsigned char key, int x_t, int y_t)
 				lista_Piezas = juego.jugada_gravedad.get_lista_piezas_movidas();
 				index_jugada_en_partida = juego.get_partida_actual().get_jugadas().size()-1;
 				jugadas = juego.get_partida_actual().get_jugadas();
-				juego.add_jugada_libre(index_jugada_en_partida+1, lista_Piezas);
+				juego.add_jugada_libre(index_jugada_en_partida+1, lista_Piezas, juego.jugada_gravedad.jaque_mate);
 				index_jugada_en_partida = juego.get_partida_actual().get_jugadas().size()-1;
 				n_jugadas_partida = juego.get_partida_actual().get_jugadas().size();
+				partida_aux = juego.get_partida_actual();
 				jugadas = juego.get_partida_actual().get_jugadas();
 				juego.guarda_partida_actual();
 				juego.get_casilla_cursor()->reset_cursor_casilla();
 				juego.get_casilla_cursor()->switch_cursor_casilla();
+
+				juego.get_msg_jaque_mate()->set_ver_jaque_mate(juego.jugada_gravedad.jaque_mate);
 				juego.carga_partida_al_GUI(-1, true);
+
 
 				//juego.avanza_turno();
 			}
@@ -333,6 +351,7 @@ void OnKeyboardDown(unsigned char key, int x_t, int y_t)
 
 			if ((index_jugada_en_partida == n_jugadas_partida - 1) &&  // Si estamos en una jugada que no sea la ultima (de momento) no se puede activar el cursor
 				(juego.get_jugador_actual() == BLANCAS || juego.get_jugador_actual() == NEGRAS) // Si juegan BLANCAS o NEGRAS
+				&& juego.get_msg_jaque_mate()->get_ver_jaque_mate() == false
 				)
 			{
 				juego.get_casilla_cursor()->incrementa_posicion(0, 1);
@@ -344,6 +363,7 @@ void OnKeyboardDown(unsigned char key, int x_t, int y_t)
 		case '9':
 			if ((index_jugada_en_partida == n_jugadas_partida - 1) &&  // Si estamos en una jugada que no sea la ultima (de momento) no se puede activar el cursor
 				(juego.get_jugador_actual() == BLANCAS || juego.get_jugador_actual() == NEGRAS) // Si juegan BLANCAS o NEGRAS
+				&& juego.get_msg_jaque_mate()->get_ver_jaque_mate() == false
 				)
 			{
 				juego.get_casilla_cursor()->incrementa_posicion(-1, 1);
@@ -355,6 +375,7 @@ void OnKeyboardDown(unsigned char key, int x_t, int y_t)
 		case '6':
 			if ((index_jugada_en_partida == n_jugadas_partida - 1) &&  // Si estamos en una jugada que no sea la ultima (de momento) no se puede activar el cursor
 				(juego.get_jugador_actual() == BLANCAS || juego.get_jugador_actual() == NEGRAS) // Si juegan BLANCAS o NEGRAS
+				&& juego.get_msg_jaque_mate()->get_ver_jaque_mate() == false
 				)
 			{
 				juego.get_casilla_cursor()->incrementa_posicion(-1, 0);
@@ -366,6 +387,7 @@ void OnKeyboardDown(unsigned char key, int x_t, int y_t)
 		case '3':
 			if ((index_jugada_en_partida == n_jugadas_partida - 1) &&  // Si estamos en una jugada que no sea la ultima (de momento) no se puede activar el cursor
 				(juego.get_jugador_actual() == BLANCAS || juego.get_jugador_actual() == NEGRAS) // Si juegan BLANCAS o NEGRAS
+				&& juego.get_msg_jaque_mate()->get_ver_jaque_mate() == false
 				)
 			{
 				juego.get_casilla_cursor()->incrementa_posicion(-1, -1);
@@ -377,6 +399,7 @@ void OnKeyboardDown(unsigned char key, int x_t, int y_t)
 		case '2':
 			if ((index_jugada_en_partida == n_jugadas_partida - 1) &&  // Si estamos en una jugada que no sea la ultima (de momento) no se puede activar el cursor
 				(juego.get_jugador_actual() == BLANCAS || juego.get_jugador_actual() == NEGRAS) // Si juegan BLANCAS o NEGRAS
+				&& juego.get_msg_jaque_mate()->get_ver_jaque_mate() == false
 				)
 			{
 				juego.get_casilla_cursor()->incrementa_posicion(0, -1);
@@ -388,6 +411,7 @@ void OnKeyboardDown(unsigned char key, int x_t, int y_t)
 		case '1':
 			if ((index_jugada_en_partida == n_jugadas_partida - 1) &&  // Si estamos en una jugada que no sea la ultima (de momento) no se puede activar el cursor
 				(juego.get_jugador_actual() == BLANCAS || juego.get_jugador_actual() == NEGRAS) // Si juegan BLANCAS o NEGRAS
+				&& juego.get_msg_jaque_mate()->get_ver_jaque_mate() == false
 				)
 			{
 				juego.get_casilla_cursor()->incrementa_posicion(1, -1);
@@ -400,6 +424,7 @@ void OnKeyboardDown(unsigned char key, int x_t, int y_t)
 		case '4':
 			if ((index_jugada_en_partida == n_jugadas_partida - 1) &&  // Si estamos en una jugada que no sea la ultima (de momento) no se puede activar el cursor
 				(juego.get_jugador_actual() == BLANCAS || juego.get_jugador_actual() == NEGRAS) // Si juegan BLANCAS o NEGRAS
+				&& juego.get_msg_jaque_mate()->get_ver_jaque_mate() == false
 				)
 			{
 				juego.get_casilla_cursor()->incrementa_posicion(1, 0);
@@ -412,6 +437,7 @@ void OnKeyboardDown(unsigned char key, int x_t, int y_t)
 		case '7':
 			if ((index_jugada_en_partida == n_jugadas_partida - 1) &&  // Si estamos en una jugada que no sea la ultima (de momento) no se puede activar el cursor
 				(juego.get_jugador_actual() == BLANCAS || juego.get_jugador_actual() == NEGRAS) // Si juegan BLANCAS o NEGRAS
+				&& juego.get_msg_jaque_mate()->get_ver_jaque_mate() == false
 				)
 			{
 				juego.get_casilla_cursor()->incrementa_posicion(1, 1);

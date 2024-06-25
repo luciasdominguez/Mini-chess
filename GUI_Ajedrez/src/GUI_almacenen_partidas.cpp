@@ -19,7 +19,7 @@ GUI_gestor_partidas::GUI_gestor_partidas()
 
     string line;
 
-    std::ifstream fichero_json_partidas("lista_de_partidas.json");
+    std::ifstream fichero_json_partidas("lista_de_partidas_jq_v2.json");
     string partidas_json_en_texto;
 
     partidas_json_en_texto.erase();
@@ -47,7 +47,7 @@ GUI_gestor_partidas::GUI_gestor_partidas()
         auto nombre_partida = js_partida["nombre"];
         auto jaque_mate = js_partida["jaque_mate"];
         partida.set_nombre_de_partida(nombre_partida);
-        partida.set_jaque_mate(jaque_mate);
+        //bbb partida.set_jaque_mate(jaque_mate);
         partida.vaciar_partida();
         //---------------
         GUI_jugada nueva_jugada;
@@ -57,8 +57,11 @@ GUI_gestor_partidas::GUI_gestor_partidas()
             auto numero   =   js_jugada["jugada"];
             auto jugador  =   js_jugada["jugador"]; 
             auto js_piezas=   js_jugada["piezas"];
+            auto jaque_mate=  js_jugada["jaque_mate"];
             nueva_jugada.set_jugador(jugador);
             nueva_jugada.vaciar_jugada();
+            nueva_jugada.jaque_mate = jaque_mate;
+
             PIEZA_STRU nueva_pieza;
             for (auto it_pz = js_piezas.begin(); it_pz != js_piezas.end(); ++it_pz)
             {
@@ -89,10 +92,10 @@ void GUI_gestor_partidas::actualiza_objeto_json()
     json js_lista_partidas = json::array();
         json js_partida = json::object();
             json js_nombre_partida = "";
-            json js_jaque_mate = false;
             json js_jugadas = json::array();
                 json js_jugada = json::object();
                     json js_jugador = "";
+                    json js_jaque_mate = false;
                     json js_n_jugada = 1;
                     json js_piezas = json::array();
                         json js_pieza=json::object();
@@ -107,8 +110,8 @@ void GUI_gestor_partidas::actualiza_objeto_json()
         auto jugadas = (*it_part).get_jugadas();
         string nombre_partida=(*it_part).get_nombre_partida();
         js_nombre_partida = nombre_partida;
-        bool jaque = (*it_part).get_jaque_mate();
-        js_jaque_mate = jaque;
+        //bbb bool jaque = (*it_part).get_jaque_mate();
+        //bbb js_jaque_mate = jaque;
 
         js_jugadas.clear();
         int n_jugada = 1;
@@ -121,7 +124,11 @@ void GUI_gestor_partidas::actualiza_objeto_json()
             js_n_jugada = n_jugada;
             //--se asigna el jugador de la jugada
             auto jugador = (*it_jug).jugador;
+            //-- se asigna si la jugada es mate
+            bool jaque_mate = (*it_jug).jaque_mate;
+
             js_jugador = jugador;
+            js_jaque_mate = jaque_mate;
             //--se genera la lista de piezas de la jugada
             js_piezas.clear();
             auto piezas = (*it_jug).get_lista_piezas_movidas();
@@ -137,15 +144,15 @@ void GUI_gestor_partidas::actualiza_objeto_json()
                 js_pieza= json::object({{"tipo",tipo_pz},{"color",color_pz},{"pieza",pieza_pz},{"fila",fila_pz},{"columna",columna_pz} });
                 js_piezas.push_back(js_pieza);
             }
-            js_jugada = { {"jugada",js_n_jugada},{"jugador",js_jugador},{"piezas",js_piezas} };
+            js_jugada = { {"jugada",js_n_jugada},{"jugador",js_jugador},{"jaque_mate",js_jaque_mate}, {"piezas",js_piezas} };
             js_jugadas.push_back(js_jugada); //objeto jugada
             //-----
             n_jugada++;
         }
-        js_partida = { {"nombre",js_nombre_partida},{"jaque_mate",js_jaque_mate} ,{"jugadas",js_jugadas} ,};
+        js_partida = { {"nombre",js_nombre_partida},{"jugadas",js_jugadas} ,};
         js_lista_partidas.push_back(js_partida);  //
     }
-    std::ofstream fichero_json_partidas("lista_de_partidas.json");
+    std::ofstream fichero_json_partidas("lista_de_partidas_jq_v2.json");
     if (fichero_json_partidas.is_open())
     {
         fichero_json_partidas << std::setw(4) << js_lista_partidas << '\n';
@@ -167,6 +174,7 @@ bool GUI_gestor_partidas::insert_update_partida(string nombre_partida, vector<GU
     GUI_partida _partida;
     _partida.set_nombre_de_partida(nombre_partida);
     _partida.set_jugadas_de_partida(lista_jugadas);
+    //bbb _partida.set_jaque_mate(jaque_mate);
     if (!partida_existe) {  // si no existe se inserta al final de la lista. Si esta llena se borra la primera
         if (almacen_de_partidas.size() >= 9) // si ya hay nueve partidas == está lleno se borra la primera
             almacen_de_partidas.erase(almacen_de_partidas.begin());
@@ -211,6 +219,7 @@ GUI_partida GUI_gestor_partidas::get_or_new_partida(string _nombre)
         GUI_jugada posicion_de_salida;
         posicion_de_salida.inicio_partida(); // se generan los movimientos de la posición de salida
         nueva_partida.set_nombre_de_partida(_nombre);  // se establece el nombre a la partida
+        //bbb nueva_partida.set_jaque_mate(false);
         nueva_partida.add_jugada_a_partida(posicion_de_salida);  // se añade a la partida la posición de salida
 
         if (almacen_de_partidas.size() >= 9) // si ya hay nueve partidas == está lleno se borra la primera
