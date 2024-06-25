@@ -52,10 +52,10 @@ void T_listado_jugadas::imprime_jugadas()
 	}
 }
 
-void T_listado_jugadas::set_lineas_partida(vector<string> nombres)
+void T_listado_jugadas::set_lineas_partida(vector<string> _lineas_partida)
 {
 	lineas_de_la_partida.clear();
-	for (auto it_nombres = nombres.begin(); it_nombres != (nombres.end()); ++it_nombres)
+	for (auto it_nombres = _lineas_partida.begin(); it_nombres != (_lineas_partida.end()); ++it_nombres)
 	{
 		lineas_de_la_partida.push_back((*it_nombres));
 	}

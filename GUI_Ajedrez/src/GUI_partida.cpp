@@ -66,7 +66,7 @@ vector<string> GUI_partida::get_lista_movimientos()
 	for (auto it_jug = jugadas.begin(); it_jug != jugadas.end(); ++it_jug)
 	{
 		jugada = (*it_jug);
-		str_num_jugada=to_string(jugada.get_numero_en_la_partida()-1);
+		str_num_jugada=to_string(jugada.get_numero_en_la_partida());
 		str_jugador=Jugador_a_String(jugada.jugador);
 		int num_pieza = 0;
 		for (auto it = jugada.lista_PiezasMovidas.begin(); it != jugada.lista_PiezasMovidas.end(); ++it)

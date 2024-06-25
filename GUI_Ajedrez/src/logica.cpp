@@ -26,11 +26,15 @@ bool Cl_logica::analiza_jugada(GUI_partida partida_in, GUI_jugada& jugada_propia
 	jugada_gravedad.vaciar_jugada();
 	if (test == 1) {
 		pz.c_color = negra; pz.c_tipo = caballo; pz.c_pieza = PZ_caballo_rey; pz.c_columna = B; pz.c_fila = f6;
+		jugada_gravedad.add_pieza_a_jugada(pz);
+		pz.c_color = blanca; pz.c_tipo = alfil; pz.c_pieza = PZ_alfil_rey; pz.c_columna = G; pz.c_fila = f4;
+		jugada_gravedad.add_pieza_a_jugada(pz);
 	}
 	else {
 		pz.c_color = negra; pz.c_tipo = alfil; pz.c_pieza = PZ_alfil_rey; pz.c_columna = C; pz.c_fila = f6;
+		jugada_gravedad.add_pieza_a_jugada(pz);
 	}
-	jugada_gravedad.add_pieza_a_jugada(pz);
+
 	//FIN TEST "jugada_gravedad"
 	
 	return true;
