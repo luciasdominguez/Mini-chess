@@ -26,7 +26,7 @@ public:
 	casilla leer_posicion() const { return *posicion; };
 	tipo leer_tipo() { return t; }
 
-	virtual void mover(casilla& casillas) {};
+	virtual bool mover(casilla& casillas, const tablero& tablero) {};
 
 	friend class gestor_movimientos;
 };
@@ -35,7 +35,7 @@ public:
 class peon : public ficha {
 
 public:
-	void mover(casilla& casillas) override;
+	bool mover(casilla& casillas, const tablero& tablero) override;
 
 private:
 	bool ha_movido = false;
@@ -44,7 +44,7 @@ private:
 
 class torre : public ficha {
 public:
-	void mover(casilla& casillas, const tablero& tablero);
+	bool mover(casilla& casillas, const tablero& tablero) override;
 
 private:
 	const tipo t = tipo::torre;
@@ -52,12 +52,12 @@ private:
 
 class caballo : public ficha {
 public:
-	void mover(casilla& casillas) override;
+	bool mover(casilla& casillas, const tablero& tablero) override;
 };
 
 class alfil : public ficha {
 public:
-	void mover(casilla& casillas, const tablero& tablero);
+	bool mover(casilla& casillas, const tablero& tablero) override;
 
 private:
 	const tipo t = tipo::alfil;
@@ -65,7 +65,7 @@ private:
 
 class reina : public ficha {
 public:
-	void mover(casilla& casillas, const tablero& tablero);
+	bool mover(casilla& casillas, const tablero& tablero) override;
 
 private:
 	const tipo t = tipo::reina;
@@ -73,7 +73,7 @@ private:
 
 class rey : public ficha {
 public:
-	void mover(casilla& casillas, const tablero& tablero);
+	bool mover(casilla& casillas, const tablero& tablero) override;
 	bool en_jaque(const casilla& c, const tablero& t); //Pide posición para poder comprobar también si se dará jaque en posiciones futuras
 	void comprobar_jaque(bool& fin, bool& jaque, const tablero& tablero, int i, int columna, tipo t);
 

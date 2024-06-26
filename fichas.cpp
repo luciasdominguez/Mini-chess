@@ -9,129 +9,158 @@ ficha::ficha(casilla* _pos, color _color) {
 
 
 //PEON
-void peon::mover(casilla& casilla) {
+bool peon::mover(casilla& casilla, const tablero& tablero) {
 	int mov_f = casilla.leer_fila() - pos_fila(), mov_c = casilla.leer_columna() - pos_columna();
 	colision f_casilla = gestor_movimientos::comprobar_ocupacion(this, casilla);
+	rey R = *tablero.encontrar_rey(this->c);
 
 	//Primer caso posible, esta ocupado por nuestra propia ficha
 	if (f_casilla == colision::amigo) {
 		//Mensaje error
-		return;
+		return false;
 	}
 
 	//Desglose de movimientos posibles para los dos colores
 	switch (c) {
 	blanca:
 		if (mov_c < -2 || mov_c >= 0 || abs(mov_f) > 1 || (mov_f == 0 && f_casilla != colision::vacio) || (mov_c == -2 && (ha_movido == true || mov_f != 0)) || (mov_f != 0 && f_casilla != colision::vacio)) {
-			return;
+			return false;
 		}
 		break;
 
 	negra:
 		if (mov_c > 2 || mov_c <= 0 || abs(mov_f) > 1 || (mov_f == 0 && f_casilla != colision::vacio) || (mov_c == 2 && (ha_movido == true || mov_f != 0)) || (mov_f != 0 && f_casilla != colision::vacio)) {
-			return;
+			return false;
 		}
 		break;
 	}
 
-	//Si puede realizar el movimiento (es decir, no salimos antes de la funcion)
-	gestor_movimientos::cambiar_ocupación(this, &casilla);
+	if (R.en_jaque(casilla, tablero) == true) {
+		//Mensaje error por jaque
+		return false;
+	}
 
+
+	return true;
 }
 
 //TORRE
-void torre::mover(casilla& casilla, const tablero& tablero) {
+bool torre::mover(casilla& casilla, const tablero& tablero) {
 	int mov_f = casilla.leer_fila() - pos_fila(), mov_c = casilla.leer_columna() - pos_columna();
 	colision f_casilla = gestor_movimientos::comprobar_ocupacion(this, casilla);
+	rey R = *tablero.encontrar_rey(this->c);
 
 	//Primer caso posible, esta ocupado por nuestra propia ficha
 	if (f_casilla == colision::amigo || (mov_f != 0 && mov_c != 0) || (mov_f == mov_c == 0)) {
 		//Mensaje error
-		return;
+		return false;
 	}
 	
 	if (gestor_movimientos::comprobar_colision(*this, casilla, tablero)) {
 		//Mensaje error
-		return;
+		return false;
 	}
 
-	gestor_movimientos::cambiar_ocupación(this, &casilla);
+	if (R.en_jaque(casilla, tablero) == true) {
+		//Mensaje error por jaque
+		return false;
+	}
 
+
+	return true;
 }
 
 //CABALLO
-void caballo::mover(casilla& casilla) {
+bool caballo::mover(casilla& casilla, const tablero& tablero) {
 	int mov_f = abs(casilla.leer_fila() - pos_fila()), mov_c = abs(casilla.leer_columna() - pos_columna());
 	colision f_casilla = gestor_movimientos::comprobar_ocupacion(this, casilla);
+	rey R = *tablero.encontrar_rey(this->c);
 
 	//Primer caso posible, esta ocupado por nuestra propia ficha
 	if (f_casilla == colision::amigo || (mov_f == 2 && mov_c != 1) || (mov_f == mov_c == 0)) { //SIN ACABAR
 		//Mensaje error
-		return;
+		return false;
 	}
 
-	gestor_movimientos::cambiar_ocupación(this, &casilla);
+	if (R.en_jaque(casilla, tablero) == true) {
+		//Mensaje error por jaque
+		return false;
+	}
 
+
+	return true;
 }
 
 //ALFIL
-void alfil::mover(casilla& casilla, const tablero& tablero) {
+bool alfil::mover(casilla& casilla, const tablero& tablero) {
 	int mov_f = casilla.leer_fila() - pos_fila(), mov_c = casilla.leer_columna() - pos_columna();
 	colision f_casilla = gestor_movimientos::comprobar_ocupacion(this, casilla);
+	rey R = *tablero.encontrar_rey(this->c);
 
 	//Primer caso posible, esta ocupado por nuestra propia ficha
 	if (f_casilla == colision::amigo || (mov_f != mov_c) || (mov_f == mov_c == 0)) {
 		//Mensaje error
-		return;
+		return false;
 	}
 
 	if (gestor_movimientos::comprobar_colision(*this, casilla, tablero)) {
 		//Mensaje error
-		return;
+		return false;
 	}
 
-	gestor_movimientos::cambiar_ocupación(this, &casilla);
+	if (R.en_jaque(casilla, tablero) == true) {
+		//Mensaje error por jaque
+		return false;
+	}
 
+
+	return true;
 }
 
 //REINA
-void reina::mover(casilla& casilla, const tablero& tablero) {
+bool reina::mover(casilla& casilla, const tablero& tablero) {
 	int mov_f = casilla.leer_fila() - pos_fila(), mov_c = casilla.leer_columna() - pos_columna();
 	colision f_casilla = gestor_movimientos::comprobar_ocupacion(this, casilla);
+	rey R = *tablero.encontrar_rey(this->c);
 
 	//Primer caso posible, esta ocupado por nuestra propia ficha
 	if (f_casilla == colision::amigo || (mov_f != 0 && mov_c != 0 && mov_f != mov_c) || (mov_f == mov_c == 0)) {
 		//Mensaje error
-		return;
+		return false;
 	}
 
 	if (gestor_movimientos::comprobar_colision(*this,casilla,tablero)) {
 		//Mensaje error
-		return;
+		return false;
 	}
 
-	gestor_movimientos::cambiar_ocupación(this, &casilla);
+	if (R.en_jaque(casilla, tablero) == true) {
+		//Mensaje error por jaque
+		return false;
+	}
 
+
+	return true;
 }
 
 //REY
-void rey::mover(casilla& casilla, const tablero& tablero) {
+bool rey::mover(casilla& casilla, const tablero& tablero) {
 	int mov_f = casilla.leer_fila() - pos_fila(), mov_c = casilla.leer_columna() - pos_columna();
 	colision f_casilla = gestor_movimientos::comprobar_ocupacion(this, casilla);
+	
 
 	//Primer caso posible, esta ocupado por nuestra propia ficha
 	if (f_casilla == colision::amigo || abs(mov_f) != 1 || abs(mov_c) != 1 || (mov_f == mov_c == 0)) {
 		//Mensaje error
-		return;
+		return false;
 	}
 
 	if (en_jaque(casilla, tablero) == true) {
 		//Mensaje error por jaque
-		return;
+		return false;
 	}
 
-	gestor_movimientos::cambiar_ocupación(this, &casilla);
-
+	return true;
 }
 
 //Probablemente podriamos acceder a la casilla que queremos desde la casilla de entrada (al estar todas en una matriz)
