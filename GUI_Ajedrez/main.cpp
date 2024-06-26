@@ -300,6 +300,8 @@ void OnKeyboardDown(unsigned char key, int x_t, int y_t)
 
 						juego.carga_partida_al_GUI(1, true);
 
+						ETSIDI::play("sonidos/disparo.wav");
+
 						break;
 					case 1:
 						// Si el analisis es correcto se actualiza la jugada actual (puede afectar a otras piezas)
@@ -343,6 +345,15 @@ void OnKeyboardDown(unsigned char key, int x_t, int y_t)
 				juego.get_casilla_cursor()->switch_cursor_casilla();
 
 				juego.get_msg_jaque_mate()->set_ver_jaque_mate(juego.jugada_gravedad.jaque_mate);
+				auto p = partida_aux->get_jugadas().at(partida_aux->get_jugadas().size() - 1);
+				if (juego.jugada_gravedad.jaque_mate)
+				{
+					if (p.jugador == BLANCAS || p.jugador == GRAVEDAD_B)
+						ETSIDI::play("sonidos/It_s_a_me_Mario.wav");
+					else
+						ETSIDI::play("sonidos/I_am_number_one.wav");
+				}
+
 				juego.carga_partida_al_GUI(-1, true);
 
 
