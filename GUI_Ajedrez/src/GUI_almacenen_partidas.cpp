@@ -205,11 +205,21 @@ GUI_partida GUI_gestor_partidas::get_or_new_partida(string _nombre)
     vector<GUI_jugada> aux;
     bool existe_la_partida=false;
 
+    //int ii;
+    //GUI_partida aux2;
+    //for (ii = 0;ii < almacen_de_partidas.size();ii++)
+    //{
+    //    if (almacen_de_partidas.at(ii).get_nombre_partida() == _nombre) 
+    //    {
+    //        aux2 = almacen_de_partidas.at(ii);
+    //    };
+    //}
+    //return &aux2;
+
     for (auto it_in = almacen_de_partidas.begin(); it_in != almacen_de_partidas.end(); ++it_in) 
     {   // (*it_in) es una partida,
         if ((*it_in).get_nombre_partida() == _nombre) {  // si existe la partida será la "partida_actual"
             return (*it_in);
-
         }
     };
     // ------ si la partida no existe, se genera una partida nueva con el primer movimiento = todo al inicio

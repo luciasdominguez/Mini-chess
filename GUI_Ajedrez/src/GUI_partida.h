@@ -101,6 +101,7 @@ public:
 
 	void vaciar_partida();
 	void borrar_jugadas_desde_N(int desde);
+	void borrar_jugada_ultima();
 	void add_jugada_a_partida(GUI_jugada jug);
 	void set_nombre_de_partida(string);
 	//bbb void set_jaque_mate(bool mate);

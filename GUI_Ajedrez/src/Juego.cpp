@@ -116,9 +116,9 @@ void Juego::cargar_partida_ejemplo()
 
 }
 
-GUI_partida Juego::get_partida_actual()
+GUI_partida* Juego::get_partida_actual()
 {
-	return partida_actual;
+	return &partida_actual;
 }
 
 void Juego::check_pieza_movible()
@@ -216,7 +216,7 @@ GUI_gestor_partidas Juego::get_almacen_partidas()
 
 int Juego::get_N_jugadas_partida_actual()
 {
-	return get_partida_actual().get_jugadas().size();
+	return get_partida_actual()->get_jugadas().size();
 }
 
 GUI_jaque_mate* Juego::get_msg_jaque_mate()

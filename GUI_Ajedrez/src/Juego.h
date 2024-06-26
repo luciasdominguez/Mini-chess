@@ -44,7 +44,7 @@ public:
 	Juego();
 
 	void carga_partida_al_GUI(int posicion, bool despues_ultima); // partida = lista de jugadas
-	GUI_partida get_partida_actual();
+	GUI_partida* get_partida_actual();
 
 	void guarda_partida_actual();
 	void dibuja_juego();

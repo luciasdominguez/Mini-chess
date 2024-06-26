@@ -29,6 +29,13 @@ void GUI_partida::borrar_jugadas_desde_N(int desde)
 	lista_jugadas.erase(lista_jugadas.begin()+ desde, lista_jugadas.end());
 }
 
+
+void  GUI_partida::borrar_jugada_ultima() {
+	lista_jugadas.pop_back();
+}
+
+
+
 void GUI_partida::add_jugada_a_partida(GUI_jugada jug)
 {
 	jug.set_numero_en_la_partida(lista_jugadas.size());

@@ -1,19 +1,24 @@
 #include "logica.h"
 #include "GUI_jugada.h"
 
-int Cl_logica::analiza_jugada(GUI_partida partida_in, GUI_jugada& jugada_propia, GUI_jugada& jugada_gravedad, int test)
+int Cl_logica::analiza_jugada(GUI_partida partida_in, GUI_jugada& jugada_propia, GUI_jugada& jugada_gravedad, bool jugada_erronea)
 {
-	bool jugada_correcta = false;
 	bool jaque_mate = false;
 	PIEZA_STRU pz;
 	// Se analiza si la "jugada_propia" es correcta. Si no fues correcta se devuelve 0
 	//
 
-	jugada_correcta = true;     //test
-	//jugada_correcta = false;   //test
+	int control_test=partida_in.get_jugadas().size();
+
+
+	/// control del test
+	if (jugada_erronea) 
+		return 0;  // el parametro para testear jugada_erronea
+
+
 	// ..........................
 
-	if (!jugada_correcta) return 0;
+	
 
 	// Si la jugada es correcta:
 	//	se genera la "jugada_propia" que será la ultima que ha entrado 
@@ -30,7 +35,7 @@ int Cl_logica::analiza_jugada(GUI_partida partida_in, GUI_jugada& jugada_propia,
 
 	//TEST "jugada_gravedad"
 	jugada_gravedad.vaciar_jugada();
-	switch (test) {
+	switch (control_test) {
 		case 1:
 			pz.c_color = negra; pz.c_tipo = caballo; pz.c_pieza = PZ_caballo_rey; pz.c_columna = B; pz.c_fila = f6;
 			jugada_gravedad.add_pieza_a_jugada(pz);
@@ -45,8 +50,12 @@ int Cl_logica::analiza_jugada(GUI_partida partida_in, GUI_jugada& jugada_propia,
 			break;
 		case 3:
 			pz.c_color = negra; pz.c_tipo = reina; pz.c_pieza = PZ_reina; pz.c_columna = H; pz.c_fila = f5;
-			jugada_gravedad.jaque_mate = true;
+			jugada_gravedad.jaque_mate = false;
 			jugada_gravedad.add_pieza_a_jugada(pz);
+			break;
+
+		default:
+			jugada_gravedad.jaque_mate = true;
 			return 2;
 	}
 
