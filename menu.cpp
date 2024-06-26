@@ -1,3 +1,5 @@
+//ESTRUCTURA DE COMO VA A SER EL MENU
+
 #include <iostream>
 #include <stdlib.h>
 
