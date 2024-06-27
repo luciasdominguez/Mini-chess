@@ -20,3 +20,17 @@ tablero::~tablero() {
     }
     delete[] matriz;
 }
+
+ficha* tablero::encontrar_rey(const color& c) const {
+    ficha* aux = nullptr;
+
+    for (int i = 0; i < n_filas; i++) {
+        for (int j = 0; j < n_columnas; j++) {
+            aux = matriz[i][j].leer_ocupacion();
+            if (aux)
+                if (aux->leer_color() == c && aux->leer_tipo() == tipo::rey) {
+                    return aux;
+                }
+        }
+    }
+}

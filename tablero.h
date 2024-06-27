@@ -15,6 +15,8 @@ public:
     int leer_columnas() const { return n_columnas; }
     casilla leer_casilla(int i, int j) const { return matriz[i][j]; }
 
+    ficha* encontrar_rey(const color& c) const;
+
     // Destructor de tablero
     ~tablero();
 };
