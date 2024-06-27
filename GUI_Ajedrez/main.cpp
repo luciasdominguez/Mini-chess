@@ -262,11 +262,17 @@ void OnKeyboardDown(unsigned char key, int x_t, int y_t)
 				// Que haya una pieza locked y no sea fin por jaque mate
 			{	//se carga la jugada en la posición de la partida en la que nos
 				// encontremos. Los movimientos que hubieran después son borrados.
+				
+				// antes de actuar con la jugada, actualizamos y guardamos el tablero tal con está
+				juego.get_partida_actual()->actualiza_tablero();
+				auto T = juego.get_partida_actual()->get_tablero();
+
 				index_jugada_en_partida = juego.get_partida_actual()->get_jugadas().size()-1;
 				juego.mueve_pieza_locked(index_jugada_en_partida);
 				n_jugadas_partida = juego.get_partida_actual()->get_jugadas().size();
 				juego.get_casilla_locked()->set_estado_locked(TRANS, nullptr);
 				auto j = juego.get_jugador_actual();
+
 				juego.guarda_partida_actual();
 				index_jugada_en_partida = juego.get_partida_actual()->get_jugadas().size()-1;
 				n_jugadas_partida = juego.get_partida_actual()->get_jugadas().size();
@@ -283,8 +289,12 @@ void OnKeyboardDown(unsigned char key, int x_t, int y_t)
 				//*partida_act es el contenido de la partida actual del objeto juego;
 
 				// el parametro "test_jugada_erronea" solamente es para provocar la reaccion a jugada erronea
+				// se activa con al pulsar la tecla "/" en lugar del "0"
 
-				int resultado_jugada = juego.logica.analiza_jugada((*partida_act), jugada_final, juego.jugada_gravedad, test_jugada_erronea);
+				//resultado_jugada = juego.logica.analiza_jugada((*partida_act), jugada_final, juego.jugada_gravedad, test_jugada_erronea);
+				int resultado_jugada = juego.logica.analiza_jugada(partida_act->get_tablero(), jugada_final, juego.jugada_gravedad, test_jugada_erronea);
+
+				
 				// La función ha devuelto en la primera variable todas las piezas que se han movido debido al movimiento intruducida
 				// La función ha devuelto en la segunda variable todas las piezas que mueve la gravedad	
 				

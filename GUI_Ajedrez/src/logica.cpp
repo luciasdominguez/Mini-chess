@@ -1,15 +1,35 @@
 #include "logica.h"
 #include "GUI_jugada.h"
 
-int Cl_logica::analiza_jugada(GUI_partida partida_in, GUI_jugada& jugada_propia, GUI_jugada& jugada_gravedad, bool jugada_erronea)
+
+Cl_logica::Cl_logica()
 {
-	bool jaque_mate = false;
-	PIEZA_STRU pz;
-	// Se analiza si la "jugada_propia" es correcta. Si no fues correcta se devuelve 0
-	//
+	Tablero_actual_= {// vector de 2 dimesiones de 8x8
+		{ pz_0,pz_0,pz_0,pz_0,pz_0,pz_0,pz_0,pz_0 },
+		{ pz_0,pz_0,pz_0,pz_0,pz_0,pz_0,pz_0,pz_0 },
+		{ pz_0,pz_0,pz_0,pz_0,pz_0,pz_0,pz_0,pz_0 },
+		{ pz_0,pz_0,pz_0,pz_0,pz_0,pz_0,pz_0,pz_0 },
+		{ pz_0,pz_0,pz_0,pz_0,pz_0,pz_0,pz_0,pz_0 },
+		{ pz_0,pz_0,pz_0,pz_0,pz_0,pz_0,pz_0,pz_0 },
+		{ pz_0,pz_0,pz_0,pz_0,pz_0,pz_0,pz_0,pz_0 },
+		{ pz_0,pz_0,pz_0,pz_0,pz_0,pz_0,pz_0,pz_0 }
+	};
+	Tablero_temp = Tablero_actual_;
+}
 
-	int control_test=partida_in.get_jugadas().size();
 
+int Cl_logica::analiza_jugada(vector<vector<PIEZA_STRU>> Tablero_actual_, GUI_jugada& jugada_propia, GUI_jugada& jugada_gravedad, bool jugada_erronea)
+{
+
+	// Se analiza si la "jugada_propia" es correcta en base a lo que contiene "Tablero_actual_" . Si no fues correcta se devuelve 0
+
+	auto t1 = Tablero_actual_;
+
+	//.......................................
+	//..............................
+
+	//int control_test=partida_in.get_jugadas().size();
+	int control_test = (rand() % 3)+1;  // 
 
 	/// control del test
 	if (jugada_erronea) 
@@ -18,15 +38,6 @@ int Cl_logica::analiza_jugada(GUI_partida partida_in, GUI_jugada& jugada_propia,
 
 	// ..........................
 
-	
-
-	// Si la jugada es correcta:
-	//	se genera la "jugada_propia" que será la ultima que ha entrado 
-	//	pero añadiendo, si es el caso, el resto de piezas afectadas (por haber comido una pieza contraria, un enroque ...
-	//	Tambien se devuelve en "jugada_gravedad" la lista de las piezas que se ven afectadas por la gravedad.
-	// 
-	// Si la "jugaga_gravedad" ha generado un jaque mate devuelve 2 para que se termine la partida
-	// si no es jaque mate devuelve 1
 
 
 	//TEST "jugada_propia"
@@ -64,3 +75,6 @@ int Cl_logica::analiza_jugada(GUI_partida partida_in, GUI_jugada& jugada_propia,
 	return 1;
 	
 }
+
+
+

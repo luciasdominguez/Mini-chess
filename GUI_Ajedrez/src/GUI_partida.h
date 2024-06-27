@@ -7,8 +7,12 @@ class GUI_partida  // es una lista de movimientos y un nombre
 {
 	string nombre_partida;
 	vector<GUI_jugada> lista_jugadas; // una partida es una lista de jugadas.
-	//bbbb bool jaque_mate;
-	//GUI_jugada jugada_actual;
+
+	//T_tablero
+	vector<vector<PIEZA_STRU>> Tablero_actual_;
+	vector<vector<PIEZA_STRU>> Tablero_temp;
+	PIEZA_STRU pz_0; //pieza vacia
+	GUI_jugada jugada_i;
 
 	/////////// Mapea el enum ENUM_JUGADOR a su correspondiente string ------------
 	map<ENUM_JUGADOR, string> map_Jugador_a_String = { { BLANCAS, "jugador Bl" },
@@ -99,6 +103,8 @@ public:
 	string get_nombre_partida();
 	vector<GUI_jugada> get_jugadas();
 
+
+
 	void vaciar_partida();
 	void borrar_jugadas_desde_N(int desde);
 	void borrar_jugada_ultima();
@@ -109,5 +115,7 @@ public:
 
 	void set_jugadas_de_partida(vector<GUI_jugada> lista_jugadas);
 	vector<string> get_lista_movimientos(); //todas las jugadas con las piezas de cada una.
+	void actualiza_tablero();  // genera un tablero virtual (matriz de 8x8) con las piezas que tiene situadas
+	vector<vector<PIEZA_STRU>> get_tablero();
 };
 

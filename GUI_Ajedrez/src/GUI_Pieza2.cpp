@@ -7,6 +7,7 @@ Pieza_GUI::Pieza_GUI()
 	calculaTextura();	
 	calculaPos(); // calcula posición del sprite en función de la fila y columna de la pieza
 	animada = false;
+
 }
 
 
