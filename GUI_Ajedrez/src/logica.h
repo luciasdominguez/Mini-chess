@@ -4,6 +4,7 @@
 #include "GUI_pieza.h"
 
 //enum ENUM_ANALISIS {  = 0, NEGRAS, GRAVEDAD_N, GRAVEDAD_B };
+enum ENUM_TRAYECTO { TR_torre = 0, TR_alfil = 1, TR_caballo = 2, TR_otro=-1 };
 
 class Cl_logica
 {
@@ -15,12 +16,14 @@ class Cl_logica
 
 
 	//T_tablero
-	vector<vector<PIEZA_STRU>> Tablero_actual_;
-	vector<vector<PIEZA_STRU>> Tablero_temp;
-
+	vector<vector<PIEZA_STRU>> _Tablero_actual;
+	PIEZA_STRU busca_posicion_anterior(PIEZA_STRU pieza_jugada);
 
 
 	//void analiza_gravedad();  // por hacer...............
+
+	int analiza_jugada___(vector<vector<PIEZA_STRU>> Tablero_actual_, GUI_jugada& jugada_propia, GUI_jugada& jugada_gravedad, bool jugada_erronea);
+
 
 public:
 	Cl_logica();
@@ -42,9 +45,6 @@ public:
 
 
 	/////////////////////
-	//int analiza_jugada(GUI_partida partida_in, GUI_jugada& jugada_propia, GUI_jugada& jugada_gravedad, bool jugada_erronea);  // Si la ultima jugada en valida devuelve true;
 
-
-	
 };
 

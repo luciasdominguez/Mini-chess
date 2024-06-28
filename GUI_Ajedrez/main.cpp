@@ -299,7 +299,7 @@ void OnKeyboardDown(unsigned char key, int x_t, int y_t)
 				// La función ha devuelto en la segunda variable todas las piezas que mueve la gravedad	
 				
 				switch (resultado_jugada) {
-					case 0: 
+					default: 
 						// La jugada era ilegal
 						// se anula esta jugada y se vuelve a la anterior
 						juego.jugada_gravedad.vaciar_jugada();
