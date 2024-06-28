@@ -1,7 +1,7 @@
 #pragma once
 #include "casillas.h"
 #include "clases.h"
-#include "gestor_movimientos.h"
+//#include "gestor_movimientos.h"
 #include "tablero.h"
 
 enum class tipo { vacio, peon, torre, caballo, alfil, reina, rey };
@@ -21,14 +21,19 @@ public:
 
 	ficha(const ficha& F) = default;
 
+
 	ENUM_COLOR leer_color() { return c; }
 	int pos_fila() { return posicion->leer_fila(); };
 	int pos_columna() { return posicion->leer_columna(); };
 	casilla leer_posicion() const { return *posicion; };
 	tipo leer_tipo() { return t; }
 
-	virtual bool mover(casilla& casillas, const tablero& tablero) {};
-
+	virtual bool mover(casilla& casillas, const tablero& tablero) { return false; };
+	ficha& operator =(ficha& f1) {
+		this->c = f1.c;
+		this->posicion = f1.posicion;
+		return *this;
+	}
 	friend class gestor_movimientos;
 };
 
@@ -84,7 +89,7 @@ public:
 	Rey(const ficha& F) :
 		t(tipo::rey)
 	{
-		ficha(F);
+		ficha(/*F*/);
 	}
 
 

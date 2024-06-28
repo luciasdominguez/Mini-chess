@@ -17,3 +17,23 @@ public:
 	void dibuja_turno(ENUM_JUGADOR turno);
 };
 
+
+/// ///////////////
+///  jaque mate
+///////////////////
+class GUI_jaque_mate
+{
+
+	/// posición según escala del sprite
+	float pos_x{}, pos_y{};
+	bool ver_jaque_mate;
+protected:
+	SpriteSequence* sprite_jaque;
+
+public:
+	GUI_jaque_mate();
+	void dibuja_jaque_mate();
+	void set_ver_jaque_mate(bool ver);
+	bool get_ver_jaque_mate();
+
+};

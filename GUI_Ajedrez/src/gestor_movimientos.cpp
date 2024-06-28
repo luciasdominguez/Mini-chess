@@ -26,7 +26,7 @@ void gestor_movimientos::cambiar_ocupación(ficha* p1, casilla* cas) {
 
 }
 
-bool comprobar_colision(const ficha& p1, const casilla& cas, const tablero& T) {
+bool gestor_movimientos:: comprobar_colision(const ficha& p1, const casilla& cas, const tablero& T) {
 	bool colision = false;
 	int cas_f = cas.leer_fila(), cas_c = cas.leer_columna();
 	int p1_f = p1.leer_posicion().leer_fila(), p1_c = p1.leer_posicion().leer_columna();

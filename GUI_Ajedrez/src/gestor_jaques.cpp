@@ -53,7 +53,7 @@ void gestor_jaques::Mod_estado(const tablero& T) {
 	}
 }
 
-bool comprobar_mov_posibles(const tablero& T, const ENUM_COLOR& color) {
+bool gestor_jaques::comprobar_mov_posibles(const tablero& T, const ENUM_COLOR& color) {
 	casilla c_aux;
 	ficha f_aux;
 	
@@ -63,7 +63,7 @@ bool comprobar_mov_posibles(const tablero& T, const ENUM_COLOR& color) {
 			if (c_aux.leer_ocupacion()) {
 				f_aux = *c_aux.leer_ocupacion();
 				if (f_aux.leer_color() == color) {
-					if (f_aux.mover(c_aux,T)) {
+					if (f_aux.mover(c_aux,T)==true) {
 						return true;
 					}
 				}

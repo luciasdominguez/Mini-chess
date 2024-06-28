@@ -34,11 +34,53 @@ void GUI_turno::calcula_Pos_turno(ENUM_JUGADOR trn)
 	float ref_x = -0.65, ref_y = -3.15;
 	switch (trn)
 	{
-		case BLANCAS:		inc_x = 8.5;	break;
-		case GRAVEDAD_B:	inc_x = 16.5;	break;
-		case NEGRAS:		inc_x = 0;		break;
-		case GRAVEDAD_N:	inc_x = -1.2;	break;
+	case BLANCAS:		inc_x = 8.5;	break;
+	case GRAVEDAD_B:	inc_x = 16.5;	break;
+	case NEGRAS:		inc_x = 0;		break;
+	case GRAVEDAD_N:	inc_x = -1.2;	break;
 	}
 	pos_x = ref_x + inc_x;
 	pos_y = ref_y;
+}
+
+///////////////////////////
+////////// GUI_jaque_mate
+//////////////////////
+
+GUI_jaque_mate::GUI_jaque_mate()
+{
+	string path_sprite_jaque = "imagenes/jaque_mate.png";
+	pos_x = 4;
+	pos_y = 4;
+	ver_jaque_mate = false;
+	const char* cstr = path_sprite_jaque.c_str();
+	sprite_jaque = new SpriteSequence(cstr, 1, 1, 100, true, pos_x, pos_y, 2, 2);
+	sprite_jaque->setSize(0, 0);
+}
+
+void GUI_jaque_mate::dibuja_jaque_mate()
+{
+	glPushMatrix();
+	glTranslated(0, 0, 1);
+
+	sprite_jaque->flip(false, false);
+	sprite_jaque->setPos(pos_x, pos_y);
+	if (ver_jaque_mate)
+		sprite_jaque->setSize(7, 2);
+	else
+		sprite_jaque->setSize(0, 0);
+
+	sprite_jaque->draw();
+	//fin del codigo incluido
+	glPopMatrix();
+}
+
+void GUI_jaque_mate::set_ver_jaque_mate(bool ver)
+{
+	ver_jaque_mate = ver;
+}
+
+bool GUI_jaque_mate::get_ver_jaque_mate()
+{
+	return ver_jaque_mate;
 }

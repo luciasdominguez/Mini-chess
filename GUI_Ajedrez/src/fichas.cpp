@@ -1,5 +1,5 @@
 #include "fichas.h"
-
+#include "gestor_movimientos.h"
 #include <cmath>
 
 ficha::ficha(casilla* _pos, ENUM_COLOR _color) {
