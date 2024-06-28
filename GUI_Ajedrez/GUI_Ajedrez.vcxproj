@@ -137,31 +137,50 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="src\aux.cpp" />
+    <ClCompile Include="src\aux2_.cpp" />
+    <ClCompile Include="src\casillas.cpp" />
+    <ClCompile Include="src\clases.cpp" />
+    <ClCompile Include="src\fichas.cpp" />
+    <ClCompile Include="src\gestor_jaques.cpp" />
+    <ClCompile Include="src\gestor_movimientos.cpp" />
     <ClCompile Include="src\GUI_estado_P_J.cpp" />
-    <ClCompile Include="src\listado_partidas.cpp" />
+    <ClCompile Include="src\GUI_jugada.cpp" />
     <ClCompile Include="src\GUI_marcador.cpp" />
     <ClCompile Include="src\GUI_almacenen_partidas.cpp" />
-    <ClCompile Include="src\GUI_jugada.cpp" />
+    <ClCompile Include="src\GUI_movimiento.cpp" />
     <ClCompile Include="src\GUI_partida.cpp" />
     <ClCompile Include="src\GUI_Pieza2.cpp" />
     <ClCompile Include="src\GUI_Tablero.cpp" />
     <ClCompile Include="src\GUI_turno.cpp" />
     <ClCompile Include="src\Juego.cpp" />
+    <ClCompile Include="src\listado_partidas.cpp" />
+    <ClCompile Include="src\logica.cpp" />
+    <ClCompile Include="src\tablero.cpp" />
+    <ClCompile Include="src\T_listado_jugadas.cpp" />
     <ClCompile Include="src\vector2D.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\aux.h" />
+    <ClInclude Include="src\aux2_.h" />
+    <ClInclude Include="src\casillas.h" />
+    <ClInclude Include="src\clases.h" />
+    <ClInclude Include="src\fichas.h" />
+    <ClInclude Include="src\gestor_jaques.h" />
+    <ClInclude Include="src\gestor_movimientos.h" />
     <ClInclude Include="src\GUI_estado_P_J.h" />
-    <ClInclude Include="src\listado_partidas.h" />
+    <ClInclude Include="src\GUI_jugada.h" />
     <ClInclude Include="src\GUI_marcador.h" />
     <ClInclude Include="src\GUI_almacenen_partidas.h" />
-    <ClInclude Include="src\GUI_jugada.h" />
+    <ClInclude Include="src\GUI_movimiento.h" />
     <ClInclude Include="src\GUI_partida.h" />
+    <ClInclude Include="src\GUI_pieza.h" />
     <ClInclude Include="src\GUI_Pieza2.h" />
     <ClInclude Include="src\GUI_Tablero.h" />
     <ClInclude Include="src\GUI_turno.h" />
     <ClInclude Include="src\Juego.h" />
+    <ClInclude Include="src\listado_partidas.h" />
+    <ClInclude Include="src\logica.h" />
+    <ClInclude Include="src\tablero.h" />
+    <ClInclude Include="src\T_listado_jugadas.h" />
     <ClInclude Include="src\vector2D.h" />
   </ItemGroup>
   <ItemGroup>
