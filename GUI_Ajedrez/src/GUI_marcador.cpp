@@ -57,6 +57,9 @@ void GUI_marcador::dibuja_sprite()
 		sprite_1->setSize(tam_casilla, tam_casilla);
 		break;
 	}
+
+	sprite_1->loop();
+	sprite_1->pause(false);
 	sprite_1->draw();
 	//case tp_Cursor:
 	//	sprite_tp_Cursor->setSize(tam_casilla, tam_casilla);
@@ -87,13 +90,14 @@ void GUI_marcador::set_posicion(ENUM_FILA f, ENUM_COLUMNA c)
 	fila = f; columna = c;
 }
 
-//////////////////////////////////////////////////////
+/////////////////////////////////////
 /////////////////////////////////////
 
 GUI_marcador_cursor::GUI_marcador_cursor( ENUM_FILA f, ENUM_COLUMNA c)
 {
 	string textura_Cursor = "imagenes/casilla_Cursor.png";
-	sprite_1 = new SpriteSequence(textura_Cursor.c_str(), 1, 1, 100, true, 0, 0, 2, 2);
+	//sprite_1 = new SpriteSequence(textura_Cursor.c_str(), 1, 1, 100, true, 0, 0, 2, 2);
+	sprite_1 = new SpriteSequence(textura_Cursor.c_str(), 2, 1, 300, true, 0, 0, 2, 2);
 	fila = f; columna = c;
 	sprite_2 = nullptr;
 }
@@ -149,12 +153,16 @@ void GUI_marcador_locked::set_estado_locked(ENUM_ESTADO_LOCKED est, Pieza_GUI* p
 		estado_locked = TRANS;
 		sprite_1->setSize(0, 0);
 		sprite_2->setSize(0, 0);
+		if (pieza_Locked != nullptr)
+			pieza_Locked->anima_pieza(false);
 		pieza_Locked = nullptr;
 		break;
 	case NARANJA:
 		estado_locked = NARANJA;
 		sprite_1->setSize(tam_casilla, tam_casilla);
 		sprite_2->setSize(0, 0);
+		if (pieza_Locked!=nullptr)
+			pieza_Locked->anima_pieza(false);
 		pieza_Locked = nullptr;
 		break;
 	case ROJO:
@@ -162,6 +170,7 @@ void GUI_marcador_locked::set_estado_locked(ENUM_ESTADO_LOCKED est, Pieza_GUI* p
 		sprite_1->setSize(0, 0);
 		sprite_2->setSize(tam_casilla, tam_casilla);
 		pieza_Locked = pz_locked;
+		pieza_Locked->anima_pieza(true);
 		break;
 	}
 

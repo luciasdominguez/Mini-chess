@@ -6,16 +6,23 @@ Pieza_GUI::Pieza_GUI()
 {
 	calculaTextura();	
 	calculaPos(); // calcula posición del sprite en función de la fila y columna de la pieza
+	animada = false;
+
 }
 
 
 Pieza_GUI::Pieza_GUI(PIEZA_STRU d)
 {
 	_datos_pieza = d;
+	animada = false;
 	calculaTextura();
 	const char* cstr = textura.c_str();
 	calculaPos(); // calcula posición del sprite en función de la fila y columna de la pieza
 	sprite = new SpriteSequence(cstr, 5, 1, 100, true, pos_x, pos_y, 2, 2);
+}
+
+void Pieza_GUI::anima_pieza(bool anima) {
+	animada = anima;
 }
 
 
@@ -46,8 +53,18 @@ void Pieza_GUI::dibuja_pieza()
 	{
 		sprite->setSize(1, 2);
 	};
-
-
+	if (animada)
+	{
+		sprite->loop();
+		sprite->pause(false);
+	}
+	else
+	{
+		sprite->setState(1);
+		sprite->loop();
+		sprite->pause(true);
+	}
+	 
 	sprite->draw();
 	//fin del codigo incluido
 	glPopMatrix();
