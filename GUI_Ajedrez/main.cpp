@@ -4,7 +4,7 @@
 #include "GUI_pieza.h"
 #include "GUI_marcador.h"
 #include "Juego.h"
-#include "aux.h"
+#include "aux2_.h"
 
 Juego juego;
 //vector<GUI_movimiento> partida;

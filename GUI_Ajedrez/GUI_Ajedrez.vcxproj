@@ -137,7 +137,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="src\aux.cpp" />
+    <ClCompile Include="src\aux2_.cpp" />
     <ClCompile Include="src\GUI_estado_P_J.cpp" />
     <ClCompile Include="src\listado_partidas.cpp" />
     <ClCompile Include="src\GUI_marcador.cpp" />
@@ -153,7 +153,7 @@
     <ClCompile Include="src\vector2D.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\aux.h" />
+    <ClInclude Include="src\aux2_.h" />
     <ClInclude Include="src\GUI_estado_P_J.h" />
     <ClInclude Include="src\listado_partidas.h" />
     <ClInclude Include="src\GUI_marcador.h" />
