@@ -1,8 +1,7 @@
 #pragma once
 #include "ETSIDI.h"
 #include <string>
-#include "GUI_movimiento.h"
-#include "tablero.h"
+#include "GUI_jugada.h"
 using namespace ETSIDI;
 
 class GUI_Tablero

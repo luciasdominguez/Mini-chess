@@ -5,7 +5,7 @@ using namespace ETSIDI;
 
 class GUI_turno
 {
-	ENUM_JUGADOR turno = BLANCAS;
+	ENUM_JUGADOR turno = BLANCAS; //GRAVEDAD_N;
 	float pos_x{}, pos_y{}; /// posición según escala del sprite
 	void calcula_Pos_turno(ENUM_JUGADOR turno);
 

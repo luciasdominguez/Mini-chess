@@ -1,4 +1,5 @@
 #include "tablero.h"
+#include "fichas.h"
 
 tablero::tablero(const int filas_, const int columnas_)// : n_filas(filas_), n_columnas(columnas_)
 {
@@ -19,4 +20,18 @@ tablero::~tablero() {
         delete[] matriz[i];
     }
     delete[] matriz;
+}
+
+ficha* tablero::encontrar_rey(const ENUM_COLOR& c) const {
+    ficha* aux = nullptr;
+
+    for (int i = 0; i < n_filas; i++) {
+        for (int j = 0; j < n_columnas; j++) {
+            aux = matriz[i][j].leer_ocupacion();
+            if (aux)
+                if (aux->leer_color() == c && aux->leer_tipo() == tipo::rey) {
+                    return aux;
+                }
+        }
+    }
 }

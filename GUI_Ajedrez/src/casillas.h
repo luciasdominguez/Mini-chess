@@ -1,5 +1,6 @@
 #pragma once
 
+//	ficha* ocupacion; ///Cada casilla tiene una posible ficha, este sería otro parámetro
 //#include "fichas.h"
 //#include "gestor_movimientos.h"
 //#include <iostream>
@@ -8,8 +9,9 @@
 class casilla {
 private:
 	friend class ficha;
-	int fila, columna; ///Cada casilla tiene una fila y una columna
 	ficha* ocupacion; ///Cada casilla tiene una posible ficha, este sería otro parámetro
+
+	int fila, columna; ///Cada casilla tiene una fila y una columna
 
 public:
 	//casilla() { ; } // Constructor predeterminado de casilla
