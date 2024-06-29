@@ -1,0 +1,5 @@
+﻿  Mundo.cpp
+C:\Users\diazc\Desktop\MENU_COMPLETO\src\Mundo.h(4,66): warning C4091: 'typedef ': se ha omitido a la izquierda de 'opcion' cuando no hay ninguna variable declarada
+  (compilando archivo de origen "src/Mundo.cpp")
+  
+  Pang.vcxproj -> C:\Users\diazc\Desktop\MENU_COMPLETO\bin\Pang.exe
