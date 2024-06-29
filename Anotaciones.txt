@@ -1,0 +1,10 @@
+Juego es el contenedor total. Incluye:
+historico_de_partidas: que es una lista de "Partida""
+Partida: Es una lista de "Movimiento"
+Movimiento: Es una lista de "pieza" que se han movido y el "jugador que las movió
+		Hay tres jugadores: Blancas, Negras y Gravedad
+
+La comunicación entre el GUI y la parte logico se hace pasandose un "Movimiento" cada vez
+
+
+
