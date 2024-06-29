@@ -1,0 +1,69 @@
+﻿'Pang.exe' (Win32): 'C:\Users\burgo\Downloads\Mini-chess-MENU_COMPLETO\Mini-chess-MENU_COMPLETO\MENU_COMPLETO\bin\Pang.exe' cargado. Símbolos cargados.
+'Pang.exe' (Win32): 'C:\Windows\System32\ntdll.dll' cargado. 
+'Pang.exe' (Win32): 'C:\Windows\System32\kernel32.dll' cargado. 
+'Pang.exe' (Win32): 'C:\Windows\System32\KernelBase.dll' cargado. 
+'Pang.exe' (Win32): 'C:\Users\burgo\Downloads\Mini-chess-MENU_COMPLETO\Mini-chess-MENU_COMPLETO\MENU_COMPLETO\bin\ETSIDI.dll' cargado. 
+'Pang.exe' (Win32): 'C:\Users\burgo\Downloads\Mini-chess-MENU_COMPLETO\Mini-chess-MENU_COMPLETO\MENU_COMPLETO\bin\freeglut.dll' cargado. El módulo se compiló sin símbolos.
+'Pang.exe' (Win32): 'C:\Windows\System32\user32.dll' cargado. 
+'Pang.exe' (Win32): 'C:\Windows\System32\win32u.dll' cargado. 
+'Pang.exe' (Win32): 'C:\Windows\System32\gdi32.dll' cargado. 
+'Pang.exe' (Win32): 'C:\Windows\System32\gdi32full.dll' cargado. 
+'Pang.exe' (Win32): 'C:\Windows\System32\msvcp_win.dll' cargado. 
+'Pang.exe' (Win32): 'C:\Windows\System32\ucrtbase.dll' cargado. 
+'Pang.exe' (Win32): 'C:\Windows\System32\advapi32.dll' cargado. 
+'Pang.exe' (Win32): 'C:\Windows\System32\msvcrt.dll' cargado. 
+'Pang.exe' (Win32): 'C:\Windows\System32\sechost.dll' cargado. 
+'Pang.exe' (Win32): 'C:\Windows\System32\bcrypt.dll' cargado. 
+'Pang.exe' (Win32): 'C:\Windows\System32\rpcrt4.dll' cargado. 
+'Pang.exe' (Win32): 'C:\Windows\System32\glu32.dll' cargado. 
+'Pang.exe' (Win32): 'C:\Windows\System32\opengl32.dll' cargado. 
+'Pang.exe' (Win32): 'C:\Windows\System32\combase.dll' cargado. 
+'Pang.exe' (Win32): 'C:\Windows\System32\vcruntime140d.dll' cargado. 
+'Pang.exe' (Win32): 'C:\Windows\System32\ucrtbased.dll' cargado. 
+'Pang.exe' (Win32): 'C:\Users\burgo\Downloads\Mini-chess-MENU_COMPLETO\Mini-chess-MENU_COMPLETO\MENU_COMPLETO\bin\fmodL.dll' cargado. 
+'Pang.exe' (Win32): 'C:\Windows\System32\ws2_32.dll' cargado. 
+'Pang.exe' (Win32): 'C:\Windows\System32\ole32.dll' cargado. 
+'Pang.exe' (Win32): 'C:\Windows\System32\msvcp140d.dll' cargado. 
+'Pang.exe' (Win32): 'C:\Windows\System32\vcruntime140_1d.dll' cargado. 
+'Pang.exe' (Win32): 'C:\Windows\System32\winmm.dll' cargado. 
+'Pang.exe' (Win32): 'C:\Windows\System32\vcruntime140.dll' cargado. 
+'Pang.exe' (Win32): 'C:\Windows\System32\msacm32.dll' cargado. 
+'Pang.exe' (Win32): 'C:\Windows\System32\DXCore.dll' cargado. 
+'Pang.exe' (Win32): 'C:\Windows\System32\imm32.dll' cargado. 
+El subproceso 0x8990 terminó con código 0 (0x0).
+'Pang.exe' (Win32): 'C:\Windows\System32\uxtheme.dll' cargado. 
+'Pang.exe' (Win32): 'C:\Windows\System32\msctf.dll' cargado. 
+'Pang.exe' (Win32): 'C:\Windows\System32\directxdatabasehelper.dll' cargado. 
+'Pang.exe' (Win32): 'C:\Windows\System32\kernel.appcore.dll' cargado. 
+'Pang.exe' (Win32): 'C:\Windows\System32\bcryptprimitives.dll' cargado. 
+'Pang.exe' (Win32): 'C:\Windows\System32\clbcatq.dll' cargado. 
+'Pang.exe' (Win32): 'C:\Windows\System32\AppXDeploymentClient.dll' cargado. 
+'Pang.exe' (Win32): 'C:\Windows\System32\AppXDeploymentClient.dll' descargado
+'Pang.exe' (Win32): 'C:\Windows\System32\DriverStore\FileRepository\iigd_dch.inf_amd64_84377077446949ca\ig9icd64.dll' cargado. 
+'Pang.exe' (Win32): 'C:\Windows\System32\shell32.dll' cargado. 
+'Pang.exe' (Win32): 'C:\Windows\System32\dwmapi.dll' cargado. 
+'Pang.exe' (Win32): 'C:\Windows\System32\dxgi.dll' cargado. 
+'Pang.exe' (Win32): 'C:\Windows\System32\DriverStore\FileRepository\iigd_dch.inf_amd64_84377077446949ca\igdml64.dll' cargado. 
+'Pang.exe' (Win32): 'C:\Windows\System32\ResourcePolicyClient.dll' cargado. 
+'Pang.exe' (Win32): 'C:\Windows\System32\ResourcePolicyClient.dll' descargado
+'Pang.exe' (Win32): 'C:\Windows\System32\DriverStore\FileRepository\iigd_dch.inf_amd64_84377077446949ca\igdgmm64.dll' cargado. 
+'Pang.exe' (Win32): 'C:\Windows\System32\version.dll' cargado. 
+'Pang.exe' (Win32): 'C:\Windows\System32\version.dll' descargado
+'Pang.exe' (Win32): 'C:\Windows\System32\DriverStore\FileRepository\iigd_dch.inf_amd64_84377077446949ca\igc64.dll' cargado. 
+'Pang.exe' (Win32): 'C:\Windows\System32\TextInputFramework.dll' cargado. 
+'Pang.exe' (Win32): 'C:\Windows\System32\oleaut32.dll' cargado. 
+'Pang.exe' (Win32): 'C:\Windows\System32\CoreMessaging.dll' cargado. 
+'Pang.exe' (Win32): 'C:\Windows\System32\CoreUIComponents.dll' cargado. 
+'Pang.exe' (Win32): 'C:\Windows\System32\WinTypes.dll' cargado. 
+'Pang.exe' (Win32): 'C:\Windows\System32\cryptbase.dll' cargado. 
+'Pang.exe' (Win32): 'C:\Windows\System32\oleacc.dll' cargado. 
+'Pang.exe' (Win32): 'C:\Windows\System32\powrprof.dll' cargado. 
+'Pang.exe' (Win32): 'C:\Windows\System32\umpdc.dll' cargado. 
+El subproceso 0x81a4 terminó con código 1 (0x1).
+El subproceso 0x88cc terminó con código 1 (0x1).
+El subproceso 0x6004 terminó con código 1 (0x1).
+El subproceso 0x68bc terminó con código 1 (0x1).
+El subproceso 0x8290 terminó con código 1 (0x1).
+El subproceso 0x4468 terminó con código 1 (0x1).
+El subproceso 0xb30 terminó con código 1 (0x1).
+El programa '[9188] Pang.exe' terminó con código 1 (0x1).
