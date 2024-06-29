@@ -282,6 +282,9 @@ void OnKeyboardDown(unsigned char key, int x_t, int y_t)
 					// Que haya una pieza locked y no sea fin por jaque mate
 				{	//se carga la jugada en la posición de la partida en la que nos
 					// encontremos. Los movimientos que hubieran después son borrados.
+
+					auto estado_locked = juego.get_casilla_locked()->get_estado_locked();
+					if (estado_locked == NARANJA) break;
 				
 					// antes de actuar con la jugada, actualizamos y guardamos el tablero tal con está
 					juego.get_partida_actual()->actualiza_tablero();
@@ -311,6 +314,22 @@ void OnKeyboardDown(unsigned char key, int x_t, int y_t)
 					// el parametro "test_jugada_erronea" solamente es para provocar la reaccion a jugada erronea
 					// se activa con al pulsar la tecla "/" en lugar del "0"
 
+					auto tablero_antes_jugada = partida_act->get_tablero();
+					auto pieza_movida = jugada_final.get_lista_piezas_movidas().at(0);
+					PIEZA_STRU pieza_localizada;
+					//// se busca la pieza en el tablero (según estaba antes de modificar el tablero)
+					for (int ff = 0; ff < 8; ff++) {
+						for (int cc = 0; cc < 8; cc++) {
+							auto pz0 = tablero_antes_jugada.at(ff).at(cc);
+							if (pz0.c_pieza == pieza_movida.c_pieza && pz0.c_color == pieza_movida.c_color) {
+								//localizada la pieza en el tablero
+								pieza_localizada = pz0;
+								break;
+							}
+						}
+					}
+
+
 					//resultado_jugada = juego.logica.analiza_jugada((*partida_act), jugada_final, juego.jugada_gravedad, test_jugada_erronea);
 					int resultado_jugada = juego.logica.analiza_jugada(partida_act->get_tablero(), jugada_final, juego.jugada_gravedad, test_jugada_erronea);
 
@@ -323,13 +342,11 @@ void OnKeyboardDown(unsigned char key, int x_t, int y_t)
 							// La jugada era ilegal
 							// se anula esta jugada y se vuelve a la anterior
 							juego.jugada_gravedad.vaciar_jugada();
-							juego.get_msg_jaque_mate()->set_ver_jaque_mate(false);
-
-							partida_act->borrar_jugada_ultima();
+							if ((pieza_localizada.c_fila != pieza_movida.c_fila)
+								|| (pieza_localizada.c_columna != pieza_movida.c_columna))
+								partida_act->borrar_jugada_ultima();
 							juego.guarda_partida_actual();
-
 							juego.carga_partida_al_GUI(1, true);
-
 							ETSIDI::play("sonidos/disparo.wav");
 
 							break;
@@ -338,6 +355,10 @@ void OnKeyboardDown(unsigned char key, int x_t, int y_t)
 							//.....
 							// ....
 							// 
+							partida_act->borrar_jugada_ultima();
+							partida_act->add_jugada_a_partida(jugada_final);
+							juego.guarda_partida_actual();
+							juego.carga_partida_al_GUI(-1, true);
 							juego.get_msg_jaque_mate()->set_ver_jaque_mate(false);
 							//
 							break;
@@ -348,7 +369,7 @@ void OnKeyboardDown(unsigned char key, int x_t, int y_t)
 
 							partida_act = juego.get_partida_actual();
 
-							juego.carga_partida_al_GUI(1, true);
+							juego.carga_partida_al_GUI(-1, true);
 
 	
 							break;
