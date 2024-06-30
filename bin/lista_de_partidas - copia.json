@@ -1,0 +1,65 @@
+[
+	{
+		"nombre": "P1",
+		"jugadas": [
+			{
+				"jugada": 1,
+				"jugador": "BLANCAS",
+				"piezas": [
+					{
+						"tipo": "reina",
+						"color": "blanca",
+						"pieza": "PZ_reina",
+						"fila": "f1",
+						"columna": "A"
+					},
+					{
+						"tipo": "peon",
+						"color": "blanca",
+						"pieza": "PZ_peon_reina",
+						"fila": "f2",
+						"columna": "C"
+					}
+				]
+			},
+			{
+				"jugada": 2,
+				"jugador": "NEGRAS",
+				"piezas": [
+					{
+						"tipo": "caballo",
+						"color": "negra",
+						"pieza": "PZ_caballo_rey",
+						"fila": "f5",
+						"columna": "G"
+					}
+				]
+			}
+		]
+	},
+	{
+		"nombre": "P2",
+		"jugadas": [
+			{
+				"jugada": 1,
+				"jugador": "NEGRAS",
+				"piezas": [
+					{
+						"tipo": "peon",
+						"color": "negra",
+						"pieza": "PZ_peon_rey",
+						"fila": "f7",
+						"columna": "A"
+					},
+					{
+						"tipo": "peon",
+						"color": "negra",
+						"pieza": "PZ_peon_reina",
+						"fila": "f8",
+						"columna": "B"
+					}
+				]
+			}
+		]
+	}
+]
