@@ -7,7 +7,7 @@ enum class estado_J{NORMAL=0,JAQUE_A_BLANCAS,JAQUE_A_NEGRAS,MATE_A_BLANCAS,MATE_
 class gestor_jaques
 {	
 public:
-	void Mod_estado(const tablero& T);
+	bool Mod_estado(const tablero& T);
 	bool comprobar_mov_posibles(const tablero& T, const ENUM_COLOR& color);
 
 private:
