@@ -23,14 +23,25 @@ bool Peon::mover(casilla& Casilla, const tablero& Tablero) {
 
 	//Desglose de movimientos posibles para los dos colores
 	switch (c) {
-	blanca:
-		if (mov_c < -2 || mov_c >= 0 || abs(mov_f) > 1 || (mov_f == 0 && f_casilla != colision::vacio) || (mov_c == -2 && (ha_movido == true || mov_f != 0)) || (mov_f != 0 && f_casilla != colision::vacio)) {
+	case blanca:
+		if(mov_c > 2 
+			|| mov_c <= 0 
+			|| abs(mov_f) > 1 
+			|| (mov_f == 0 && f_casilla != colision::vacio) 
+			|| (mov_c == 2 && (ha_movido == true || mov_f != 0)) 
+			|| (mov_f != 0 && f_casilla == colision::vacio)) {
 			return false;
 		}
 		break;
-
-	negra:
-		if (mov_c > 2 || mov_c <= 0 || abs(mov_f) > 1 || (mov_f == 0 && f_casilla != colision::vacio) || (mov_c == 2 && (ha_movido == true || mov_f != 0)) || (mov_f != 0 && f_casilla != colision::vacio)) {
+		
+	case negra:
+		if (mov_c < -2 
+			|| mov_c >= 0 
+			|| abs(mov_f) > 1 
+			|| (mov_f == 0 && f_casilla != colision::vacio) 
+			|| (mov_c == -2 && (ha_movido == true 
+				|| mov_f != 0)) 
+			|| (mov_f != 0 && f_casilla == colision::vacio)) {
 			return false;
 		}
 		break;
@@ -49,7 +60,7 @@ bool Peon::mover(casilla& Casilla, const tablero& Tablero) {
 		}
 		return false;
 	}
-
+	this->ha_movido = true;
 
 	return true;
 }
@@ -126,7 +137,7 @@ bool Alfil::mover(casilla& Casilla, const tablero& Tablero) {
 	Rey R = Rey(Tablero.encontrar_rey(this->c)->leer_posicion(), Tablero.encontrar_rey(this->c)->leer_color());
 
 	//Primer caso posible, esta ocupado por nuestra propia ficha
-	if (f_casilla == colision::amigo || (mov_f != mov_c) || (mov_f == mov_c == 0)) {
+	if (f_casilla == colision::amigo || (mov_f != mov_c) || (mov_f == 0 &&  mov_c == 0)) {
 		//Mensaje error
 		return false;
 	}
@@ -161,7 +172,7 @@ bool Reina::mover(casilla& Casilla, const tablero& Tablero) {
 	Rey R = Rey(Tablero.encontrar_rey(this->c)->leer_posicion(), Tablero.encontrar_rey(this->c)->leer_color());
 
 	//Primer caso posible, esta ocupado por nuestra propia ficha
-	if (f_casilla == colision::amigo || (mov_f != 0 && mov_c != 0 && mov_f != mov_c) || (mov_f == mov_c == 0)) {
+	if (f_casilla == colision::amigo || (mov_f != 0 && mov_c != 0 && mov_f != mov_c) || mov_f == 0 && mov_c == 0) {
 		//Mensaje error
 		return false;
 	}
