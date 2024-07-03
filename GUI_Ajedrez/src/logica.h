@@ -10,7 +10,7 @@ enum ENUM_TRAYECTO { TR_torre = 0, TR_alfil = 1, TR_caballo = 2, TR_otro = -1 };
 
 class Cl_logica
 {
-	tablero tab_aux = tablero(8, 8);;
+	tablero tablero_temporal = tablero(8, 8);;
 	GUI_partida _partida_in;
 	GUI_jugada jug;
 	bool jaque_mate = false;
@@ -39,14 +39,14 @@ class Cl_logica
 	//ficha* vacio = new Vacia;
 
 	//T_tablero
-	vector<vector<PIEZA_STRU>> _Tablero_actual;
+	vector<vector<PIEZA_STRU>> TableroGUI_actual;
 	PIEZA_STRU busca_posicion_anterior(PIEZA_STRU pieza_jugada);
 
 
 	//void analiza_gravedad();  // por hacer...............
 
 	int analiza_jugada___(vector<vector<PIEZA_STRU>> Tablero_actual_, GUI_jugada& jugada_propia, GUI_jugada& jugada_gravedad, bool jugada_erronea);
-	void tab_auxiliar(vector<vector<PIEZA_STRU>> tablero_GUI);
+	void genera_tablero_temporal();
 
 public:
 	Cl_logica();

@@ -8,7 +8,7 @@ colision gestor_movimientos::comprobar_ocupacion(ficha* p1, casilla cas) {
 			return colision::vacio;
 		}
 		else {
-			if (p1->c == cas.ocupacion->c) {
+			if (p1->campo_color == cas.ocupacion->campo_color) {
 				return colision::amigo;
 			}
 			else
@@ -42,6 +42,7 @@ bool gestor_movimientos::comprobar_colision(const ficha& p1, const casilla& cas,
 
 		for (int i = signo_dif_c; abs(i) < abs(dif_c) && colision != true; i += signo_dif_c) {
 			aux = T.leer_casilla(p1_f,i + p1_c);
+			//auto a = aux.leer_ocupacion();
 			colision = aux.leer_ocupacion();
 		}
 	}

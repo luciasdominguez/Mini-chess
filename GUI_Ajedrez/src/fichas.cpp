@@ -4,7 +4,7 @@
 
 ficha::ficha(casilla* _pos, ENUM_COLOR _color) {
 	posicion = _pos;
-	c = _color;
+	campo_color = _color;
 }
 
 
@@ -13,7 +13,7 @@ bool Peon::mover(casilla& Casilla, const tablero& Tablero) {
 	int mov_f = Casilla.leer_fila() - pos_fila(), mov_c = Casilla.leer_columna() - pos_columna();
 	colision f_casilla = gestor_movimientos::comprobar_ocupacion(this, Casilla);
 
-	Rey R = Rey(Tablero.encontrar_rey(this->c)->leer_posicion(), Tablero.encontrar_rey(this->c)->leer_color());
+	Rey R = Rey(Tablero.encontrar_rey(this->campo_color)->leer_posicion(), Tablero.encontrar_rey(this->campo_color)->leer_color());
 
 	//Primer caso posible, esta ocupado por nuestra propia ficha
 	if (f_casilla == colision::amigo) {
@@ -22,7 +22,7 @@ bool Peon::mover(casilla& Casilla, const tablero& Tablero) {
 	}
 
 	//Desglose de movimientos posibles para los dos colores
-	switch (c) {
+	switch (campo_color) {
 	case blanca:
 		if(mov_c > 2 
 			|| mov_c <= 0 
@@ -69,7 +69,7 @@ bool Peon::mover(casilla& Casilla, const tablero& Tablero) {
 bool Torre::mover(casilla& Casilla, const tablero& Tablero) {
 	int mov_f = Casilla.leer_fila() - pos_fila(), mov_c = Casilla.leer_columna() - pos_columna();
 	colision f_casilla = gestor_movimientos::comprobar_ocupacion(this, Casilla);
-	Rey R = Rey(Tablero.encontrar_rey(this->c)->leer_posicion(), Tablero.encontrar_rey(this->c)->leer_color());
+	Rey R = Rey(Tablero.encontrar_rey(this->campo_color)->leer_posicion(), Tablero.encontrar_rey(this->campo_color)->leer_color());
 
 	//Primer caso posible, esta ocupado por nuestra propia ficha
 	if (f_casilla == colision::amigo || (mov_f != 0 && mov_c != 0) || (mov_f == mov_c == 0)) {
@@ -104,7 +104,7 @@ bool Torre::mover(casilla& Casilla, const tablero& Tablero) {
 bool Caballo::mover(casilla& Casilla, const tablero& Tablero) {
 	int mov_f = abs(Casilla.leer_fila() - pos_fila()), mov_c = abs(Casilla.leer_columna() - pos_columna());
 	colision f_casilla = gestor_movimientos::comprobar_ocupacion(this, Casilla);
-	Rey R = Rey(Tablero.encontrar_rey(this->c)->leer_posicion(), Tablero.encontrar_rey(this->c)->leer_color());
+	Rey R = Rey(Tablero.encontrar_rey(this->campo_color)->leer_posicion(), Tablero.encontrar_rey(this->campo_color)->leer_color());
 
 	//Primer caso, numero de casiilas movidas ilegal
 	if (mov_f != 2 && mov_c != 2) {
@@ -138,7 +138,7 @@ bool Caballo::mover(casilla& Casilla, const tablero& Tablero) {
 bool Alfil::mover(casilla& Casilla, const tablero& Tablero) {
 	int mov_f = Casilla.leer_fila() - pos_fila(), mov_c = Casilla.leer_columna() - pos_columna();
 	colision f_casilla = gestor_movimientos::comprobar_ocupacion(this, Casilla);
-	Rey R = Rey(Tablero.encontrar_rey(this->c)->leer_posicion(), Tablero.encontrar_rey(this->c)->leer_color());
+	Rey R = Rey(Tablero.encontrar_rey(this->campo_color)->leer_posicion(), Tablero.encontrar_rey(this->campo_color)->leer_color());
 
 	//Primer caso posible, esta ocupado por nuestra propia ficha
 	if (f_casilla == colision::amigo || (abs(mov_f) != abs(mov_c)) || (mov_f == 0 &&  mov_c == 0)) {
@@ -173,7 +173,7 @@ bool Alfil::mover(casilla& Casilla, const tablero& Tablero) {
 bool Reina::mover(casilla& Casilla, const tablero& Tablero) {
 	int mov_f = Casilla.leer_fila() - pos_fila(), mov_c = Casilla.leer_columna() - pos_columna();
 	colision f_casilla = gestor_movimientos::comprobar_ocupacion(this, Casilla);
-	Rey R = Rey(Tablero.encontrar_rey(this->c)->leer_posicion(), Tablero.encontrar_rey(this->c)->leer_color());
+	Rey R = Rey(Tablero.encontrar_rey(this->campo_color)->leer_posicion(), Tablero.encontrar_rey(this->campo_color)->leer_color());
 
 	//Primer caso posible, esta ocupado por nuestra propia ficha
 	if (f_casilla == colision::amigo || (mov_f != 0 && mov_c != 0 && abs(mov_f) != abs(mov_c)) || mov_f == 0 && mov_c == 0) {
@@ -235,7 +235,7 @@ void Rey::comprobar_jaque(bool& fin, bool& jaque, const tablero& tablero, int i,
 	ficha* f_aux = c_aux.leer_ocupacion();
 	if (f_aux) {
 		if (f_aux->leer_tipo() == t_NO) {
-			if (c != f_aux->leer_color() && (f_aux->leer_tipo() == t || f_aux->leer_tipo() == reina)) {
+			if (campo_color != f_aux->leer_color() && (f_aux->leer_tipo() == t || f_aux->leer_tipo() == reina)) {
 				jaque = true;
 			}
 			else {
@@ -334,7 +334,7 @@ bool Rey::en_jaque(const casilla& cas, const tablero& tablero) {
 			f_aux = c_aux.leer_ocupacion();
 			if (f_aux) {
 				if (f_aux->leer_tipo() != t_NO) {
-					if (c != f_aux->leer_color() && f_aux->leer_tipo() == caballo) {
+					if (campo_color != f_aux->leer_color() && f_aux->leer_tipo() == caballo) {
 						return true;
 					}
 					else {
@@ -349,7 +349,7 @@ bool Rey::en_jaque(const casilla& cas, const tablero& tablero) {
 		f_aux = c_aux.leer_ocupacion();
 		if (f_aux) {
 			if (f_aux->leer_tipo() != t_NO) {
-				if (c != f_aux->leer_color() && f_aux->leer_tipo() == caballo) {
+				if (campo_color != f_aux->leer_color() && f_aux->leer_tipo() == caballo) {
 					return true;
 				}
 				else {
@@ -364,7 +364,7 @@ bool Rey::en_jaque(const casilla& cas, const tablero& tablero) {
 		f_aux = c_aux.leer_ocupacion();
 		if (f_aux) {
 			if (f_aux->leer_tipo() != t_NO) {
-				if (c != f_aux->leer_color() && f_aux->leer_tipo() == caballo) {
+				if (campo_color != f_aux->leer_color() && f_aux->leer_tipo() == caballo) {
 					return true;
 				}
 				else {
@@ -379,7 +379,7 @@ bool Rey::en_jaque(const casilla& cas, const tablero& tablero) {
 		f_aux = c_aux.leer_ocupacion();
 		if (f_aux) {
 			if (f_aux->leer_tipo() != t_NO) {
-				if (c != f_aux->leer_color() && f_aux->leer_tipo() == caballo) {
+				if (campo_color != f_aux->leer_color() && f_aux->leer_tipo() == caballo) {
 					return true;
 				}
 				else {
@@ -394,7 +394,7 @@ bool Rey::en_jaque(const casilla& cas, const tablero& tablero) {
 		f_aux = c_aux.leer_ocupacion();
 		if (f_aux) {
 			if (f_aux->leer_tipo() != t_NO) {
-				if (c != f_aux->leer_color() && f_aux->leer_tipo() == caballo) {
+				if (campo_color != f_aux->leer_color() && f_aux->leer_tipo() == caballo) {
 					return true;
 				}
 				else {
@@ -409,7 +409,7 @@ bool Rey::en_jaque(const casilla& cas, const tablero& tablero) {
 		f_aux = c_aux.leer_ocupacion();
 		if (f_aux) {
 			if (f_aux->leer_tipo() != t_NO) {
-				if (c != f_aux->leer_color() && f_aux->leer_tipo() == caballo) {
+				if (campo_color != f_aux->leer_color() && f_aux->leer_tipo() == caballo) {
 					return true;
 				}
 				else {
@@ -424,7 +424,7 @@ bool Rey::en_jaque(const casilla& cas, const tablero& tablero) {
 		f_aux = c_aux.leer_ocupacion();
 		if (f_aux) {
 			if (f_aux->leer_tipo() != t_NO) {
-				if (c != f_aux->leer_color() && f_aux->leer_tipo() == caballo) {
+				if (campo_color != f_aux->leer_color() && f_aux->leer_tipo() == caballo) {
 					return true;
 				}
 				else {
@@ -439,7 +439,7 @@ bool Rey::en_jaque(const casilla& cas, const tablero& tablero) {
 		f_aux = c_aux.leer_ocupacion();
 		if (f_aux) {
 			if (f_aux->leer_tipo() != t_NO) {
-				if (c != f_aux->leer_color() && f_aux->leer_tipo() == caballo) {
+				if (campo_color != f_aux->leer_color() && f_aux->leer_tipo() == caballo) {
 					return true;
 				}
 				else {

@@ -6,7 +6,7 @@ tablero::tablero( int filas_, int columnas_){
     n_columnas = columnas_;
     n_filas = filas_;
     casilla cas = casilla(0, 0);
-    tab= { {cas,cas,cas,cas,cas,cas,cas,cas},
+    casillas_tablero= { {cas,cas,cas,cas,cas,cas,cas,cas},
     {cas,cas,cas,cas,cas,cas,cas,cas},
     {cas,cas,cas,cas,cas,cas,cas,cas},
     {cas,cas,cas,cas,cas,cas,cas,cas},
@@ -68,9 +68,9 @@ ficha* tablero::encontrar_rey(const ENUM_COLOR& c) const {
 
     for (int i = 0; i < n_filas; i++) {
         for (int j = 0; j < n_columnas; j++) {
-            aux = tab.at(i).at(j).ocupacion;
-            if (tab.at(i).at(j).ocupacion) {
-                aux->posicion = tab.at(i).at(j).ocupacion->posicion;
+            aux = casillas_tablero.at(i).at(j).ocupacion;
+            if (casillas_tablero.at(i).at(j).ocupacion) {
+                aux->posicion = casillas_tablero.at(i).at(j).ocupacion->posicion;
                 if (aux->leer_color() == c && aux->leer_tipo() == rey) {
 
                     return aux;
