@@ -35,8 +35,8 @@ class Cl_logica
 	//rey
 	ficha* rey_ = new Rey;
 
-	//vacia
-	ficha* vacio = new Vacia;
+	////vacia
+	//ficha* vacio = new Vacia;
 
 	//T_tablero
 	vector<vector<PIEZA_STRU>> _Tablero_actual;

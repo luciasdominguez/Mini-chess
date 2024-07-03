@@ -29,7 +29,7 @@ public:
 	void set_fila(int fil) { posicion->fila = fil; }
 	void set_pos(casilla* cas) { posicion = cas; }
 	void set_color(ENUM_COLOR color) { c = color; }
-	void set_casilla(casilla* cas) { posicion = cas; }
+	void set_casilla(casilla* cas) { if (this) { posicion = cas; } }
 	void set_tipo(ENUM_TIPO tipo) { t = tipo; }
 	casilla leer_posicion() const { return *posicion; };
 	virtual ENUM_TIPO leer_tipo() { return t; }
@@ -44,17 +44,18 @@ public:
 	friend class gestor_movimientos;
 };
 
-class Vacia :public ficha {
-public:
-	Vacia(const ficha& F) : t(t_NO), ficha(F) {	}
-	Vacia() = default;
-	Vacia(const Vacia& v) {};
-	Vacia(casilla cas, ENUM_COLOR color) { posicion = &cas, c = color; t = t_NO; }
-	
-private:
-	ENUM_TIPO t = t_NO;
-	bool mover(casilla& casillas, const tablero& tablero) override{ return false; };
-};
+//class Vacia :public ficha {
+//public:
+//	Vacia(const ficha& F) : t(t_NO), ficha(F) {	}
+//	Vacia() = default;
+//	Vacia(const Vacia& v) {};
+//	Vacia(casilla cas, ENUM_COLOR color) { posicion = &cas, c = color; t = t_NO; }
+//	
+//private:
+//	ENUM_TIPO t = t_NO;
+//	bool mover(casilla& casillas, const tablero& tablero) override{ return false; };
+//};
+
 class Peon : public ficha {
 
 public:

@@ -193,10 +193,10 @@ void Cl_logica::tab_auxiliar(vector<vector<PIEZA_STRU>> tablero_GUI) {
 
 				//tab_aux.matriz[i][j].ocupacion = &rey_;
 				break;
-			default:
+			/*default:
 				ptemp = new Vacia(tab_aux.tab.at(i).at(j), tablero_GUI.at(j).at(i).c_color);
 
-				ptemp->set_tipo(t_NO);
+				ptemp->set_tipo(t_NO);*/
 			}
 			tab_aux.tab.at(i).at(j).ocupacion = ptemp;
 			tab_aux.tab.at(i).at(j).ocupacion->set_casilla(&tab_aux.tab.at(i).at(j));
