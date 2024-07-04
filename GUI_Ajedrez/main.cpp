@@ -104,7 +104,7 @@ void OnKeyboardDown(unsigned char key, int x_t, int y_t)
 			juego.cargar_partida_ejemplo();
 			n_jugadas_partida = juego.get_N_jugadas_partida_actual();
 			index_jugada_en_partida = n_jugadas_partida-1;
-			juego.cambia_selector_partidas_jugadas();  // se canbia a "modo juego"
+			juego.cambia_selector_partidas_jugadas();  // se cambia a "modo juego"
 			juego.carga_partida_al_GUI(-1,true);
 			break;
 
@@ -114,11 +114,6 @@ void OnKeyboardDown(unsigned char key, int x_t, int y_t)
 				juego.cambia_selector_partidas_jugadas();
 				juego.carga_partida_al_GUI(-1, true);
 			}
-
-			//////if (juego.get_partida_actual().get_jaque_mate()) {
-			//////	juego.cambia_selector_partidas_jugadas();
-			//////	juego.carga_partida_al_GUI(1, true);
-			//////}
 			break;
 
 		case '1':  case '2':  case '3': case '4': case '5':   case '6': case '7': case '8': case '9':
@@ -176,19 +171,16 @@ void OnKeyboardDown(unsigned char key, int x_t, int y_t)
 			if (tam_partida > 0) // error -------- se debe gestionar si no hay partida
 			{
 				index_jugada_en_partida--;
-				if (index_jugada_en_partida < 0)  
-						index_jugada_en_partida = 0;
-				if (index_jugada_en_partida > (n_jugadas_partida-1)) 
-						index_jugada_en_partida = (n_jugadas_partida-1);
-				if (index_jugada_en_partida == (n_jugadas_partida-1)) 
-						en_el_final_partida = true;
+				if (index_jugada_en_partida < 0)
+					index_jugada_en_partida = 0;
+				if (index_jugada_en_partida > (n_jugadas_partida - 1))
+					index_jugada_en_partida = (n_jugadas_partida - 1);
+				if (index_jugada_en_partida == (n_jugadas_partida - 1))
+					en_el_final_partida = true;
 				juego.get_msg_jaque_mate()->set_ver_jaque_mate(false);
 				juego.carga_partida_al_GUI(index_jugada_en_partida, en_el_final_partida);
 
 			}
-
-			//juego.turno_();
-			//juego.gestion_nuevo_turno();
 			break;
 
 		case '+':
@@ -291,6 +283,21 @@ void OnKeyboardDown(unsigned char key, int x_t, int y_t)
 				// el parametro "test_jugada_erronea" solamente es para provocar la reaccion a jugada erronea
 				// se activa con al pulsar la tecla "/" en lugar del "0"
 
+				auto tablero_antes_jugada = partida_act->get_tablero();
+				auto pieza_movida = jugada_final.get_lista_piezas_movidas().at(0);
+				PIEZA_STRU pieza_localizada;
+				//// se busca la pieza en el tablero (según estaba antes de modificar el tablero)
+				for (int ff = 0; ff < 8; ff++) {
+					for (int cc = 0; cc < 8; cc++) {
+						auto pz0 = tablero_antes_jugada.at(ff).at(cc);
+						if (pz0.c_pieza == pieza_movida.c_pieza && pz0.c_color == pieza_movida.c_color) {
+							//localizada la pieza en el tablero
+							pieza_localizada = pz0;
+							break;
+						}
+					}
+				}
+
 				//resultado_jugada = juego.logica.analiza_jugada((*partida_act), jugada_final, juego.jugada_gravedad, test_jugada_erronea);
 				int resultado_jugada = juego.logica.analiza_jugada(partida_act->get_tablero(), jugada_final, juego.jugada_gravedad, test_jugada_erronea);
 
@@ -324,14 +331,8 @@ void OnKeyboardDown(unsigned char key, int x_t, int y_t)
 						break;
 					case 2:
 						// fin de partida por jaque mate
-						//...
-
-
 						partida_act = juego.get_partida_actual();
-
 						juego.carga_partida_al_GUI(-1, true);
-
-	
 						break;
 				}
 		

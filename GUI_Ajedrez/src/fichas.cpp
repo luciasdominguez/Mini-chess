@@ -72,7 +72,10 @@ bool Torre::mover(casilla& Casilla, const tablero& Tablero) {
 	Rey R = Rey(Tablero.encontrar_rey(this->campo_color)->leer_posicion(), Tablero.encontrar_rey(this->campo_color)->leer_color());
 
 	//Primer caso posible, esta ocupado por nuestra propia ficha
-	if (f_casilla == colision::amigo || (mov_f != 0 && mov_c != 0) || (mov_f == mov_c == 0)) {
+	bool aux = (mov_f != 0 && mov_c != 0);
+	bool aux_2 = (mov_f == mov_c == 0);
+
+	if (f_casilla == colision::amigo || (mov_f != 0 && mov_c != 0) || ((mov_f == 0) && (mov_c == 0))) {
 		//Mensaje error
 		return false;
 	}
@@ -209,7 +212,7 @@ bool Rey::mover(casilla& casilla, const tablero& tablero) {
 
 
 	//Primer caso posible, esta ocupado por nuestra propia ficha
-	if (f_casilla == colision::amigo || abs(mov_f) != 1 || abs(mov_c) != 1 || (mov_f == mov_c == 0)) {
+	if (f_casilla == colision::amigo || (abs(mov_f) != 1 && abs(mov_c) != 1) || (mov_f == 0) && (mov_c == 0)) {
 		//Mensaje error
 		return false;
 	}
