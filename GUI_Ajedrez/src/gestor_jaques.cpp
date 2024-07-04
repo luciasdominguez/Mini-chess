@@ -5,7 +5,7 @@ bool gestor_jaques::Mod_estado(const tablero& T) {
 	casilla Pos_rey_blanco= T.encontrar_rey(blanca)->leer_posicion();
 	casilla Pos_rey_negro = T.encontrar_rey(negra)->leer_posicion();
 	Rey Rey_Blanco=Rey(T.encontrar_rey(blanca)->leer_posicion(), T.encontrar_rey(blanca)->leer_color());
-	Rey Rey_Negro= Rey(T.encontrar_rey(negra)->leer_posicion(), T.encontrar_rey(blanca)->leer_color());
+	Rey Rey_Negro= Rey(T.encontrar_rey(negra)->leer_posicion(), T.encontrar_rey(negra)->leer_color());
 	
 	estado = estado_J::NORMAL;
 	if (Rey_Blanco.en_jaque(Pos_rey_blanco, T)) {
