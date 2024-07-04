@@ -24,7 +24,7 @@ class Juego
 	GUI_partida partida_actual;		// una partida es una lista de jugadas.
 	ENUM_JUGADOR quien_mueve_ahora; // que jugador esta moviendo
 	ENUM_JUGADOR turno_para_;		// a que jugador le tocara mover
-	
+
 	vector<PIEZA_STRU> todas_piezas_LISTA; // los valores se actualizarán en la parte de logica
 	vector<Pieza_GUI> todas_piezas_GUI;
 	GUI_marcador_cursor* casilla_cursor;
@@ -32,7 +32,7 @@ class Juego
 	Pieza_GUI* cual_pieza_locked;
 	T_listado_partidas listado_partidas;
 	T_listado_jugadas listado_jugadas;
-	
+
 	void generar_piezas();
 	void actualizar_piezas();
 
@@ -81,4 +81,3 @@ public:
 	friend GUI_gestor_partidas;
 	friend GUI_Tablero;
 };
-
