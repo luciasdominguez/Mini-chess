@@ -95,7 +95,7 @@ PIEZA_STRU Cl_logica::busca_posicion_anterior(PIEZA_STRU pieza_jugada) { //se de
 	return pz_0; // si no se ha encontrado se devuelve pz_0
 }
 
-
+//ESTA PROVOCA DOBLE MOVIMIENTO EN LOS PEONES, NECESITAMOS QUE CUANDO SE VUELVAN A GENERAR ha_movido = true (despues de haber sido movidos)
 void Cl_logica::genera_tablero_temporal() {
 	
 	// se genera el tablero tempora en base al "tableroGUI_actual"
@@ -115,6 +115,12 @@ void Cl_logica::genera_tablero_temporal() {
 			switch (tipo) {
 			case peon:
 				ptemp = new Peon(tablero_temporal.casillas_tablero.at(i).at(j), TableroGUI_actual.at(j).at(i).c_color);
+				if (TableroGUI_actual.at(j).at(i).c_color == blanca && j != 1) {
+					ptemp->mod_ha_movido();
+				}
+				if (TableroGUI_actual.at(j).at(i).c_color == negra && j != 6) {
+					ptemp->mod_ha_movido();
+				}
 				break;
 
 			case torre:
