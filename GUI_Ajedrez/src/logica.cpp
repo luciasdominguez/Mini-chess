@@ -54,9 +54,7 @@ int Cl_logica::analiza_jugada(vector<vector<PIEZA_STRU>> _TableroGUI_actual, GUI
 	}
 
 
-
-	
-
+	/////////////////////
 	// Debe ir despues de analizar el efecto de la gravedad
 	gestor_jaques g;
 	if (g.Mod_estado(tablero_temporal)) {
@@ -67,11 +65,13 @@ int Cl_logica::analiza_jugada(vector<vector<PIEZA_STRU>> _TableroGUI_actual, GUI
 	vector<vector<PIEZA_STRU>> Tablero_gravedad = _TableroGUI_actual;
 	GUI_partida partida_act; 
 	
-	Tablero_gravedad.at(pieza_actual.c_fila - 1).at(pieza_actual.c_columna - 1) = pieza_actual;
-	Tablero_gravedad.at(pieza_antes.c_fila - 1).at(pieza_antes.c_columna - 1).c_color = color_NO;
-	Tablero_gravedad.at(pieza_antes.c_fila - 1).at(pieza_antes.c_columna - 1).c_pieza = PZ_NO;
-	Tablero_gravedad.at(pieza_antes.c_fila - 1).at(pieza_antes.c_columna - 1).c_tipo = t_NO;
-	jugada_gravedad_GUI(Tablero_gravedad,_TableroGUI_actual,jugada_gravedad);
+	//Tablero_gravedad.at(pieza_actual.c_fila - 1).at(pieza_actual.c_columna - 1) = pieza_actual;
+	//Tablero_gravedad.at(pieza_antes.c_fila - 1).at(pieza_antes.c_columna - 1).c_color = color_NO;
+	//Tablero_gravedad.at(pieza_antes.c_fila - 1).at(pieza_antes.c_columna - 1).c_pieza = PZ_NO;
+	//Tablero_gravedad.at(pieza_antes.c_fila - 1).at(pieza_antes.c_columna - 1).c_tipo = t_NO;
+	//jugada_gravedad_GUI(Tablero_gravedad,_TableroGUI_actual,jugada_gravedad);
+	analiza_gravedad(Tablero_gravedad, jugada_propia, jugada_gravedad);
+
 	return 1;
 }
 
@@ -151,34 +151,78 @@ void Cl_logica::genera_tablero_temporal() {
 
 }
 
-void Cl_logica::jugada_gravedad_GUI(vector<vector<PIEZA_STRU>> Tablero_aux_gravedad, vector<vector<PIEZA_STRU>> Tablero_actual_, GUI_jugada& jugada_gravedad) {
+// Recorre el tablero e identifica qué fichas tienen libre un hueco debajo pero no las mueve ni indica cuántas posiciones
+// se debe mover la ficha para llegar a la posición deseada
 
-	for (int j = 0; j < 8; j++) {
-		for (int i = 1; i <8; i++) {
-			int posicion = i;
-			while (posicion > 0 && Tablero_aux_gravedad.at(j).at(posicion-1).c_pieza == PZ_NO ) {
-				posicion--;;
-			}
-			if (Tablero_aux_gravedad.at(j).at(posicion).c_pieza == PZ_NO && Tablero_aux_gravedad.at(j).at(i).c_tipo!=PZ_NO) {
-				Tablero_aux_gravedad.at(j).at(posicion).c_pieza = Tablero_aux_gravedad.at(j).at(i).c_pieza;
-				Tablero_aux_gravedad.at(j).at(posicion).c_color = Tablero_aux_gravedad.at(j).at(i).c_color;
-				Tablero_aux_gravedad.at(j).at(posicion).c_columna = Tablero_aux_gravedad.at(j).at(i).c_columna;
-				Tablero_aux_gravedad.at(j).at(posicion).c_fila = Tablero_aux_gravedad.at(j).at(i).c_fila;
-				Tablero_aux_gravedad.at(j).at(posicion).c_tipo = Tablero_aux_gravedad.at(j).at(i).c_tipo;
-				Tablero_aux_gravedad.at(j).at(i).c_pieza = PZ_NO;
-				Tablero_aux_gravedad.at(j).at(i).c_color = color_NO;
-				Tablero_aux_gravedad.at(j).at(i).c_columna = C_ND;
-				Tablero_aux_gravedad.at(j).at(i).c_fila = f_ND;
-				Tablero_aux_gravedad.at(j).at(i).c_tipo = t_NO;
-			}
+// void Cl_logica::jugada_gravedad_GUI(vector<vector<PIEZA_STRU>> Tablero_aux_gravedad, vector<vector<PIEZA_STRU>> Tablero_actual_, GUI_jugada& jugada_gravedad) {
+//
+//	for (int j = 0; j < 8; j++) {
+//		for (int i = 1; i <8; i++) {
+//			int posicion = i;
+//			while (posicion > 0 && Tablero_aux_gravedad.at(j).at(posicion-1).c_pieza == PZ_NO ) {
+//				posicion--;;
+//			}
+//			if (Tablero_aux_gravedad.at(j).at(posicion).c_pieza == PZ_NO && Tablero_aux_gravedad.at(j).at(i).c_tipo!=PZ_NO) {
+//				Tablero_aux_gravedad.at(j).at(posicion).c_pieza = Tablero_aux_gravedad.at(j).at(i).c_pieza;
+//				Tablero_aux_gravedad.at(j).at(posicion).c_color = Tablero_aux_gravedad.at(j).at(i).c_color;
+//				Tablero_aux_gravedad.at(j).at(posicion).c_columna = Tablero_aux_gravedad.at(j).at(i).c_columna;
+//				Tablero_aux_gravedad.at(j).at(posicion).c_fila = Tablero_aux_gravedad.at(j).at(i).c_fila;
+//				Tablero_aux_gravedad.at(j).at(posicion).c_tipo = Tablero_aux_gravedad.at(j).at(i).c_tipo;
+//				Tablero_aux_gravedad.at(j).at(i).c_pieza = PZ_NO;
+//				Tablero_aux_gravedad.at(j).at(i).c_color = color_NO;
+//				Tablero_aux_gravedad.at(j).at(i).c_columna = C_ND;
+//				Tablero_aux_gravedad.at(j).at(i).c_fila = f_ND;
+//				Tablero_aux_gravedad.at(j).at(i).c_tipo = t_NO;
+//			}
+//		}
+//	}
+//
+//	for (int i = 0; i < tablero_temporal.leer_columnas(); i++) {
+//		for (int j = 0; j < tablero_temporal.leer_filas(); j++) {
+//			if (Tablero_aux_gravedad.at(i).at(j).c_pieza != Tablero_actual_.at(i).at(j).c_pieza && Tablero_aux_gravedad.at(i).at(j).c_pieza != PZ_NO) {
+//				jugada_gravedad.lista_PiezasMovidas.push_back(Tablero_aux_gravedad.at(i).at(j));
+//			}
+//		}
+//	}
+//}
+
+void Cl_logica::analiza_gravedad(vector<vector<PIEZA_STRU>> Tablero, GUI_jugada& jugada_propia, GUI_jugada& jugada_gravedad) {
+
+	TableroGUI_actual = Tablero;
+
+	auto pieza_movida = jugada_propia.get_lista_piezas_movidas().at(0);
+	auto pieza_origen = busca_posicion_anterior(pieza_movida);
+
+
+	auto fila_origen = pieza_origen.c_fila;
+	auto columna_origen = pieza_origen.c_columna;
+	auto fila_destino = pieza_movida.c_fila;
+	auto columna_destino = pieza_movida.c_columna;
+
+	jugada_gravedad.vaciar_jugada();
+	//efecto sobre la casilla de origen de la jugada
+	for (int idx_c = ((int)columna_origen);idx_c < 8;idx_c++)
+	{
+		auto aux_pz = TableroGUI_actual.at((int)fila_origen - 1).at(idx_c);
+		if (aux_pz.c_color != color_NO)  // la pieza que hay encima pasa a la lista de piezas movidas por la gravedad
+		{
+			auto pz_superior = TableroGUI_actual.at((int)fila_origen - 1).at(idx_c);
+			pz_superior.c_columna = (ENUM_COLUMNA)(pz_superior.c_columna - 1);
+			jugada_gravedad.add_pieza_a_jugada(pz_superior);
 		}
 	}
 
-	for (int i = 0; i < tablero_temporal.leer_columnas(); i++) {
-		for (int j = 0; j < tablero_temporal.leer_filas(); j++) {
-			if (Tablero_aux_gravedad.at(i).at(j).c_pieza != Tablero_actual_.at(i).at(j).c_pieza && Tablero_aux_gravedad.at(i).at(j).c_pieza != PZ_NO) {
-				jugada_gravedad.lista_PiezasMovidas.push_back(Tablero_aux_gravedad.at(i).at(j));
-			}
-		}
+	//efecto sobre la casilla destino de la jugada
+	int cuenta_vacias = 0;
+	for (int idx_c = ((int)columna_destino) - 2;idx_c >= 0;idx_c--)
+	{
+		auto aux_pz = TableroGUI_actual.at((int)fila_destino - 1).at(idx_c);
+		if (aux_pz.c_color == color_NO)
+			cuenta_vacias++;
 	}
+	if (fila_destino == fila_origen) cuenta_vacias++;
+	pieza_movida.c_columna = (ENUM_COLUMNA)(pieza_movida.c_columna - cuenta_vacias);
+
+	jugada_gravedad.add_pieza_a_jugada(pieza_movida);
+
 }

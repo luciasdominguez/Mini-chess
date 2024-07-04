@@ -52,6 +52,7 @@ public:
 	Cl_logica();
 
 	void jugada_gravedad_GUI(vector<vector<PIEZA_STRU>> Tablero_gravedad, vector<vector<PIEZA_STRU>> Tablero_actual_,GUI_jugada& jugada_gravedad);
+	void analiza_gravedad(vector<vector<PIEZA_STRU>> Tablero, GUI_jugada& jugada_propia, GUI_jugada& jugada_gravedad);
 	// Si la jugada es correcta:
 	//	se genera la "jugada_propia" pero añadiendo, si es el caso,
 	//	el resto de piezas afectadas (por haber comido una pieza contraria, un enroque ...
