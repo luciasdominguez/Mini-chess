@@ -95,7 +95,7 @@ PIEZA_STRU Cl_logica::busca_posicion_anterior(PIEZA_STRU pieza_jugada) { //se de
 	return pz_0; // si no se ha encontrado se devuelve pz_0
 }
 
-//ESTA PROVOCA DOBLE MOVIMIENTO EN LOS PEONES, NECESITAMOS QUE CUANDO SE VUELVAN A GENERAR ha_movido = true (despues de haber sido movidos)
+
 void Cl_logica::genera_tablero_temporal() {
 	
 	// se genera el tablero tempora en base al "tableroGUI_actual"
@@ -115,12 +115,6 @@ void Cl_logica::genera_tablero_temporal() {
 			switch (tipo) {
 			case peon:
 				ptemp = new Peon(tablero_temporal.casillas_tablero.at(i).at(j), TableroGUI_actual.at(j).at(i).c_color);
-				if (TableroGUI_actual.at(j).at(i).c_color == blanca && j != 1) {
-					ptemp->mod_ha_movido();
-				}
-				if (TableroGUI_actual.at(j).at(i).c_color == negra && j != 6) {
-					ptemp->mod_ha_movido();
-				}
 				break;
 
 			case torre:
@@ -150,11 +144,11 @@ void Cl_logica::genera_tablero_temporal() {
 			auto c_pieza = TableroGUI_actual.at(j).at(i).c_pieza;
 
 			tablero_temporal.casillas_tablero.at(i).at(j).ocupacion->set_pieza(c_pieza);
-
+			
 		}
 	}
 	int tt;
-	
+
 }
 
 // Recorre el tablero e identifica qué fichas tienen libre un hueco debajo pero no las mueve ni indica cuántas posiciones
@@ -220,14 +214,13 @@ void Cl_logica::analiza_gravedad(vector<vector<PIEZA_STRU>> Tablero, GUI_jugada&
 
 	//efecto sobre la casilla destino de la jugada
 	int cuenta_vacias = 0;
-	for (int idx_c = ((int)columna_destino) - 1;idx_c >= 1;idx_c--)
+	for (int idx_c = ((int)columna_destino) - 2;idx_c >= 0;idx_c--)
 	{
-		auto aux_pz = TableroGUI_actual.at((int)fila_destino - 1).at(idx_c-1);
+		auto aux_pz = TableroGUI_actual.at((int)fila_destino - 1).at(idx_c);
 		if (aux_pz.c_color == color_NO)
 			cuenta_vacias++;
 	}
-	if ((fila_destino == fila_origen) && ((int)columna_destino>(int)columna_origen)) 
-		cuenta_vacias++;
+	if (fila_destino == fila_origen) cuenta_vacias++;
 	pieza_movida.c_columna = (ENUM_COLUMNA)(pieza_movida.c_columna - cuenta_vacias);
 
 	jugada_gravedad.add_pieza_a_jugada(pieza_movida);

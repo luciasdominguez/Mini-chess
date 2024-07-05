@@ -16,7 +16,6 @@ protected:
 	ENUM_TIPO campo_tipo ;
 	ENUM_PIEZA campo_pieza;
 	PIEZA_STRU pieza;
-	bool ha_movido = false;
 
 public:
 	ficha(casilla* _pos, ENUM_COLOR _color);
@@ -46,8 +45,6 @@ public:
 		return *this;
 	}
 	friend class gestor_movimientos;
-
-	void mod_ha_movido() { this->ha_movido = true; };
 };
 
 class Peon : public ficha {
@@ -59,8 +56,9 @@ public:
 	Peon(casilla cas, ENUM_COLOR color) { posicion = &cas, campo_color = color;campo_tipo= peon; }
 	Peon() = default;
 	bool mover(casilla& casillas, const tablero& tablero) override;
-	
-	
+
+private:
+	bool ha_movido = false;
 };
 
 class Torre : public ficha {
