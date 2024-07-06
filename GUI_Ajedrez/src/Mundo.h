@@ -1,7 +1,7 @@
 #pragma once
 #include "Caja.h" 
 
-typedef enum opcion { MENU_INICIAL = 0, JUGAR, CONTROLES, SALIR };
+typedef enum opcion { MENU_INICIAL = 0, JUGAR, CONTROLES, FIN, SALIR };
 class Mundo
 {
 public: 
@@ -12,6 +12,7 @@ public:
 	void dibuja_menu();
 	void salir_menu();
 	void dibuja_controles();
+	void fin_partida() { op_ = FIN; };
 	opcion get_opcion() { return op_; };
 
 private:

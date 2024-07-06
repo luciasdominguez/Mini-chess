@@ -80,6 +80,8 @@ void OnDraw(void)
 	case CONTROLES:
 		menu.dibuja_controles();
 		break;
+	case FIN:
+		break;
 	}
 
 	
@@ -100,9 +102,12 @@ void OnKeyboardDown(unsigned char key, int x_t, int y_t)
 	GUI_partida* partida_aux;
 	bool test_jugada_erronea=false;
 
-	if (menu.get_opcion() != 1) {
+	if (menu.get_opcion() != JUGAR && menu.get_opcion() != FIN) {
 		menu.tecla(key);
 		return;
+	}
+	if (menu.get_opcion() == FIN) {
+		menu.tecla(key);
 	}
 
 	if (juego.get_selector_partidas_jugadas() == modo_seleccion_partida)
@@ -359,12 +364,15 @@ void OnKeyboardDown(unsigned char key, int x_t, int y_t)
 						partida_act->add_jugada_a_partida(jugada_final);
 						juego.guarda_partida_actual();
 						juego.carga_partida_al_GUI(-1, true);
-						juego.get_msg_jaque_mate()->set_ver_jaque_mate(true);
 						
+						juego.get_msg_jaque_mate()->set_ver_jaque_mate(false);
+						juego.get_msg_jaque_mate()->dibuja_jaque_mate();
+
 						//
 						// fin de partida por jaque mate
 						partida_act = juego.get_partida_actual();
 						juego.carga_partida_al_GUI(-1, true);
+
 						break;
 				}
 		
