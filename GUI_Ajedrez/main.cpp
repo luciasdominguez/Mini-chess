@@ -330,6 +330,13 @@ void OnKeyboardDown(unsigned char key, int x_t, int y_t)
 						//
 						break;
 					case 2:
+						// Si el analisis es correcto se actualiza la jugada actual (puede afectar a otras piezas)
+						partida_act->borrar_jugada_ultima();
+						partida_act->add_jugada_a_partida(jugada_final);
+						juego.guarda_partida_actual();
+						juego.carga_partida_al_GUI(-1, true);
+						juego.get_msg_jaque_mate()->set_ver_jaque_mate(true);
+						//
 						// fin de partida por jaque mate
 						partida_act = juego.get_partida_actual();
 						juego.carga_partida_al_GUI(-1, true);

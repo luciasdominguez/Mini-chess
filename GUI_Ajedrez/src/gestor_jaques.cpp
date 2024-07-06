@@ -26,7 +26,7 @@ bool gestor_jaques::comprobar_mate(const tablero& T) {
 //REVISAR Y AÑADIR GRAVEDAD
 bool gestor_jaques::comprobar_mov_posibles(const tablero& T, const ENUM_COLOR& color) {
 	casilla c_aux, c_mov;
-	ficha* f_aux;
+	ficha* f_aux,*f_mov;
 	tablero T_aux = T;
 
 	for (int i = 0; i < T.leer_filas(); i++) {
@@ -40,6 +40,7 @@ bool gestor_jaques::comprobar_mov_posibles(const tablero& T, const ENUM_COLOR& c
 							c_mov = T.leer_casilla(m, n); //Se podría enfocar de forma más rapida si no comprobasemos movimientos que ya sabemos son ilegales
 							if (f_aux->mover(c_mov, T) == true) {
 								//Simulamos el movimiento
+								f_mov = c_mov.leer_ocupacion();
 								T_aux.cambiar_casilla(c_mov,f_aux);
 								T_aux.cambiar_casilla(c_aux,nullptr);
 								//Creamos un tablero nuevo con gravedad para la nueva situación
@@ -50,7 +51,7 @@ bool gestor_jaques::comprobar_mov_posibles(const tablero& T, const ENUM_COLOR& c
 								}
 								//Deshacemos nuestro movimiento para no cmbiar las codiciones iniciales la siguiente iteración
 								T_aux.cambiar_casilla(c_aux, f_aux);
-								T_aux.cambiar_casilla(c_mov, nullptr);
+								T_aux.cambiar_casilla(c_mov, f_mov);
 							}
 						}
 					}

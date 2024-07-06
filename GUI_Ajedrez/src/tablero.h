@@ -20,8 +20,8 @@ public:
     tablero() = default;
     // Constructor de tablero
     tablero(int filas_, int columnas_);
-    void cambiar_casilla(casilla cas, ficha* f) { casillas_tablero.at(cas.columna).at(cas.fila).ocupacion = f; };
-    void cambiar_casilla(casilla* cas, ficha* f) { casillas_tablero.at(cas->columna).at(cas->fila).ocupacion = f; };
+    void cambiar_casilla(casilla cas, ficha* f) { casillas_tablero[cas.fila][cas.columna].ocupacion = f; };
+    void cambiar_casilla(casilla* cas, ficha* f) { casillas_tablero[cas->fila][cas->columna].ocupacion = f; };
 
     int leer_filas() const { return n_filas; }
     int leer_columnas() const { return n_columnas; }
