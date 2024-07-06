@@ -9,13 +9,23 @@
 class casilla {
 private:
 	friend class ficha;
-	ficha* ocupacion; ///Cada casilla tiene una posible ficha, este sería otro parámetro
+	friend class tablero;
+	friend class Cl_logica;
 
-	int fila, columna; ///Cada casilla tiene una fila y una columna
+	ficha* ocupacion = nullptr; ///Cada casilla tiene una posible ficha, este sería otro parámetro
+	
+	int fila = 0, columna = 0; ///Cada casilla tiene una fila y una columna
 
 public:
 	//casilla() { ; } // Constructor predeterminado de casilla
 	casilla();
+
+	casilla(int f, int colm):
+		fila(f),
+		columna(colm),
+		ocupacion(nullptr)
+	{}
+
 	void set_fila(int f) { fila = f; }
 	void set_columna(int c) { columna = c; }
 	//casilla(int _fila, int _columna, fichas* _ficha);

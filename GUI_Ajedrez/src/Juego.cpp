@@ -26,7 +26,7 @@ void Juego::carga_partida_al_GUI(int jugada_destino, bool en_la_ultima)
 	generar_listado_datos_piezas_OFF(); // se ponen todas las piezas en almacen
 	vector<GUI_jugada> lista_jugadas = partida_actual.get_jugadas();
 	int size_partida = lista_jugadas.size();
-	
+
 	if (en_la_ultima)
 		jugada_destino = size_partida - 1;
 	else
@@ -35,7 +35,7 @@ void Juego::carga_partida_al_GUI(int jugada_destino, bool en_la_ultima)
 	}
 
 	// para un numero negativo se asume que se cogen todos los movimientos
-	auto jj=lista_jugadas.at(jugada_destino);
+	auto jj = lista_jugadas.at(jugada_destino);
 
 	int cont1 = 0;
 	for (int idx_jj = 0; idx_jj <= jugada_destino; ++idx_jj)
@@ -44,7 +44,7 @@ void Juego::carga_partida_al_GUI(int jugada_destino, bool en_la_ultima)
 		quien_mueve_ahora = jug.jugador;
 
 		if (!en_la_ultima) {// quiere decir que hay al menos una jugada posterior
-			auto jug_sig = lista_jugadas.at(idx_jj+1);
+			auto jug_sig = lista_jugadas.at(idx_jj + 1);
 			quien_mueve_ahora = jug_sig.jugador; // el jugador siguiente es quien dice la siguiente jugada
 		}
 		else
@@ -60,7 +60,7 @@ void Juego::carga_partida_al_GUI(int jugada_destino, bool en_la_ultima)
 		cont1++;
 	}
 	get_msg_jaque_mate()->set_ver_jaque_mate(jj.jaque_mate);
-	if (en_la_ultima) 
+	if (en_la_ultima)
 		avanza_turno();
 }
 
@@ -79,7 +79,7 @@ void Juego::dibuja_juego()
 	//turno->dibuja_turno(jugada_actual.jugador);
 	//turno->dibuja_turno(turno_para_);
 	turno->dibuja_turno(quien_mueve_ahora);
-	auto parti= get_partida_actual();
+	auto parti = get_partida_actual();
 	Mns_jaque_mate->dibuja_jaque_mate();
 	estado_Partidas_Jugadas->dibuja_seleccion_partida();
 	actualizar_piezas();
@@ -104,7 +104,7 @@ ENUM_JUGADOR Juego::get_jugador_actual()
 
 void Juego::cargar_partida(string nombre)
 {  /// si el nombre no se encuentra se genera una partida con ese nombre
-	partida_actual= gestor_de_partidas->get_or_new_partida(nombre);
+	partida_actual = gestor_de_partidas->get_or_new_partida(nombre);
 	jugada_ultima = partida_actual.get_jugadas().back();
 
 }
@@ -112,7 +112,7 @@ void Juego::cargar_partida(string nombre)
 void Juego::cargar_partida_ejemplo()
 {
 	partida_actual = gestor_de_partidas->get_partida_ejemplo();
-	jugada_ultima=partida_actual.get_jugadas().back(); //el ultimo movimiento de la partida
+	jugada_ultima = partida_actual.get_jugadas().back(); //el ultimo movimiento de la partida
 
 }
 
@@ -127,7 +127,7 @@ void Juego::check_pieza_movible()
 
 	if (casilla_lckd != nullptr)
 	{
-		if (casilla_lckd->get_estado_locked()==ROJO)
+		if (casilla_lckd->get_estado_locked() == ROJO)
 		{ // ya hay una casilla locked (EN ROJO). Nada que hacer
 		}
 		else
@@ -142,7 +142,7 @@ void Juego::check_pieza_movible()
 					}
 					else if // no hay casilla EN ROJO, pero estamos en una casilla elegible
 						(((*it_in)._datos_pieza.c_color == blanca && quien_mueve_ahora == BLANCAS) ||
-						(*it_in)._datos_pieza.c_color == negra && quien_mueve_ahora == NEGRAS)
+							(*it_in)._datos_pieza.c_color == negra && quien_mueve_ahora == NEGRAS)
 					{   // se ha encontrado una pieza en la posción de la casilla y del color del turno
 						casilla_lckd->set_Can_Lock(false);
 						auto position = it_in - todas_piezas_GUI.begin();
@@ -160,7 +160,7 @@ void Juego::check_pieza_movible()
 					casilla_lckd->set_Can_Lock(false);
 					casilla_lckd->set_estado_locked(TRANS, nullptr);
 				}
-		}
+			}
 		}
 	}
 }
@@ -182,12 +182,12 @@ ESTADO_GENERAL Juego::get_selector_partidas_jugadas()
 
 void Juego::cambia_selector_partidas_jugadas()
 {
-	auto s=estado_Partidas_Jugadas->get_partidas_o_jugadas();
-	if (s == modo_seleccion_partida) 
+	auto s = estado_Partidas_Jugadas->get_partidas_o_jugadas();
+	if (s == modo_seleccion_partida)
 		estado_Partidas_Jugadas->set_partidas_o_jugadas(modo_juego);
-	else 
+	else
 		estado_Partidas_Jugadas->set_partidas_o_jugadas(modo_seleccion_partida);
-	
+
 }
 
 T_listado_partidas Juego::get_listado_partidas()
@@ -200,7 +200,7 @@ T_listado_jugadas Juego::get_listado_jugadas()
 	auto jugadas = partida_actual.get_jugadas();
 	for (auto it_jugada = jugadas.begin(); it_jugada != (jugadas.end()); ++it_jugada)
 	{
-		auto piezas=(*it_jugada).get_lista_piezas_movidas();
+		auto piezas = (*it_jugada).get_lista_piezas_movidas();
 		for (auto it_pz = piezas.begin(); it_pz != (piezas.end()); ++it_pz)
 		{
 			(*it_pz).c_color;
@@ -230,21 +230,21 @@ GUI_jaque_mate* Juego::get_msg_jaque_mate()
 ////////}
 
 void Juego::avanza_turno()
-{ 
+{
 	calcula_siguiente_turno();
 	quien_mueve_ahora = turno_para_;
 	calcula_siguiente_turno();
 }
 
-void Juego::calcula_siguiente_turno() 
+void Juego::calcula_siguiente_turno()
 {
 	switch (quien_mueve_ahora) //BLANCAS=0, NEGRAS, GRAVEDAD_N, GRAVEDA_B
 	{
-		case NEGRAS:		turno_para_ = GRAVEDAD_N;	break;
-		case GRAVEDAD_N:	turno_para_ = BLANCAS;		break;
-		case BLANCAS:		turno_para_ = GRAVEDAD_B;	break;
-		case GRAVEDAD_B:	turno_para_ = NEGRAS;		break;
-		default:			turno_para_ = GRAVEDAD_N;	break;
+	case NEGRAS:		turno_para_ = GRAVEDAD_N;	break;
+	case GRAVEDAD_N:	turno_para_ = BLANCAS;		break;
+	case BLANCAS:		turno_para_ = GRAVEDAD_B;	break;
+	case GRAVEDAD_B:	turno_para_ = NEGRAS;		break;
+	default:			turno_para_ = GRAVEDAD_N;	break;
 	};
 }
 
@@ -326,19 +326,19 @@ void Juego::mueve_pieza_locked(int n_posicion_jugada) // se debe añadir la pieza
 		if ( // hay que verificar que origen y destino no sean iguales
 			(pz_lck._datos_pieza.c_fila != casilla->fila) ||
 			(pz_lck._datos_pieza.c_columna != casilla->columna))
-			{
-				pz_lck._datos_pieza.c_fila = casilla->fila;
-				pz_lck._datos_pieza.c_columna = casilla->columna;
-				jugada_actual.add_pieza_a_jugada(pz_lck._datos_pieza);
-				if (n_posicion_jugada > partida_actual.get_jugadas().size())
-					n_posicion_jugada = partida_actual.get_jugadas().size();
-				if (n_posicion_jugada < 0)
-					n_posicion_jugada = 0;
-				partida_actual.borrar_jugadas_desde_N(n_posicion_jugada+1); // no hay que borrar la primera (pieza a posicion inicial)
-				partida_actual.add_jugada_a_partida(jugada_actual);
-				//avanza_siguiente_turno();
-				//avanza_turno();			
-			};
+		{
+			pz_lck._datos_pieza.c_fila = casilla->fila;
+			pz_lck._datos_pieza.c_columna = casilla->columna;
+			jugada_actual.add_pieza_a_jugada(pz_lck._datos_pieza);
+			if (n_posicion_jugada > partida_actual.get_jugadas().size())
+				n_posicion_jugada = partida_actual.get_jugadas().size();
+			if (n_posicion_jugada < 0)
+				n_posicion_jugada = 0;
+			partida_actual.borrar_jugadas_desde_N(n_posicion_jugada + 1); // no hay que borrar la primera (pieza a posicion inicial)
+			partida_actual.add_jugada_a_partida(jugada_actual);
+			//avanza_siguiente_turno();
+			//avanza_turno();			
+		};
 	}
 }
 

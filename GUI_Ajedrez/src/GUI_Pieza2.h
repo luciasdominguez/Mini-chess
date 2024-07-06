@@ -15,8 +15,8 @@ enum ENUM_PIEZA {
 	PZ_torre_rey = 14, PZ_torre_reina = 15, PZ_NO = -1
 };
 enum ENUM_TIPO { peon, torre, caballo, alfil, reina, rey, t_NO = -1 };
-enum ENUM_FILA { f1 = 1, f2, f3, f4, f5, f6, f7, f8, f_ND = 0 };
-enum ENUM_COLUMNA { A = 1, B, C, D, E, F, G, H, C_ND = 0 };
+enum ENUM_FILA { f1 = 1, f2, f3, f4, f5, f6, f7, f8, f_ND = -1 };
+enum ENUM_COLUMNA { A = 1, B, C, D, E, F, G, H, C_ND = -1 };
 enum ENUM_COLOR { blanca = 0, negra = 1, color_NO = -1 };
 
 typedef struct PIEZA_STRU {

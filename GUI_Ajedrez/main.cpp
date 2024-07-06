@@ -5,8 +5,11 @@
 #include "GUI_marcador.h"
 #include "Juego.h"
 #include "aux2_.h"
+#include "Mundo.h"
 
 Juego juego;
+Mundo menu;
+
 //vector<GUI_movimiento> partida;
 int n_jugadas_partida = 0;
 int index_jugada_en_partida = 0;
@@ -23,6 +26,7 @@ void OnKeyboardDown(unsigned char key, int x, int y); //cuando se pulse una tecl
 
 int main(int argc, char* argv[])
 {
+	menu.inicializa();
 	//Inicializar el gestor de ventanas GLUT
 	//y crear la ventana
 	glutInit(&argc, argv);
@@ -39,6 +43,7 @@ int main(int argc, char* argv[])
 	gluPerspective(40.0, 800 / 600.0f, 0.1, 150);
 
 	
+
 	//Registrar los callbacks
 	glutDisplayFunc(OnDraw);
 	glutTimerFunc(25, OnTimer, 0);//le decimos que dentro de 25ms llame 1 vez a la funcion OnTimer()
@@ -62,8 +67,24 @@ void OnDraw(void)
 		0.0, 7.5, 0.0,      // hacia que punto mira  (0,0,0) 
 		0.0, 1.0, 0.0);      // definimos hacia arriba (eje Y)    
 
-	//dibujo del tablero con las piezas en sus posiciones, los cursores...
-	juego.dibuja_juego();
+	//Dibuja Menu
+	switch (menu.get_opcion())
+	{
+	case MENU_INICIAL:
+		menu.dibuja_menu();
+		break;
+	case JUGAR:
+		//dibujo del tablero con las piezas en sus posiciones, los cursores...
+		juego.dibuja_juego();
+		break;
+	case CONTROLES:
+		menu.dibuja_controles();
+		break;
+	case FIN:
+		break;
+	}
+
+	
 
 	/////////////////////////////////////////
 	//no borrar esta linea ni poner nada despues
@@ -80,6 +101,14 @@ void OnKeyboardDown(unsigned char key, int x_t, int y_t)
 	vector<GUI_jugada> jugadas;
 	GUI_partida* partida_aux;
 	bool test_jugada_erronea=false;
+
+	if (menu.get_opcion() != JUGAR && menu.get_opcion() != FIN) {
+		menu.tecla(key);
+		return;
+	}
+	if (menu.get_opcion() == FIN) {
+		menu.tecla(key);
+	}
 
 	if (juego.get_selector_partidas_jugadas() == modo_seleccion_partida)
 	{  // operativa del teclado en estado de "seleccion_partida"
@@ -104,7 +133,7 @@ void OnKeyboardDown(unsigned char key, int x_t, int y_t)
 			juego.cargar_partida_ejemplo();
 			n_jugadas_partida = juego.get_N_jugadas_partida_actual();
 			index_jugada_en_partida = n_jugadas_partida-1;
-			juego.cambia_selector_partidas_jugadas();  // se canbia a "modo juego"
+			juego.cambia_selector_partidas_jugadas();  // se cambia a "modo juego"
 			juego.carga_partida_al_GUI(-1,true);
 			break;
 
@@ -114,11 +143,6 @@ void OnKeyboardDown(unsigned char key, int x_t, int y_t)
 				juego.cambia_selector_partidas_jugadas();
 				juego.carga_partida_al_GUI(-1, true);
 			}
-
-			//////if (juego.get_partida_actual().get_jaque_mate()) {
-			//////	juego.cambia_selector_partidas_jugadas();
-			//////	juego.carga_partida_al_GUI(1, true);
-			//////}
 			break;
 
 		case '1':  case '2':  case '3': case '4': case '5':   case '6': case '7': case '8': case '9':
@@ -176,19 +200,16 @@ void OnKeyboardDown(unsigned char key, int x_t, int y_t)
 			if (tam_partida > 0) // error -------- se debe gestionar si no hay partida
 			{
 				index_jugada_en_partida--;
-				if (index_jugada_en_partida < 0)  
-						index_jugada_en_partida = 0;
-				if (index_jugada_en_partida > (n_jugadas_partida-1)) 
-						index_jugada_en_partida = (n_jugadas_partida-1);
-				if (index_jugada_en_partida == (n_jugadas_partida-1)) 
-						en_el_final_partida = true;
+				if (index_jugada_en_partida < 0)
+					index_jugada_en_partida = 0;
+				if (index_jugada_en_partida > (n_jugadas_partida - 1))
+					index_jugada_en_partida = (n_jugadas_partida - 1);
+				if (index_jugada_en_partida == (n_jugadas_partida - 1))
+					en_el_final_partida = true;
 				juego.get_msg_jaque_mate()->set_ver_jaque_mate(false);
 				juego.carga_partida_al_GUI(index_jugada_en_partida, en_el_final_partida);
 
 			}
-
-			//juego.turno_();
-			//juego.gestion_nuevo_turno();
 			break;
 
 		case '+':
@@ -291,6 +312,21 @@ void OnKeyboardDown(unsigned char key, int x_t, int y_t)
 				// el parametro "test_jugada_erronea" solamente es para provocar la reaccion a jugada erronea
 				// se activa con al pulsar la tecla "/" en lugar del "0"
 
+				auto tablero_antes_jugada = partida_act->get_tablero();
+				auto pieza_movida = jugada_final.get_lista_piezas_movidas().at(0);
+				PIEZA_STRU pieza_localizada;
+				//// se busca la pieza en el tablero (según estaba antes de modificar el tablero)
+				for (int ff = 0; ff < 8; ff++) {
+					for (int cc = 0; cc < 8; cc++) {
+						auto pz0 = tablero_antes_jugada.at(ff).at(cc);
+						if (pz0.c_pieza == pieza_movida.c_pieza && pz0.c_color == pieza_movida.c_color) {
+							//localizada la pieza en el tablero
+							pieza_localizada = pz0;
+							break;
+						}
+					}
+				}
+
 				//resultado_jugada = juego.logica.analiza_jugada((*partida_act), jugada_final, juego.jugada_gravedad, test_jugada_erronea);
 				int resultado_jugada = juego.logica.analiza_jugada(partida_act->get_tablero(), jugada_final, juego.jugada_gravedad, test_jugada_erronea);
 
@@ -300,7 +336,7 @@ void OnKeyboardDown(unsigned char key, int x_t, int y_t)
 				
 				switch (resultado_jugada) {
 					default: 
-						// La jugada era ilegal
+						// JUGADA NO VALIDA
 						// se anula esta jugada y se vuelve a la anterior
 						juego.jugada_gravedad.vaciar_jugada();
 						juego.get_msg_jaque_mate()->set_ver_jaque_mate(false);
@@ -314,23 +350,40 @@ void OnKeyboardDown(unsigned char key, int x_t, int y_t)
 
 						break;
 					case 1:
+						//JUGADA VALIDA
 						// Si el analisis es correcto se actualiza la jugada actual (puede afectar a otras piezas)
-						//.....
-						// ....
-						// 
+						partida_act->borrar_jugada_ultima();
+						partida_act->add_jugada_a_partida(jugada_final);
+						juego.guarda_partida_actual();
+						juego.carga_partida_al_GUI(-1, true);
 						juego.get_msg_jaque_mate()->set_ver_jaque_mate(false);
 						//
 						break;
 					case 2:
+						//JAQUE
+						partida_act->borrar_jugada_ultima();
+						partida_act->add_jugada_a_partida(jugada_final);
+						juego.guarda_partida_actual();
+						juego.carga_partida_al_GUI(-1, true);
+						juego.get_msg_jaque_mate()->set_ver_jaque_mate(false);
+
+						break;
+					case 3:
+						//MATE
+						// Si el analisis es correcto se actualiza la jugada actual (puede afectar a otras piezas)
+						partida_act->borrar_jugada_ultima();
+						partida_act->add_jugada_a_partida(jugada_final);
+						juego.guarda_partida_actual();
+						juego.carga_partida_al_GUI(-1, true);
+						
+						juego.get_msg_jaque_mate()->set_ver_jaque_mate(false);
+						juego.get_msg_jaque_mate()->dibuja_jaque_mate();
+
+						//
 						// fin de partida por jaque mate
-						//...
-
-
 						partida_act = juego.get_partida_actual();
+						juego.carga_partida_al_GUI(-1, true);
 
-						juego.carga_partida_al_GUI(1, true);
-
-	
 						break;
 				}
 		
