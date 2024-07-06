@@ -45,13 +45,11 @@ class Cl_logica
 
 	//void analiza_gravedad();  // por hacer...............
 
-	int analiza_jugada___(vector<vector<PIEZA_STRU>> Tablero_actual_, GUI_jugada& jugada_propia, GUI_jugada& jugada_gravedad, bool jugada_erronea);
 	void genera_tablero_temporal();
 
 public:
 	Cl_logica();
 
-	void jugada_gravedad_GUI(vector<vector<PIEZA_STRU>> Tablero_gravedad, vector<vector<PIEZA_STRU>> Tablero_actual_,GUI_jugada& jugada_gravedad);
 	void analiza_gravedad(vector<vector<PIEZA_STRU>> Tablero, GUI_jugada& jugada_propia, GUI_jugada& jugada_gravedad);
 	// Si la jugada es correcta:
 	//	se genera la "jugada_propia" pero añadiendo, si es el caso,

@@ -16,6 +16,7 @@ class GUI_jugada   // es una lista de piezas que se han movido y quien las movió
 
 public:
 	bool jaque_mate = false;
+	bool jaque = false;
 	ENUM_JUGADOR jugador = GRAVEDAD_N;  // porque por defecto despues les toca a las blancas
 	ENUM_JUGADOR jugador_siguiente = BLANCAS;  // porque por defecto despues les toca a las blancas
 	vector<PIEZA_STRU> lista_PiezasMovidas; // los valores se actualizarán en la parte de logica

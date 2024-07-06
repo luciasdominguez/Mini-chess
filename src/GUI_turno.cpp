@@ -44,18 +44,62 @@ void GUI_turno::calcula_Pos_turno(ENUM_JUGADOR trn)
 }
 
 ///////////////////////////
+////////// GUI_jaque
+//////////////////////
+
+
+GUI_jaque::GUI_jaque()
+{
+	// Hacer y cambiar sprite jaque
+	string path_sprite_jaque = "imagenes/jaque_mate.png";
+	pos_x = 4;
+	pos_y = 4;
+	ver_jaque = false;
+	const char* cstr = path_sprite_jaque.c_str();
+	sprite_jaque = new SpriteSequence(cstr, 1, 1, 100, true, pos_x, pos_y, 2, 2);
+	sprite_jaque->setSize(0, 0);
+}
+
+void GUI_jaque::dibuja_jaque()
+{
+	glPushMatrix();
+	glTranslated(0, 0, 1);
+
+	sprite_jaque->flip(false, false);
+	sprite_jaque->setPos(pos_x, pos_y);
+	if (ver_jaque)
+		sprite_jaque->setSize(7, 2);
+	else
+		sprite_jaque->setSize(0, 0);
+
+	sprite_jaque->draw();
+	//fin del codigo incluido
+	glPopMatrix();
+}
+
+void GUI_jaque::set_ver_jaque(bool ver)
+{
+	ver_jaque = ver;
+}
+
+bool GUI_jaque::get_ver_jaque()
+{
+	return ver_jaque;
+}
+
+///////////////////////////
 ////////// GUI_jaque_mate
 //////////////////////
 
 GUI_jaque_mate::GUI_jaque_mate()
 {
-	string path_sprite_jaque = "imagenes/jaque_mate.png";
+	string path_sprite_jaque_mate = "imagenes/jaque_mate.png";
 	pos_x = 4;
 	pos_y = 4;
 	ver_jaque_mate = false;
-	const char* cstr = path_sprite_jaque.c_str();
-	sprite_jaque = new SpriteSequence(cstr, 1, 1, 100, true, pos_x, pos_y, 2, 2);
-	sprite_jaque->setSize(0, 0);
+	const char* cstr = path_sprite_jaque_mate.c_str();
+	sprite_jaque_mate = new SpriteSequence(cstr, 1, 1, 100, true, pos_x, pos_y, 2, 2);
+	sprite_jaque_mate->setSize(0, 0);
 }
 
 void GUI_jaque_mate::dibuja_jaque_mate()
@@ -63,14 +107,14 @@ void GUI_jaque_mate::dibuja_jaque_mate()
 	glPushMatrix();
 	glTranslated(0, 0, 1);
 
-	sprite_jaque->flip(false, false);
-	sprite_jaque->setPos(pos_x, pos_y);
+	sprite_jaque_mate->flip(false, false);
+	sprite_jaque_mate->setPos(pos_x, pos_y);
 	if (ver_jaque_mate)
-		sprite_jaque->setSize(7, 2);
+		sprite_jaque_mate->setSize(7, 2);
 	else
-		sprite_jaque->setSize(0, 0);
+		sprite_jaque_mate->setSize(0, 0);
 
-	sprite_jaque->draw();
+	sprite_jaque_mate->draw();
 	//fin del codigo incluido
 	glPopMatrix();
 }
