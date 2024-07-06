@@ -79,3 +79,17 @@ ficha* tablero::encontrar_rey(const ENUM_COLOR& c) const {
         }
     }
 }
+
+tablero tablero::simular_gravedad() const {
+    tablero tablero_con_gravedad = *this;
+
+    for (int i = 7; i > 0; i--) {
+        for (int j = 0; j < n_columnas; j++) {
+            if (tablero_con_gravedad.casillas_tablero[i][j].leer_ocupacion() && !tablero_con_gravedad.casillas_tablero[i-1][j].leer_ocupacion()) {
+                tablero_con_gravedad.casillas_tablero[i - 1][j].ocupacion = tablero_con_gravedad.casillas_tablero[i][j].ocupacion;
+                tablero_con_gravedad.casillas_tablero[i][j].ocupacion = nullptr;
+            }
+        }
+    }
+    return tablero_con_gravedad;
+}

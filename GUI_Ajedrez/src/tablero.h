@@ -27,6 +27,7 @@ public:
     int leer_columnas() const { return n_columnas; }
     casilla leer_casilla(int i, int j) const { return casillas_tablero.at(i).at(j); }
     void gravedad();
+    tablero simular_gravedad() const; //Devuelve un tablero con la gravedad aplicada a todas las piezas
     ficha* encontrar_rey(const ENUM_COLOR& c) const;
 
     // Destructor de tablero

@@ -33,10 +33,30 @@ int Cl_logica::analiza_jugada(vector<vector<PIEZA_STRU>> _TableroGUI_actual, GUI
 
 	jugada_valida = casilla_origen.ocupacion->mover(casilla_destino, tablero_temporal);
 	
+	//Comprobación de la legalidad de la jugada
 	if (jugada_valida == false) {
 		return 0;
 	}
 
+	//Comprobación de las consecuencias tras la gravedad
+	
+	tablero tablero_aux = tablero_temporal;
+
+	tablero_aux.casillas_tablero[pieza_actual.c_columna - 1][pieza_actual.c_fila - 1].ocupacion = tablero_temporal.casillas_tablero[pieza_antes.c_columna - 1][pieza_antes.c_fila - 1].ocupacion;
+	tablero_aux.casillas_tablero[pieza_antes.c_columna - 1][pieza_antes.c_fila - 1].ocupacion = nullptr;
+
+	tablero tablero_con_gravedad_simulada = tablero_aux.simular_gravedad();
+	Rey rey_aux = tablero_con_gravedad_simulada.encontrar_rey(pieza_actual.c_color);
+	if (rey_aux.en_jaque(rey_aux.leer_posicion(), tablero_con_gravedad_simulada)) {
+		tablero_aux.casillas_tablero[pieza_antes.c_columna - 1][pieza_antes.c_fila - 1].ocupacion = tablero_aux.casillas_tablero[pieza_actual.c_columna - 1][pieza_actual.c_fila - 1].ocupacion;
+		tablero_aux.casillas_tablero[pieza_actual.c_columna - 1][pieza_actual.c_fila - 1].ocupacion = nullptr;
+		return 0;
+	}
+
+	tablero_aux.casillas_tablero[pieza_antes.c_columna - 1][pieza_antes.c_fila - 1].ocupacion = tablero_aux.casillas_tablero[pieza_actual.c_columna - 1][pieza_actual.c_fila - 1].ocupacion;
+	tablero_aux.casillas_tablero[pieza_actual.c_columna - 1][pieza_actual.c_fila - 1].ocupacion = nullptr;
+
+	//Ejecutamos el movimiento
 	if (casilla_destino.ocupacion != nullptr) // en el destino habia pieza del contrario y se añade como situada en el almacen 
 											// poniendola en la lista de piezas movidas
 	{
@@ -53,15 +73,6 @@ int Cl_logica::analiza_jugada(vector<vector<PIEZA_STRU>> _TableroGUI_actual, GUI
 		jugada_propia.add_pieza_a_jugada(pieza_aux);
 	}
 
-
-	/////////////////////
-	// Debe ir despues de analizar el efecto de la gravedad
-	gestor_jaques g;
-	if (g.Mod_estado(tablero_temporal)) {
-		return 2;
-	}
-	/////////////////////
-
 	vector<vector<PIEZA_STRU>> Tablero_gravedad = _TableroGUI_actual;
 	GUI_partida partida_act; 
 	
@@ -71,6 +82,14 @@ int Cl_logica::analiza_jugada(vector<vector<PIEZA_STRU>> _TableroGUI_actual, GUI
 	//Tablero_gravedad.at(pieza_antes.c_fila - 1).at(pieza_antes.c_columna - 1).c_tipo = t_NO;
 	//jugada_gravedad_GUI(Tablero_gravedad,_TableroGUI_actual,jugada_gravedad);
 	analiza_gravedad(Tablero_gravedad, jugada_propia, jugada_gravedad);
+
+	// Debe ir despues de analizar el efecto de la gravedad
+
+	//LA FUNCIÓN AHORA MISMO DA ERRORES, ESTA COMENTADA PARA PROBAR LO DEMAS, CORREGIR
+	
+	if (gestor_jaques::comprobar_mate(tablero_con_gravedad_simulada)) {
+		return 2;
+	}
 
 	return 1;
 }
@@ -95,7 +114,7 @@ PIEZA_STRU Cl_logica::busca_posicion_anterior(PIEZA_STRU pieza_jugada) { //se de
 	return pz_0; // si no se ha encontrado se devuelve pz_0
 }
 
-
+//ESTA PROVOCA DOBLE MOVIMIENTO EN LOS PEONES, NECESITAMOS QUE CUANDO SE VUELVAN A GENERAR ha_movido = true (despues de haber sido movidos)
 void Cl_logica::genera_tablero_temporal() {
 	
 	// se genera el tablero tempora en base al "tableroGUI_actual"
@@ -115,6 +134,12 @@ void Cl_logica::genera_tablero_temporal() {
 			switch (tipo) {
 			case peon:
 				ptemp = new Peon(tablero_temporal.casillas_tablero.at(i).at(j), TableroGUI_actual.at(j).at(i).c_color);
+				if (TableroGUI_actual.at(j).at(i).c_color == blanca && j != 1) {
+					ptemp->mod_ha_movido();
+				}
+				if (TableroGUI_actual.at(j).at(i).c_color == negra && j != 6) {
+					ptemp->mod_ha_movido();
+				}
 				break;
 
 			case torre:
@@ -144,11 +169,11 @@ void Cl_logica::genera_tablero_temporal() {
 			auto c_pieza = TableroGUI_actual.at(j).at(i).c_pieza;
 
 			tablero_temporal.casillas_tablero.at(i).at(j).ocupacion->set_pieza(c_pieza);
-			
+
 		}
 	}
 	int tt;
-
+	
 }
 
 // Recorre el tablero e identifica qué fichas tienen libre un hueco debajo pero no las mueve ni indica cuántas posiciones
@@ -214,13 +239,14 @@ void Cl_logica::analiza_gravedad(vector<vector<PIEZA_STRU>> Tablero, GUI_jugada&
 
 	//efecto sobre la casilla destino de la jugada
 	int cuenta_vacias = 0;
-	for (int idx_c = ((int)columna_destino) - 2;idx_c >= 0;idx_c--)
+	for (int idx_c = ((int)columna_destino) - 1;idx_c >= 1;idx_c--)
 	{
-		auto aux_pz = TableroGUI_actual.at((int)fila_destino - 1).at(idx_c);
+		auto aux_pz = TableroGUI_actual.at((int)fila_destino - 1).at(idx_c-1);
 		if (aux_pz.c_color == color_NO)
 			cuenta_vacias++;
 	}
-	if (fila_destino == fila_origen) cuenta_vacias++;
+	if ((fila_destino == fila_origen) && ((int)columna_destino>(int)columna_origen)) 
+		cuenta_vacias++;
 	pieza_movida.c_columna = (ENUM_COLUMNA)(pieza_movida.c_columna - cuenta_vacias);
 
 	jugada_gravedad.add_pieza_a_jugada(pieza_movida);
