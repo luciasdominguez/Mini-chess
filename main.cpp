@@ -5,8 +5,12 @@
 #include "GUI_marcador.h"
 #include "Juego.h"
 #include "aux2_.h"
+#include "Mundo_menu.h"
 
 Juego juego;
+opcion op = MENU_INICIAL;
+Mundo_menu menu;
+
 //vector<GUI_movimiento> partida;
 int n_jugadas_partida = 0;
 int index_jugada_en_partida = 0;
@@ -23,6 +27,7 @@ void OnKeyboardDown(unsigned char key, int x, int y); //cuando se pulse una tecl
 
 int main(int argc, char* argv[])
 {
+	menu.inicializa();
 	//Inicializar el gestor de ventanas GLUT
 	//y crear la ventana
 	glutInit(&argc, argv);
@@ -39,6 +44,7 @@ int main(int argc, char* argv[])
 	gluPerspective(40.0, 800 / 600.0f, 0.1, 150);
 
 	
+
 	//Registrar los callbacks
 	glutDisplayFunc(OnDraw);
 	glutTimerFunc(25, OnTimer, 0);//le decimos que dentro de 25ms llame 1 vez a la funcion OnTimer()
@@ -62,8 +68,15 @@ void OnDraw(void)
 		0.0, 7.5, 0.0,      // hacia que punto mira  (0,0,0) 
 		0.0, 1.0, 0.0);      // definimos hacia arriba (eje Y)    
 
+	if (op == MENU_INICIAL)
+		menu.dibuja_menu();
+
+	else if (op == CONTROLES)
+		menu.dibuja_controles();
+
 	//dibujo del tablero con las piezas en sus posiciones, los cursores...
-	juego.dibuja_juego();
+	else if (op == JUGAR)
+		juego.dibuja_juego();
 
 	/////////////////////////////////////////
 	//no borrar esta linea ni poner nada despues
@@ -81,408 +94,432 @@ void OnKeyboardDown(unsigned char key, int x_t, int y_t)
 	GUI_partida* partida_aux;
 	bool test_jugada_erronea=false;
 
-	if (juego.get_selector_partidas_jugadas() == modo_seleccion_partida)
-	{  // operativa del teclado en estado de "seleccion_partida"
-		switch (key)
-		{
+	if (op == MENU_INICIAL || op == CONTROLES || op == FIN)
+		menu.tecla(key, op);
 
-		case 's': // 
-			juego.carga_partida_al_GUI(-1, true);
-			juego.get_almacen_partidas().actualiza_objeto_json();
-			exit(0);
-			break;
-		case 'n':  
-			//Se genera la partida con el nombre del día y la hora. Contiene las posiciones iniciales de un partida normal
-			juego.cargar_partida(s);
-			jugadas = juego.get_partida_actual()->get_jugadas();
-			n_jugadas_partida = juego.get_N_jugadas_partida_actual();
-			index_jugada_en_partida = n_jugadas_partida-1;
-			juego.cambia_selector_partidas_jugadas();  // se cambia a "modo juego"
-			juego.carga_partida_al_GUI(-1,true);
-			break;
-		case 'e':  // se carga una partida ejemplo (la lista de los movimientos)
-			juego.cargar_partida_ejemplo();
-			n_jugadas_partida = juego.get_N_jugadas_partida_actual();
-			index_jugada_en_partida = n_jugadas_partida-1;
-			juego.cambia_selector_partidas_jugadas();  // se cambia a "modo juego"
-			juego.carga_partida_al_GUI(-1,true);
-			break;
+	else if (op == JUGAR)
+	{
+		if (key == 'm') //Para volver al menu
+			op = MENU_INICIAL;
 
-		case 'j': // se pasa a "modo juego"
-			n_jugadas_partida = juego.get_N_jugadas_partida_actual();
-			if (n_jugadas_partida!=0) {
-				juego.cambia_selector_partidas_jugadas();
+		if (juego.get_selector_partidas_jugadas() == modo_seleccion_partida)
+		{  // operativa del teclado en estado de "seleccion_partida"
+			switch (key)
+			{
+
+			case 's': // 
 				juego.carga_partida_al_GUI(-1, true);
-			}
-			break;
-
-		case '1':  case '2':  case '3': case '4': case '5':   case '6': case '7': case '8': case '9':
-			auto aux = juego.get_listado_partidas().get_nombres_partidas();
-			int i = (int)key - 48;
-			if (i <= aux.size()) {
-				string S = aux.at(i - 1);
-				string S2=S.substr(3);
-				juego.cargar_partida(S2);
+				juego.get_almacen_partidas().actualiza_objeto_json();
+				exit(0);
+				break;
+			case 'n':  
+				//Se genera la partida con el nombre del día y la hora. Contiene las posiciones iniciales de un partida normal
+				juego.cargar_partida(s);
+				jugadas = juego.get_partida_actual()->get_jugadas();
 				n_jugadas_partida = juego.get_N_jugadas_partida_actual();
 				index_jugada_en_partida = n_jugadas_partida-1;
-				juego.carga_partida_al_GUI(-1, true);
-			}
-			else { // que suene un aviso
+				juego.cambia_selector_partidas_jugadas();  // se cambia a "modo juego"
+				juego.carga_partida_al_GUI(-1,true);
+				break;
+			case 'e':  // se carga una partida ejemplo (la lista de los movimientos)
+				juego.cargar_partida_ejemplo();
+				n_jugadas_partida = juego.get_N_jugadas_partida_actual();
+				index_jugada_en_partida = n_jugadas_partida-1;
+				juego.cambia_selector_partidas_jugadas();  // se cambia a "modo juego"
+				juego.carga_partida_al_GUI(-1,true);
+				break;
 
-			};
-			break;
-	
-		}
+			case 'j': // se pasa a "modo juego"
+				n_jugadas_partida = juego.get_N_jugadas_partida_actual();
+				if (n_jugadas_partida!=0) {
+					juego.cambia_selector_partidas_jugadas();
+					juego.carga_partida_al_GUI(-1, true);
+				}
+				break;
 
-	}
-	else  // operativa del teclado en estado de "jugadas"
-	{
-		int tam_partida = juego.get_partida_actual()->get_jugadas().size();
-
-		switch (key)
-		{
-		//case 's': // se pasa a estado de "jugadas
-		//	juego.get_almacen_partidas().actualiza_objeto_json();
-		//	exit(0);
-		//	break;
-		case 'z':
-			//L = juego.get_partida_actual().get_lista_movimientos();
-			//juego.get_listado_jugadas().set_nombres_jugadas(L);
-			break;
-
-		case 'n':
-			//////Se genera la partida con el nombre "Nueva" con las posiciones iniciales
-			////juego.cargar_partida("Nueva");
-			////juego.carga_partida_al_GUI(0);
-			////jugadas_partida = juego.get_partida().get_jugadas().size();
-			////jugadas_partida_ahora = jugadas_partida;
-			break;
-
-		case 'p': // se pasa a estado de seleccionar partida
-			juego.cambia_selector_partidas_jugadas();
-			juego.carga_partida_al_GUI(1, true);
-			break;
-
-		case '-':
-			//partida = juego.get_partida();
-			juego.get_casilla_cursor()->reset_cursor_casilla();
-			en_el_final_partida = false;
-			n_jugadas_partida = juego.get_N_jugadas_partida_actual();
-			if (tam_partida > 0) // error -------- se debe gestionar si no hay partida
-			{
-				index_jugada_en_partida--;
-				if (index_jugada_en_partida < 0)
-					index_jugada_en_partida = 0;
-				if (index_jugada_en_partida > (n_jugadas_partida - 1))
-					index_jugada_en_partida = (n_jugadas_partida - 1);
-				if (index_jugada_en_partida == (n_jugadas_partida - 1))
-					en_el_final_partida = true;
-				juego.get_msg_jaque_mate()->set_ver_jaque_mate(false);
-				juego.carga_partida_al_GUI(index_jugada_en_partida, en_el_final_partida);
-
-			}
-			break;
-
-		case '+':
-			//partida = juego.get_partida();
-			en_el_final_partida = false;
-			juego.get_casilla_cursor()->reset_cursor_casilla();
-			n_jugadas_partida = juego.get_N_jugadas_partida_actual();
-			if (tam_partida > 0) // error -------- se debe gestionar si no hay partida ---
-			{
-				index_jugada_en_partida++;
-				if (index_jugada_en_partida < 0) index_jugada_en_partida = 0;
-				if (index_jugada_en_partida >= (n_jugadas_partida-1)) {
-					// Si se intenta ir mas alla de la ultima partida hay que 
-					// cargar la ultima partida pero el turno siguiente
-					en_el_final_partida = true;
+			case '1':  case '2':  case '3': case '4': case '5':   case '6': case '7': case '8': case '9':
+				auto aux = juego.get_listado_partidas().get_nombres_partidas();
+				int i = (int)key - 48;
+				if (i <= aux.size()) {
+					string S = aux.at(i - 1);
+					string S2=S.substr(3);
+					juego.cargar_partida(S2);
+					n_jugadas_partida = juego.get_N_jugadas_partida_actual();
 					index_jugada_en_partida = n_jugadas_partida-1;
+					juego.carga_partida_al_GUI(-1, true);
 				}
-	
-	
-				juego.carga_partida_al_GUI(index_jugada_en_partida, en_el_final_partida);
+				else { // que suene un aviso
 
-				if (juego.get_jugador_actual() == BLANCAS || juego.get_jugador_actual() == NEGRAS)
-				{
-					juego.get_casilla_cursor()->reset_cursor_casilla();
-					juego.get_casilla_cursor()->switch_cursor_casilla();
-				}
-
-			}
-			if (index_jugada_en_partida < (n_jugadas_partida-1)) {
-				juego.get_casilla_cursor()->reset_cursor_casilla();
-			}
-			//juego.turno_();
-			break;
-
-		case '5': // activación del cursor para ir a seleccionar una pieza
-			
-			if ((index_jugada_en_partida == n_jugadas_partida - 1) &&  // Si estamos en una jugada que no sea la ultima (de momento) no se puede activar el cursor
-				(juego.get_jugador_actual() == BLANCAS || juego.get_jugador_actual() == NEGRAS) // Si juegan BLANCAS o NEGRAS
-				&& juego.get_msg_jaque_mate()->get_ver_jaque_mate() == false
-				)
-				{
-					juego.check_pieza_movible();   // verfica si en la casilla hay una pieza movible
-					if (juego.get_casilla_locked()->get_estado_locked() != ROJO)
-						juego.get_casilla_cursor()->switch_cursor_casilla();
 				};
-			break;
+				break;
+	
+			}
 
-		case '.':  //seleccion de pieza que se quiere mover
-			if (juego.get_pieza_locked() != nullptr && juego.get_msg_jaque_mate()->get_ver_jaque_mate() == false)  // que haya una pieza
+		}
+		else  // operativa del teclado en estado de "jugadas"
+		{
+			int tam_partida = juego.get_partida_actual()->get_jugadas().size();
+
+			switch (key)
 			{
-				auto pz_lck = juego.get_pieza_locked();
-				auto estado_locked = juego.get_casilla_locked()->get_estado_locked();
-				switch (estado_locked)
-				{
-				case ROJO:
-					if (juego.get_casilla_cursor()->get_fila() == juego.get_casilla_locked()->get_fila() &&
-						juego.get_casilla_cursor()->get_columna() == juego.get_casilla_locked()->get_columna())
-						// solo se puede cambiar a naranja si estoy en la casilla original que permitió el cambio a ROJO
-							juego.get_casilla_locked()->set_estado_locked(NARANJA, pz_lck);
-					break;
-				case NARANJA:
-					juego.get_casilla_locked()->set_estado_locked(ROJO, pz_lck);
-				};
-			};
-			break;
-			//juego.get_msg_jaque_mate()->set_ver_mensaje
-		case '/':
-			test_jugada_erronea = true;
-		case '0':  // ejecución del movimiento de la pieza seleccionada previamente
-			if (juego.get_pieza_locked() != nullptr && juego.get_msg_jaque_mate()->get_ver_jaque_mate()==false)  
-				// Que haya una pieza locked y no sea fin por jaque mate
-			{	//se carga la jugada en la posición de la partida en la que nos
-				// encontremos. Los movimientos que hubieran después son borrados.
-				
-				// antes de actuar con la jugada, actualizamos y guardamos el tablero tal con está
-				juego.get_partida_actual()->actualiza_tablero();
-				auto T = juego.get_partida_actual()->get_tablero();
+			//case 's': // se pasa a estado de "jugadas
+			//	juego.get_almacen_partidas().actualiza_objeto_json();
+			//	exit(0);
+			//	break;
+			case 'z':
+				//L = juego.get_partida_actual().get_lista_movimientos();
+				//juego.get_listado_jugadas().set_nombres_jugadas(L);
+				break;
 
-				index_jugada_en_partida = juego.get_partida_actual()->get_jugadas().size()-1;
-				juego.mueve_pieza_locked(index_jugada_en_partida);
-				n_jugadas_partida = juego.get_partida_actual()->get_jugadas().size();
-				juego.get_casilla_locked()->set_estado_locked(TRANS, nullptr);
-				auto j = juego.get_jugador_actual();
+			case 'n':
+				//////Se genera la partida con el nombre "Nueva" con las posiciones iniciales
+				////juego.cargar_partida("Nueva");
+				////juego.carga_partida_al_GUI(0);
+				////jugadas_partida = juego.get_partida().get_jugadas().size();
+				////jugadas_partida_ahora = jugadas_partida;
+				break;
 
-				juego.guarda_partida_actual();
-				index_jugada_en_partida = juego.get_partida_actual()->get_jugadas().size()-1;
-				n_jugadas_partida = juego.get_partida_actual()->get_jugadas().size();
-				partida_aux = juego.get_partida_actual();
+			case 'p': // se pasa a estado de seleccionar partida
+				juego.cambia_selector_partidas_jugadas();
+				juego.carga_partida_al_GUI(1, true);
+				break;
+
+			case '-':
+				//partida = juego.get_partida();
 				juego.get_casilla_cursor()->reset_cursor_casilla();
-				juego.carga_partida_al_GUI(-1,true);  //aqui se calcula a quien le toca el siguiente turno
-				//juego.avanza_turno(); // se actualiza a quien le toca mover como turno actual
+				en_el_final_partida = false;
+				n_jugadas_partida = juego.get_N_jugadas_partida_actual();
+				if (tam_partida > 0) // error -------- se debe gestionar si no hay partida
+				{
+					index_jugada_en_partida--;
+					if (index_jugada_en_partida < 0)
+						index_jugada_en_partida = 0;
+					if (index_jugada_en_partida > (n_jugadas_partida - 1))
+						index_jugada_en_partida = (n_jugadas_partida - 1);
+					if (index_jugada_en_partida == (n_jugadas_partida - 1))
+						en_el_final_partida = true;
+					juego.get_msg_jaque_mate()->set_ver_jaque_mate(false);
+					juego.carga_partida_al_GUI(index_jugada_en_partida, en_el_final_partida);
 
-				jugada_final = juego.get_partida_actual()->get_jugadas().back();
-				juego.jugada_gravedad.vaciar_jugada();
+				}
+				break;
+
+			case '+':
+				//partida = juego.get_partida();
+				en_el_final_partida = false;
+				juego.get_casilla_cursor()->reset_cursor_casilla();
+				n_jugadas_partida = juego.get_N_jugadas_partida_actual();
+				if (tam_partida > 0) // error -------- se debe gestionar si no hay partida ---
+				{
+					index_jugada_en_partida++;
+					if (index_jugada_en_partida < 0) index_jugada_en_partida = 0;
+					if (index_jugada_en_partida >= (n_jugadas_partida-1)) {
+						// Si se intenta ir mas alla de la ultima partida hay que 
+						// cargar la ultima partida pero el turno siguiente
+						en_el_final_partida = true;
+						index_jugada_en_partida = n_jugadas_partida-1;
+					}
+	
+	
+					juego.carga_partida_al_GUI(index_jugada_en_partida, en_el_final_partida);
+
+					if (juego.get_jugador_actual() == BLANCAS || juego.get_jugador_actual() == NEGRAS)
+					{
+						juego.get_casilla_cursor()->reset_cursor_casilla();
+						juego.get_casilla_cursor()->switch_cursor_casilla();
+					}
+
+				}
+				if (index_jugada_en_partida < (n_jugadas_partida-1)) {
+					juego.get_casilla_cursor()->reset_cursor_casilla();
+				}
+				//juego.turno_();
+				break;
+
+			case '5': // activación del cursor para ir a seleccionar una pieza
+			
+				if ((index_jugada_en_partida == n_jugadas_partida - 1) &&  // Si estamos en una jugada que no sea la ultima (de momento) no se puede activar el cursor
+					(juego.get_jugador_actual() == BLANCAS || juego.get_jugador_actual() == NEGRAS) // Si juegan BLANCAS o NEGRAS
+					&& juego.get_msg_jaque_mate()->get_ver_jaque_mate() == false
+					)
+					{
+						juego.check_pieza_movible();   // verfica si en la casilla hay una pieza movible
+						if (juego.get_casilla_locked()->get_estado_locked() != ROJO)
+							juego.get_casilla_cursor()->switch_cursor_casilla();
+					};
+				break;
+
+			case '.':  //seleccion de pieza que se quiere mover
+				if (juego.get_pieza_locked() != nullptr && juego.get_msg_jaque_mate()->get_ver_jaque_mate() == false)  // que haya una pieza
+				{
+					auto pz_lck = juego.get_pieza_locked();
+					auto estado_locked = juego.get_casilla_locked()->get_estado_locked();
+					switch (estado_locked)
+					{
+					case ROJO:
+						if (juego.get_casilla_cursor()->get_fila() == juego.get_casilla_locked()->get_fila() &&
+							juego.get_casilla_cursor()->get_columna() == juego.get_casilla_locked()->get_columna())
+							// solo se puede cambiar a naranja si estoy en la casilla original que permitió el cambio a ROJO
+								juego.get_casilla_locked()->set_estado_locked(NARANJA, pz_lck);
+						break;
+					case NARANJA:
+						juego.get_casilla_locked()->set_estado_locked(ROJO, pz_lck);
+					};
+				};
+				break;
+				//juego.get_msg_jaque_mate()->set_ver_mensaje
+			case '/':
+				test_jugada_erronea = true;
+			case '0':  // ejecución del movimiento de la pieza seleccionada previamente
+				if (juego.get_pieza_locked() != nullptr && juego.get_msg_jaque_mate()->get_ver_jaque_mate()==false)  
+					// Que haya una pieza locked y no sea fin por jaque mate
+				{	//se carga la jugada en la posición de la partida en la que nos
+					// encontremos. Los movimientos que hubieran después son borrados.
+				
+					// antes de actuar con la jugada, actualizamos y guardamos el tablero tal con está
+					juego.get_partida_actual()->actualiza_tablero();
+					auto T = juego.get_partida_actual()->get_tablero();
+
+					index_jugada_en_partida = juego.get_partida_actual()->get_jugadas().size()-1;
+					juego.mueve_pieza_locked(index_jugada_en_partida);
+					n_jugadas_partida = juego.get_partida_actual()->get_jugadas().size();
+					juego.get_casilla_locked()->set_estado_locked(TRANS, nullptr);
+					auto j = juego.get_jugador_actual();
+
+					juego.guarda_partida_actual();
+					index_jugada_en_partida = juego.get_partida_actual()->get_jugadas().size()-1;
+					n_jugadas_partida = juego.get_partida_actual()->get_jugadas().size();
+					partida_aux = juego.get_partida_actual();
+					juego.get_casilla_cursor()->reset_cursor_casilla();
+					juego.carga_partida_al_GUI(-1,true);  //aqui se calcula a quien le toca el siguiente turno
+					//juego.avanza_turno(); // se actualiza a quien le toca mover como turno actual
+
+					jugada_final = juego.get_partida_actual()->get_jugadas().back();
+					juego.jugada_gravedad.vaciar_jugada();
 
 
-				auto partida_act = juego.get_partida_actual(); // puntero a la partida actual del objeto juego
-				//*partida_act es el contenido de la partida actual del objeto juego;
+					auto partida_act = juego.get_partida_actual(); // puntero a la partida actual del objeto juego
+					//*partida_act es el contenido de la partida actual del objeto juego;
 
-				// el parametro "test_jugada_erronea" solamente es para provocar la reaccion a jugada erronea
-				// se activa con al pulsar la tecla "/" en lugar del "0"
+					// el parametro "test_jugada_erronea" solamente es para provocar la reaccion a jugada erronea
+					// se activa con al pulsar la tecla "/" en lugar del "0"
 
-				auto tablero_antes_jugada = partida_act->get_tablero();
-				auto pieza_movida = jugada_final.get_lista_piezas_movidas().at(0);
-				PIEZA_STRU pieza_localizada;
-				//// se busca la pieza en el tablero (según estaba antes de modificar el tablero)
-				for (int ff = 0; ff < 8; ff++) {
-					for (int cc = 0; cc < 8; cc++) {
-						auto pz0 = tablero_antes_jugada.at(ff).at(cc);
-						if (pz0.c_pieza == pieza_movida.c_pieza && pz0.c_color == pieza_movida.c_color) {
-							//localizada la pieza en el tablero
-							pieza_localizada = pz0;
-							break;
+					auto tablero_antes_jugada = partida_act->get_tablero();
+					auto pieza_movida = jugada_final.get_lista_piezas_movidas().at(0);
+					PIEZA_STRU pieza_localizada;
+					//// se busca la pieza en el tablero (según estaba antes de modificar el tablero)
+					for (int ff = 0; ff < 8; ff++) {
+						for (int cc = 0; cc < 8; cc++) {
+							auto pz0 = tablero_antes_jugada.at(ff).at(cc);
+							if (pz0.c_pieza == pieza_movida.c_pieza && pz0.c_color == pieza_movida.c_color) {
+								//localizada la pieza en el tablero
+								pieza_localizada = pz0;
+								break;
+							}
 						}
 					}
-				}
 
-				//resultado_jugada = juego.logica.analiza_jugada((*partida_act), jugada_final, juego.jugada_gravedad, test_jugada_erronea);
-				int resultado_jugada = juego.logica.analiza_jugada(partida_act->get_tablero(), jugada_final, juego.jugada_gravedad, test_jugada_erronea);
+					//resultado_jugada = juego.logica.analiza_jugada((*partida_act), jugada_final, juego.jugada_gravedad, test_jugada_erronea);
+					int resultado_jugada = juego.logica.analiza_jugada(partida_act->get_tablero(), jugada_final, juego.jugada_gravedad, test_jugada_erronea);
 
 				
-				// La función ha devuelto en la primera variable todas las piezas que se han movido debido al movimiento intruducida
-				// La función ha devuelto en la segunda variable todas las piezas que mueve la gravedad	
+					// La función ha devuelto en la primera variable todas las piezas que se han movido debido al movimiento intruducida
+					// La función ha devuelto en la segunda variable todas las piezas que mueve la gravedad	
 				
-				switch (resultado_jugada) {
-					default: 
-						// La jugada era ilegal
-						// se anula esta jugada y se vuelve a la anterior
-						juego.jugada_gravedad.vaciar_jugada();
-						juego.get_msg_jaque_mate()->set_ver_jaque_mate(false);
+					switch (resultado_jugada) {
+						default: 
+							// JUGADA NO VALIDA
+							// se anula esta jugada y se vuelve a la anterior
+							juego.jugada_gravedad.vaciar_jugada();
+							juego.get_msg_jaque_mate()->set_ver_jaque_mate(false);
 
-						partida_act->borrar_jugada_ultima();
-						juego.guarda_partida_actual();
+							partida_act->borrar_jugada_ultima();
+							juego.guarda_partida_actual();
 
-						juego.carga_partida_al_GUI(1, true);
+							juego.carga_partida_al_GUI(1, true);
 
-						ETSIDI::play("sonidos/disparo.wav");
+							ETSIDI::play("sonidos/disparo.wav");
 
-						break;
-					case 1:
-						// Si el analisis es correcto se actualiza la jugada actual (puede afectar a otras piezas)
-						partida_act->borrar_jugada_ultima();
-						partida_act->add_jugada_a_partida(jugada_final);
-						juego.guarda_partida_actual();
-						juego.carga_partida_al_GUI(-1, true);
-						juego.get_msg_jaque_mate()->set_ver_jaque_mate(false);
-						//
-						break;
-					case 2:
-						// Si el analisis es correcto se actualiza la jugada actual (puede afectar a otras piezas)
-						partida_act->borrar_jugada_ultima();
-						partida_act->add_jugada_a_partida(jugada_final);
-						juego.guarda_partida_actual();
-						juego.carga_partida_al_GUI(-1, true);
-						juego.get_msg_jaque_mate()->set_ver_jaque_mate(true);
-						//
-						// fin de partida por jaque mate
-						partida_act = juego.get_partida_actual();
-						juego.carga_partida_al_GUI(-1, true);
-						break;
-				}
+							break;
+						case 1:
+							//JUGADA VALIDA
+							// Si el analisis es correcto se actualiza la jugada actual (puede afectar a otras piezas)
+							partida_act->borrar_jugada_ultima();
+							partida_act->add_jugada_a_partida(jugada_final);
+							juego.guarda_partida_actual();
+							juego.carga_partida_al_GUI(-1, true);
+							juego.get_msg_jaque_mate()->set_ver_jaque_mate(false);
+							//
+							break;
+						case 2:
+							//JAQUE
+							partida_act->borrar_jugada_ultima();
+							partida_act->add_jugada_a_partida(jugada_final);
+							juego.guarda_partida_actual();
+							juego.carga_partida_al_GUI(-1, true);
+							juego.get_msg_jaque_mate()->set_ver_jaque_mate(false);
+
+							break;
+						case 3:
+							//MATE
+							// Si el analisis es correcto se actualiza la jugada actual (puede afectar a otras piezas)
+							partida_act->borrar_jugada_ultima();
+							partida_act->add_jugada_a_partida(jugada_final);
+							juego.guarda_partida_actual();
+							juego.carga_partida_al_GUI(-1, true);
+						
+							juego.get_msg_jaque_mate()->set_ver_jaque_mate(false);
+							juego.get_msg_jaque_mate()->dibuja_jaque_mate();
+
+							//
+							// fin de partida por jaque mate
+							partida_act = juego.get_partida_actual();
+							juego.carga_partida_al_GUI(-1, true);
+
+							break;
+					}
 		
-			}
-			break;
+				}
+				break;
 
-		case '*': // que juegue la gravedad
+			case '*': // que juegue la gravedad
 
-			if (juego.get_jugador_actual() == GRAVEDAD_B || juego.get_jugador_actual() == GRAVEDAD_N)
-			{  // Si le toca a la gravedad ....
-				lista_Piezas.clear();
-				lista_Piezas = juego.jugada_gravedad.get_lista_piezas_movidas();
-				index_jugada_en_partida = juego.get_partida_actual()->get_jugadas().size()-1;
-				jugadas = juego.get_partida_actual()->get_jugadas();
-				juego.add_jugada_libre(index_jugada_en_partida+1, lista_Piezas, juego.jugada_gravedad.jaque_mate);
-				index_jugada_en_partida = juego.get_partida_actual()->get_jugadas().size()-1;
-				n_jugadas_partida = juego.get_partida_actual()->get_jugadas().size();
-				partida_aux = juego.get_partida_actual();
-				jugadas = juego.get_partida_actual()->get_jugadas();
-				juego.guarda_partida_actual();
-				juego.get_casilla_cursor()->reset_cursor_casilla();
-				juego.get_casilla_cursor()->switch_cursor_casilla();
+				if (juego.get_jugador_actual() == GRAVEDAD_B || juego.get_jugador_actual() == GRAVEDAD_N)
+				{  // Si le toca a la gravedad ....
+					lista_Piezas.clear();
+					lista_Piezas = juego.jugada_gravedad.get_lista_piezas_movidas();
+					index_jugada_en_partida = juego.get_partida_actual()->get_jugadas().size()-1;
+					jugadas = juego.get_partida_actual()->get_jugadas();
+					juego.add_jugada_libre(index_jugada_en_partida+1, lista_Piezas, juego.jugada_gravedad.jaque_mate);
+					index_jugada_en_partida = juego.get_partida_actual()->get_jugadas().size()-1;
+					n_jugadas_partida = juego.get_partida_actual()->get_jugadas().size();
+					partida_aux = juego.get_partida_actual();
+					jugadas = juego.get_partida_actual()->get_jugadas();
+					juego.guarda_partida_actual();
+					juego.get_casilla_cursor()->reset_cursor_casilla();
+					juego.get_casilla_cursor()->switch_cursor_casilla();
 
-				juego.get_msg_jaque_mate()->set_ver_jaque_mate(juego.jugada_gravedad.jaque_mate);
-				auto p = partida_aux->get_jugadas().at(partida_aux->get_jugadas().size() - 1);
-				if (juego.jugada_gravedad.jaque_mate)
-				{
-					if (p.jugador == BLANCAS || p.jugador == GRAVEDAD_B)
-						ETSIDI::play("sonidos/It_s_a_me_Mario.wav");
-					else
-						ETSIDI::play("sonidos/I_am_number_one.wav");
+					juego.get_msg_jaque_mate()->set_ver_jaque_mate(juego.jugada_gravedad.jaque_mate);
+					auto p = partida_aux->get_jugadas().at(partida_aux->get_jugadas().size() - 1);
+					if (juego.jugada_gravedad.jaque_mate)
+					{
+						if (p.jugador == BLANCAS || p.jugador == GRAVEDAD_B)
+							ETSIDI::play("sonidos/It_s_a_me_Mario.wav");
+						else
+							ETSIDI::play("sonidos/I_am_number_one.wav");
+					}
+
+					juego.carga_partida_al_GUI(-1, true);
+
+
+					//juego.avanza_turno();
 				}
 
-				juego.carga_partida_al_GUI(-1, true);
+				break;
+			case '8':
 
+				if ((index_jugada_en_partida == n_jugadas_partida - 1) &&  // Si estamos en una jugada que no sea la ultima (de momento) no se puede activar el cursor
+					(juego.get_jugador_actual() == BLANCAS || juego.get_jugador_actual() == NEGRAS) // Si juegan BLANCAS o NEGRAS
+					&& juego.get_msg_jaque_mate()->get_ver_jaque_mate() == false
+					)
+				{
+					juego.get_casilla_cursor()->incrementa_posicion(0, 1);
+					if (juego.get_casilla_locked()->get_estado_locked() == NARANJA)
+						juego.reset_pieza_locked();
+					juego.check_pieza_movible();
+				}
+				break;
+			case '9':
+				if ((index_jugada_en_partida == n_jugadas_partida - 1) &&  // Si estamos en una jugada que no sea la ultima (de momento) no se puede activar el cursor
+					(juego.get_jugador_actual() == BLANCAS || juego.get_jugador_actual() == NEGRAS) // Si juegan BLANCAS o NEGRAS
+					&& juego.get_msg_jaque_mate()->get_ver_jaque_mate() == false
+					)
+				{
+					juego.get_casilla_cursor()->incrementa_posicion(-1, 1);
+					if (juego.get_casilla_locked()->get_estado_locked() == NARANJA)
+						juego.reset_pieza_locked();
+					juego.check_pieza_movible();
+				}
+				break;
+			case '6':
+				if ((index_jugada_en_partida == n_jugadas_partida - 1) &&  // Si estamos en una jugada que no sea la ultima (de momento) no se puede activar el cursor
+					(juego.get_jugador_actual() == BLANCAS || juego.get_jugador_actual() == NEGRAS) // Si juegan BLANCAS o NEGRAS
+					&& juego.get_msg_jaque_mate()->get_ver_jaque_mate() == false
+					)
+				{
+					juego.get_casilla_cursor()->incrementa_posicion(-1, 0);
+					if (juego.get_casilla_locked()->get_estado_locked() == NARANJA)
+						juego.reset_pieza_locked();
+					juego.check_pieza_movible();
+				}
+				break;
+			case '3':
+				if ((index_jugada_en_partida == n_jugadas_partida - 1) &&  // Si estamos en una jugada que no sea la ultima (de momento) no se puede activar el cursor
+					(juego.get_jugador_actual() == BLANCAS || juego.get_jugador_actual() == NEGRAS) // Si juegan BLANCAS o NEGRAS
+					&& juego.get_msg_jaque_mate()->get_ver_jaque_mate() == false
+					)
+				{
+					juego.get_casilla_cursor()->incrementa_posicion(-1, -1);
+					if (juego.get_casilla_locked()->get_estado_locked() == NARANJA)
+						juego.reset_pieza_locked();
+					juego.check_pieza_movible();
+				}
+				break;
+			case '2':
+				if ((index_jugada_en_partida == n_jugadas_partida - 1) &&  // Si estamos en una jugada que no sea la ultima (de momento) no se puede activar el cursor
+					(juego.get_jugador_actual() == BLANCAS || juego.get_jugador_actual() == NEGRAS) // Si juegan BLANCAS o NEGRAS
+					&& juego.get_msg_jaque_mate()->get_ver_jaque_mate() == false
+					)
+				{
+					juego.get_casilla_cursor()->incrementa_posicion(0, -1);
+					if (juego.get_casilla_locked()->get_estado_locked() == NARANJA)
+						juego.reset_pieza_locked();
+					juego.check_pieza_movible();
+				}
+				break;
+			case '1':
+				if ((index_jugada_en_partida == n_jugadas_partida - 1) &&  // Si estamos en una jugada que no sea la ultima (de momento) no se puede activar el cursor
+					(juego.get_jugador_actual() == BLANCAS || juego.get_jugador_actual() == NEGRAS) // Si juegan BLANCAS o NEGRAS
+					&& juego.get_msg_jaque_mate()->get_ver_jaque_mate() == false
+					)
+				{
+					juego.get_casilla_cursor()->incrementa_posicion(1, -1);
+					if (juego.get_casilla_locked()->get_estado_locked() == NARANJA)
+						juego.reset_pieza_locked();
+					juego.check_pieza_movible();
+				}
+				break;
 
-				//juego.avanza_turno();
-			}
+			case '4':
+				if ((index_jugada_en_partida == n_jugadas_partida - 1) &&  // Si estamos en una jugada que no sea la ultima (de momento) no se puede activar el cursor
+					(juego.get_jugador_actual() == BLANCAS || juego.get_jugador_actual() == NEGRAS) // Si juegan BLANCAS o NEGRAS
+					&& juego.get_msg_jaque_mate()->get_ver_jaque_mate() == false
+					)
+				{
+					juego.get_casilla_cursor()->incrementa_posicion(1, 0);
+					if (juego.get_casilla_locked()->get_estado_locked() == NARANJA)
+						juego.reset_pieza_locked();
+					juego.check_pieza_movible();
+				}
+				break;
 
-			break;
-		case '8':
+			case '7':
+				if ((index_jugada_en_partida == n_jugadas_partida - 1) &&  // Si estamos en una jugada que no sea la ultima (de momento) no se puede activar el cursor
+					(juego.get_jugador_actual() == BLANCAS || juego.get_jugador_actual() == NEGRAS) // Si juegan BLANCAS o NEGRAS
+					&& juego.get_msg_jaque_mate()->get_ver_jaque_mate() == false
+					)
+				{
+					juego.get_casilla_cursor()->incrementa_posicion(1, 1);
+					if (juego.get_casilla_locked()->get_estado_locked() == NARANJA)
+						juego.reset_pieza_locked();
+					juego.check_pieza_movible();
+				}
+				break;
 
-			if ((index_jugada_en_partida == n_jugadas_partida - 1) &&  // Si estamos en una jugada que no sea la ultima (de momento) no se puede activar el cursor
-				(juego.get_jugador_actual() == BLANCAS || juego.get_jugador_actual() == NEGRAS) // Si juegan BLANCAS o NEGRAS
-				&& juego.get_msg_jaque_mate()->get_ver_jaque_mate() == false
-				)
-			{
-				juego.get_casilla_cursor()->incrementa_posicion(0, 1);
-				if (juego.get_casilla_locked()->get_estado_locked() == NARANJA)
-					juego.reset_pieza_locked();
-				juego.check_pieza_movible();
+			case ' ':
+				juego.generar_listado_datos_piezas_OFF();  //Para poner todas la piezas en el almacén
+				break;
 			}
-			break;
-		case '9':
-			if ((index_jugada_en_partida == n_jugadas_partida - 1) &&  // Si estamos en una jugada que no sea la ultima (de momento) no se puede activar el cursor
-				(juego.get_jugador_actual() == BLANCAS || juego.get_jugador_actual() == NEGRAS) // Si juegan BLANCAS o NEGRAS
-				&& juego.get_msg_jaque_mate()->get_ver_jaque_mate() == false
-				)
-			{
-				juego.get_casilla_cursor()->incrementa_posicion(-1, 1);
-				if (juego.get_casilla_locked()->get_estado_locked() == NARANJA)
-					juego.reset_pieza_locked();
-				juego.check_pieza_movible();
-			}
-			break;
-		case '6':
-			if ((index_jugada_en_partida == n_jugadas_partida - 1) &&  // Si estamos en una jugada que no sea la ultima (de momento) no se puede activar el cursor
-				(juego.get_jugador_actual() == BLANCAS || juego.get_jugador_actual() == NEGRAS) // Si juegan BLANCAS o NEGRAS
-				&& juego.get_msg_jaque_mate()->get_ver_jaque_mate() == false
-				)
-			{
-				juego.get_casilla_cursor()->incrementa_posicion(-1, 0);
-				if (juego.get_casilla_locked()->get_estado_locked() == NARANJA)
-					juego.reset_pieza_locked();
-				juego.check_pieza_movible();
-			}
-			break;
-		case '3':
-			if ((index_jugada_en_partida == n_jugadas_partida - 1) &&  // Si estamos en una jugada que no sea la ultima (de momento) no se puede activar el cursor
-				(juego.get_jugador_actual() == BLANCAS || juego.get_jugador_actual() == NEGRAS) // Si juegan BLANCAS o NEGRAS
-				&& juego.get_msg_jaque_mate()->get_ver_jaque_mate() == false
-				)
-			{
-				juego.get_casilla_cursor()->incrementa_posicion(-1, -1);
-				if (juego.get_casilla_locked()->get_estado_locked() == NARANJA)
-					juego.reset_pieza_locked();
-				juego.check_pieza_movible();
-			}
-			break;
-		case '2':
-			if ((index_jugada_en_partida == n_jugadas_partida - 1) &&  // Si estamos en una jugada que no sea la ultima (de momento) no se puede activar el cursor
-				(juego.get_jugador_actual() == BLANCAS || juego.get_jugador_actual() == NEGRAS) // Si juegan BLANCAS o NEGRAS
-				&& juego.get_msg_jaque_mate()->get_ver_jaque_mate() == false
-				)
-			{
-				juego.get_casilla_cursor()->incrementa_posicion(0, -1);
-				if (juego.get_casilla_locked()->get_estado_locked() == NARANJA)
-					juego.reset_pieza_locked();
-				juego.check_pieza_movible();
-			}
-			break;
-		case '1':
-			if ((index_jugada_en_partida == n_jugadas_partida - 1) &&  // Si estamos en una jugada que no sea la ultima (de momento) no se puede activar el cursor
-				(juego.get_jugador_actual() == BLANCAS || juego.get_jugador_actual() == NEGRAS) // Si juegan BLANCAS o NEGRAS
-				&& juego.get_msg_jaque_mate()->get_ver_jaque_mate() == false
-				)
-			{
-				juego.get_casilla_cursor()->incrementa_posicion(1, -1);
-				if (juego.get_casilla_locked()->get_estado_locked() == NARANJA)
-					juego.reset_pieza_locked();
-				juego.check_pieza_movible();
-			}
-			break;
-
-		case '4':
-			if ((index_jugada_en_partida == n_jugadas_partida - 1) &&  // Si estamos en una jugada que no sea la ultima (de momento) no se puede activar el cursor
-				(juego.get_jugador_actual() == BLANCAS || juego.get_jugador_actual() == NEGRAS) // Si juegan BLANCAS o NEGRAS
-				&& juego.get_msg_jaque_mate()->get_ver_jaque_mate() == false
-				)
-			{
-				juego.get_casilla_cursor()->incrementa_posicion(1, 0);
-				if (juego.get_casilla_locked()->get_estado_locked() == NARANJA)
-					juego.reset_pieza_locked();
-				juego.check_pieza_movible();
-			}
-			break;
-
-		case '7':
-			if ((index_jugada_en_partida == n_jugadas_partida - 1) &&  // Si estamos en una jugada que no sea la ultima (de momento) no se puede activar el cursor
-				(juego.get_jugador_actual() == BLANCAS || juego.get_jugador_actual() == NEGRAS) // Si juegan BLANCAS o NEGRAS
-				&& juego.get_msg_jaque_mate()->get_ver_jaque_mate() == false
-				)
-			{
-				juego.get_casilla_cursor()->incrementa_posicion(1, 1);
-				if (juego.get_casilla_locked()->get_estado_locked() == NARANJA)
-					juego.reset_pieza_locked();
-				juego.check_pieza_movible();
-			}
-			break;
-
-		case ' ':
-			juego.generar_listado_datos_piezas_OFF();  //Para poner todas la piezas en el almacén
-			break;
 		}
 	}
 }
