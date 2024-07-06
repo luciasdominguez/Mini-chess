@@ -157,7 +157,7 @@
     <ClCompile Include="src\listado_partidas.cpp" />
     <ClCompile Include="src\logica.cpp" />
     <ClCompile Include="src\Mundo_menu.cpp" />
-    <ClCompile Include="src\Pared.cpp" />
+    <ClCompile Include="src\Pared_menu.cpp" />
     <ClCompile Include="src\tablero.cpp" />
     <ClCompile Include="src\T_listado_jugadas.cpp" />
     <ClCompile Include="src\vector2D.cpp" />

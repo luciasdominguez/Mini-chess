@@ -94,7 +94,7 @@ void OnKeyboardDown(unsigned char key, int x_t, int y_t)
 	GUI_partida* partida_aux;
 	bool test_jugada_erronea=false;
 
-	if (op == MENU_INICIAL || op == CONTROLES || op == FIN)
+	if (op == MENU_INICIAL || op == CONTROLES)
 		menu.tecla(key, op);
 
 	else if (op == JUGAR)

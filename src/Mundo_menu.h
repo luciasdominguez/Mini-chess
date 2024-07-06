@@ -3,7 +3,7 @@
 #pragma once
 #include "Caja_menu.h" 
 
-typedef enum opcion { MENU_INICIAL = 0, JUGAR, CONTROLES, SALIR, FIN };
+typedef enum opcion { MENU_INICIAL = 0, JUGAR, CONTROLES, SALIR };
 class Mundo_menu
 {
 public:
