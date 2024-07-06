@@ -47,19 +47,16 @@ bool Peon::mover(casilla& Casilla, const tablero& Tablero) {
 		break;
 	}
 
-	if (R.en_jaque(Casilla, Tablero) == true) {
-		if (R.en_jaque(R.leer_posicion(), Tablero) == true) {
-			tablero t_aux = Tablero;
-			t_aux.cambiar_casilla(this->posicion, nullptr);
-			t_aux.cambiar_casilla(Casilla, this);
-			t_aux.gravedad();
-			if (R.en_jaque(R.leer_posicion(), t_aux) == true) {
-				return true;
-			}
-			//Mensaje error por jaque
-		}
-		return false;
-	}
+	/////*if (R.en_jaque(R.leer_posicion(), Tablero) == true) {
+	////		tablero t_aux = Tablero;
+	////		t_aux.cambiar_casilla(this->posicion, nullptr);
+	////		t_aux.cambiar_casilla(Casilla, this);
+	////		t_aux.gravedad();
+	////		if (R.en_jaque(R.leer_posicion(), t_aux) == true) {
+	////			return false;
+
+	////	}
+	////}*/
 	this->ha_movido = true;
 
 	return true;
@@ -85,19 +82,16 @@ bool Torre::mover(casilla& Casilla, const tablero& Tablero) {
 		return false;
 	}
 
-	if (R.en_jaque(Casilla, Tablero) == true) {
-		if (R.en_jaque(R.leer_posicion(), Tablero) == true) {
-			tablero t_aux = Tablero;
-			t_aux.cambiar_casilla(this->posicion, nullptr);
-			t_aux.cambiar_casilla(Casilla, this);
-			t_aux.gravedad();
-			if (R.en_jaque(R.leer_posicion(), t_aux) == true) {
-				return true;
-			}
-			//Mensaje error por jaque
-		}
-		return false;
-	}
+	//////	if (R.en_jaque(R.leer_posicion(), Tablero) == true) {
+	//////		tablero t_aux = Tablero;
+	//////		t_aux.cambiar_casilla(this->posicion, nullptr);
+	//////		t_aux.cambiar_casilla(Casilla, this);
+	//////		t_aux.gravedad();
+	//////		if (R.en_jaque(R.leer_posicion(), t_aux) == true) {
+	//////			return false;
+	//////		}
+	//////		//Mensaje error por jaque
+	//////}
 
 
 	return true;
@@ -119,19 +113,16 @@ bool Caballo::mover(casilla& Casilla, const tablero& Tablero) {
 		return false;
 	}
 
-	if (R.en_jaque(Casilla, Tablero) == true) {
-		if (R.en_jaque(R.leer_posicion(), Tablero) == true) {
-			tablero t_aux = Tablero;
-			t_aux.cambiar_casilla(this->posicion, nullptr);
-			t_aux.cambiar_casilla(Casilla, this);
-			t_aux.gravedad();
-			if (R.en_jaque(R.leer_posicion(), t_aux) == true) {
-				return true;
-			}
-			//Mensaje error por jaque
-		}
-		return false;
-	}
+	//////	if (R.en_jaque(R.leer_posicion(), Tablero) == true) {
+	//////		tablero t_aux = Tablero;
+	//////		t_aux.cambiar_casilla(this->posicion, nullptr);
+	//////		t_aux.cambiar_casilla(Casilla, this);
+	//////		t_aux.gravedad();
+	//////		if (R.en_jaque(R.leer_posicion(), t_aux) == true) {
+	//////			return false;
+	//////		}
+	//////		//Mensaje error por jaque
+	//////}
 
 
 	return true;
@@ -154,19 +145,16 @@ bool Alfil::mover(casilla& Casilla, const tablero& Tablero) {
 		return false;
 	}
 
-	if (R.en_jaque(Casilla, Tablero) == true) {
-		if (R.en_jaque(R.leer_posicion(), Tablero) == true) {
-			tablero t_aux = Tablero;
-			t_aux.cambiar_casilla(this->posicion, nullptr);
-			t_aux.cambiar_casilla(Casilla, this);
-			t_aux.gravedad();
-			if (R.en_jaque(R.leer_posicion(), t_aux) == true) {
-				return true;
-			}
-			//Mensaje error por jaque
-		}
-		return false;
-	}
+	//////	if (R.en_jaque(R.leer_posicion(), Tablero) == true) {
+	//////		tablero t_aux = Tablero;
+	//////		t_aux.cambiar_casilla(this->posicion, nullptr);
+	//////		t_aux.cambiar_casilla(Casilla, this);
+	//////		t_aux.gravedad();
+	//////		if (R.en_jaque(R.leer_posicion(), t_aux) == true) {
+	//////			return false;
+	//////		}
+	//////		//Mensaje error por jaque
+	//////}
 
 
 	return true;
@@ -189,18 +177,16 @@ bool Reina::mover(casilla& Casilla, const tablero& Tablero) {
 		return false;
 	}
 
-	if (R.en_jaque(R.leer_posicion(), Tablero) == true) {
-		tablero t_aux = Tablero;
-		t_aux.cambiar_casilla(this->posicion, nullptr);
-		t_aux.cambiar_casilla(Casilla, this);
-		t_aux.gravedad();
-		if (R.en_jaque(R.leer_posicion(), t_aux) == true) {
-			return true;
-		}
-		//Mensaje error por jaque
-		return false;
-	}
-
+	//////if (R.en_jaque(R.leer_posicion(), Tablero) == true) {
+	//////	tablero t_aux = Tablero;
+	//////	t_aux.cambiar_casilla(this->posicion, nullptr);
+	//////	t_aux.cambiar_casilla(Casilla, this);
+	//////	t_aux.gravedad();
+	//////	if (R.en_jaque(R.leer_posicion(), t_aux) == true) {
+	//////		return false;
+	//////		//Mensaje error por jaque
+	//////	}
+	//////}
 
 	return true;
 }
@@ -217,10 +203,10 @@ bool Rey::mover(casilla& casilla, const tablero& tablero) {
 		return false;
 	}
 
-	if (en_jaque(casilla, tablero) == true) {
-		//Mensaje error por jaque
-		return false;
-	}
+	//////if (en_jaque(casilla, tablero) == true) {
+	//////	//Mensaje error por jaque
+	//////	return false;
+	//////}
 
 	return true;
 }
@@ -237,14 +223,12 @@ void Rey::comprobar_jaque(bool& fin, bool& jaque, const tablero& tablero, int i,
 	casilla c_aux = tablero.leer_casilla(i, columna);
 	ficha* f_aux = c_aux.leer_ocupacion();
 	if (f_aux) {
-		if (f_aux->leer_tipo() == t_NO) {
 			if (campo_color != f_aux->leer_color() && (f_aux->leer_tipo() == t || f_aux->leer_tipo() == reina)) {
 				jaque = true;
 			}
-			else {
+			else if (campo_color == f_aux->leer_color()) {
 				fin = true;
 			}
-		}
 	}
 }
 
@@ -274,7 +258,7 @@ bool Rey::en_jaque(const casilla& cas, const tablero& tablero) {
 	jaque = false;
 
 	for (int i = columna + 1; i < n_columnas && fin == false; i++) {
-		comprobar_jaque(fin, jaque, tablero, i, columna, torre);
+		comprobar_jaque(fin, jaque, tablero, fila, i, torre);
 		if (jaque == true) {
 			return jaque;
 		}
@@ -283,7 +267,7 @@ bool Rey::en_jaque(const casilla& cas, const tablero& tablero) {
 	jaque = false;
 
 	for (int i = columna - 1; i >= 0 && fin == false; i--) {
-		comprobar_jaque(fin, jaque, tablero, i, columna,torre);
+		comprobar_jaque(fin, jaque, tablero, fila, i,torre);
 		if (jaque == true) {
 			return jaque;
 		}
@@ -292,8 +276,8 @@ bool Rey::en_jaque(const casilla& cas, const tablero& tablero) {
 	jaque = false;
 
 	//Comprobación Alfiles
-	for (int i = 1; i + fila < n_filas && i + columna <= n_columnas && fin == false; i++) {
-		comprobar_jaque(fin, jaque, tablero, i, columna,alfil);
+	for (int i = 1; i + fila < n_filas && i + columna < n_columnas && fin == false; i++) {
+		comprobar_jaque(fin, jaque, tablero, fila + i, columna + i,alfil);
 		if (jaque == true) {
 			return jaque;
 		}
@@ -301,8 +285,8 @@ bool Rey::en_jaque(const casilla& cas, const tablero& tablero) {
 	fin = false;
 	jaque = false;
 
-	for (int i = 1; fila - i >= 0 && i + columna <= n_columnas && fin == false; i++) {
-		comprobar_jaque(fin, jaque, tablero, i, columna, torre);
+	for (int i = 1; fila - i >= 0 && i + columna < n_columnas && fin == false; i++) {
+		comprobar_jaque(fin, jaque, tablero, fila - i, columna + i, alfil);
 		if (jaque == true) {
 			return jaque;
 		}
@@ -311,7 +295,7 @@ bool Rey::en_jaque(const casilla& cas, const tablero& tablero) {
 	jaque = false;
 
 	for (int i = 1; fila + i < n_filas && columna - i >= 0 && fin == false; i++) {
-		comprobar_jaque(fin, jaque, tablero, i, columna, torre);
+		comprobar_jaque(fin, jaque, tablero, fila + i, columna - i, alfil);
 		if (jaque == true) {
 			return jaque;
 		}
@@ -320,7 +304,7 @@ bool Rey::en_jaque(const casilla& cas, const tablero& tablero) {
 	jaque = false;
 
 	for (int i = 1; fila - i >= 0 && columna - i >= 0 && fin == false; i++) {
-		comprobar_jaque(fin, jaque, tablero, i, columna, torre);
+		comprobar_jaque(fin, jaque, tablero, fila - i, columna - i, alfil);
 		if (jaque == true) {
 			return jaque;
 		}
@@ -411,14 +395,12 @@ bool Rey::en_jaque(const casilla& cas, const tablero& tablero) {
 		c_aux = tablero.leer_casilla(fila - 1, columna + 2);
 		f_aux = c_aux.leer_ocupacion();
 		if (f_aux) {
-			if (f_aux->leer_tipo() != t_NO) {
 				if (campo_color != f_aux->leer_color() && f_aux->leer_tipo() == caballo) {
 					return true;
 				}
 				else {
 					fin = true;
 				}
-			}
 		}
 	}
 	fin = false;
