@@ -1,5 +1,5 @@
 #pragma once
-#include "VVector2D.h" 
+#include "vector2D.h" 
 class Pared
 {
 private:
@@ -8,8 +8,8 @@ private:
 	unsigned char azul;
 
 public:
-	VVector2D limite1;
-	VVector2D limite2;
+	Vector2D_menu limite1;
+	Vector2D_menu limite2;
 	void setColor(unsigned char r, unsigned char g, unsigned char b);
 	Pared();
 	void dibuja();

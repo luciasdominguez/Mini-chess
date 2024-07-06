@@ -2,29 +2,29 @@
 #include "ETSIDI.h"
 Caja::Caja()
 {
-	pared_izq.limite1.x = -10;
-	pared_izq.limite1.y = 0;
-	pared_izq.limite2.x = -10;
-	pared_izq.limite2.y = 15;
+	pared_izq.limite1.x = -30;
+	pared_izq.limite1.y = -30;
+	pared_izq.limite2.x = -30;
+	pared_izq.limite2.y = 60;
 	pared_izq.setColor(0, 0, 100);
 
-	pared_dcha.limite1.x = 10;
-	pared_dcha.limite1.y = 0;
-	pared_dcha.limite2.x = 10;
-	pared_dcha.limite2.y = 15;
+	pared_dcha.limite1.x = 30;
+	pared_dcha.limite1.y = -30;
+	pared_dcha.limite2.x = 30;
+	pared_dcha.limite2.y = 60;
 	pared_dcha.setColor(0, 0, 100);
 
-	suelo.limite1.x = -10;
-	suelo.limite1.y = 0;
-	suelo.limite2.x = 10;
-	suelo.limite2.y = 0;
+	suelo.limite1.x = -30;
+	suelo.limite1.y = -5;
+	suelo.limite2.x = 30;
+	suelo.limite2.y = -5;
 	suelo.setColor(0, 0, 100);
 
 
-	techo.limite1.x = -10;
-	techo.limite1.y = 15;
-	techo.limite2.x = 10;
-	techo.limite2.y = 15;
+	techo.limite1.x = -30;
+	techo.limite1.y = 35;
+	techo.limite2.x = 30;
+	techo.limite2.y = 35;
 	techo.setColor(0, 0, 100);
 
 }
@@ -43,10 +43,10 @@ void Caja::dibuja()
 	glDisable(GL_LIGHTING);
 	glBegin(GL_POLYGON);
 	glColor3f(1, 1, 1);
-	glTexCoord2d(0, 1); glVertex2d(-10, 0);
-	glTexCoord2d(1, 1); glVertex2d(10, 0);
-	glTexCoord2d(1, 0); glVertex2d(10, 15);
-	glTexCoord2d(0, 0); glVertex2d(-10, 15);
+	glTexCoord2d(0, 1); glVertex2d(-26, -2.5);
+	glTexCoord2d(1, 1); glVertex2d(26, -2.5);
+	glTexCoord2d(1, 0); glVertex2d(26, 32.5);
+	glTexCoord2d(0, 0); glVertex2d(-26, 32.5);
 	glEnd();
 	glEnable(GL_LIGHTING);
 	glDisable(GL_TEXTURE_2D);

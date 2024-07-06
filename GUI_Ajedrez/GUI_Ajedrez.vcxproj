@@ -138,6 +138,7 @@
   <ItemGroup>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="src\aux2_.cpp" />
+    <ClCompile Include="src\Caja.cpp" />
     <ClCompile Include="src\casillas.cpp" />
     <ClCompile Include="src\clases.cpp" />
     <ClCompile Include="src\fichas.cpp" />
@@ -155,12 +156,15 @@
     <ClCompile Include="src\Juego.cpp" />
     <ClCompile Include="src\listado_partidas.cpp" />
     <ClCompile Include="src\logica.cpp" />
+    <ClCompile Include="src\Mundo.cpp" />
+    <ClCompile Include="src\Pared.cpp" />
     <ClCompile Include="src\tablero.cpp" />
     <ClCompile Include="src\T_listado_jugadas.cpp" />
     <ClCompile Include="src\vector2D.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\aux2_.h" />
+    <ClInclude Include="src\Caja.h" />
     <ClInclude Include="src\casillas.h" />
     <ClInclude Include="src\clases.h" />
     <ClInclude Include="src\fichas.h" />
@@ -179,6 +183,8 @@
     <ClInclude Include="src\Juego.h" />
     <ClInclude Include="src\listado_partidas.h" />
     <ClInclude Include="src\logica.h" />
+    <ClInclude Include="src\Mundo.h" />
+    <ClInclude Include="src\Pared.h" />
     <ClInclude Include="src\tablero.h" />
     <ClInclude Include="src\T_listado_jugadas.h" />
     <ClInclude Include="src\vector2D.h" />

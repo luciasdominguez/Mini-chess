@@ -5,8 +5,11 @@
 #include "GUI_marcador.h"
 #include "Juego.h"
 #include "aux2_.h"
+#include "Mundo.h"
 
 Juego juego;
+Mundo menu;
+
 //vector<GUI_movimiento> partida;
 int n_jugadas_partida = 0;
 int index_jugada_en_partida = 0;
@@ -23,6 +26,7 @@ void OnKeyboardDown(unsigned char key, int x, int y); //cuando se pulse una tecl
 
 int main(int argc, char* argv[])
 {
+	menu.inicializa();
 	//Inicializar el gestor de ventanas GLUT
 	//y crear la ventana
 	glutInit(&argc, argv);
@@ -39,6 +43,7 @@ int main(int argc, char* argv[])
 	gluPerspective(40.0, 800 / 600.0f, 0.1, 150);
 
 	
+
 	//Registrar los callbacks
 	glutDisplayFunc(OnDraw);
 	glutTimerFunc(25, OnTimer, 0);//le decimos que dentro de 25ms llame 1 vez a la funcion OnTimer()
@@ -62,8 +67,22 @@ void OnDraw(void)
 		0.0, 7.5, 0.0,      // hacia que punto mira  (0,0,0) 
 		0.0, 1.0, 0.0);      // definimos hacia arriba (eje Y)    
 
-	//dibujo del tablero con las piezas en sus posiciones, los cursores...
-	juego.dibuja_juego();
+	//Dibuja Menu
+	switch (menu.get_opcion())
+	{
+	case MENU_INICIAL:
+		menu.dibuja_menu();
+		break;
+	case JUGAR:
+		//dibujo del tablero con las piezas en sus posiciones, los cursores...
+		juego.dibuja_juego();
+		break;
+	case CONTROLES:
+		menu.dibuja_controles();
+		break;
+	}
+
+	
 
 	/////////////////////////////////////////
 	//no borrar esta linea ni poner nada despues
@@ -80,6 +99,11 @@ void OnKeyboardDown(unsigned char key, int x_t, int y_t)
 	vector<GUI_jugada> jugadas;
 	GUI_partida* partida_aux;
 	bool test_jugada_erronea=false;
+
+	if (menu.get_opcion() != 1) {
+		menu.tecla(key);
+		return;
+	}
 
 	if (juego.get_selector_partidas_jugadas() == modo_seleccion_partida)
 	{  // operativa del teclado en estado de "seleccion_partida"
@@ -336,6 +360,7 @@ void OnKeyboardDown(unsigned char key, int x_t, int y_t)
 						juego.guarda_partida_actual();
 						juego.carga_partida_al_GUI(-1, true);
 						juego.get_msg_jaque_mate()->set_ver_jaque_mate(true);
+						
 						//
 						// fin de partida por jaque mate
 						partida_act = juego.get_partida_actual();
