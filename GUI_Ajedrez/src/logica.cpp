@@ -85,10 +85,21 @@ int Cl_logica::analiza_jugada(vector<vector<PIEZA_STRU>> _TableroGUI_actual, GUI
 
 	// Debe ir despues de analizar el efecto de la gravedad
 
-	//LA FUNCIÓN AHORA MISMO DA ERRORES, ESTA COMENTADA PARA PROBAR LO DEMAS, CORREGIR
-	
+	//JAQUES
+	Rey Rey_Blanco = tablero_con_gravedad_simulada.encontrar_rey(blanca);
+	Rey Rey_Negro = tablero_con_gravedad_simulada.encontrar_rey(negra);
+
+	if (Rey_Blanco.en_jaque(Rey_Blanco.leer_posicion(), tablero_con_gravedad_simulada)) {
+			return 2;
+	}
+	if (Rey_Negro.en_jaque(Rey_Negro.leer_posicion(), tablero_con_gravedad_simulada)) {
+		//Comprobamo mate a las negras
+			return 2;
+	}
+
+	//MATE
 	if (gestor_jaques::comprobar_mate(tablero_con_gravedad_simulada)) {
-		return 2;
+		return 3;
 	}
 
 	return 1;
