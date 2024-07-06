@@ -25,21 +25,33 @@ bool gestor_jaques::comprobar_mate(const tablero& T) {
 
 //REVISAR Y AÑADIR GRAVEDAD
 bool gestor_jaques::comprobar_mov_posibles(const tablero& T, const ENUM_COLOR& color) {
-	casilla c_aux;
-	ficha f_aux;
-
+	casilla c_aux, c_mov;
+	ficha* f_aux;
+	tablero T_aux = T;
 
 	for (int i = 0; i < T.leer_filas(); i++) {
 		for (int j = 0; j < T.leer_columnas(); j++) {
+			c_aux = T.leer_casilla(i, j);
 			if (c_aux.leer_ocupacion()) {
-				f_aux = *c_aux.leer_ocupacion();
-				if (f_aux.leer_color() == color) {
-					if (f_aux.mover(c_aux, T) == true) {
-						//Creamos un tablero nuevo con gravedad para la nueva situación
-						tablero tab_con_gravedad2 = T.simular_gravedad();
-						Rey rey_aux = (*tab_con_gravedad2.encontrar_rey(color));
-						if (!rey_aux.en_jaque(rey_aux.leer_posicion(),tab_con_gravedad2)) {
-							return true;
+				f_aux = c_aux.leer_ocupacion();
+				if (f_aux->leer_color() == color) {
+					for (int m = 0; m < T.leer_filas(); m++) {
+						for (int n = 0; n < T.leer_columnas(); n++) {
+							c_mov = T.leer_casilla(m, n); //Se podría enfocar de forma más rapida si no comprobasemos movimientos que ya sabemos son ilegales
+							if (f_aux->mover(c_mov, T) == true) {
+								//Simulamos el movimiento
+								T_aux.cambiar_casilla(c_mov,f_aux);
+								T_aux.cambiar_casilla(c_aux,nullptr);
+								//Creamos un tablero nuevo con gravedad para la nueva situación
+								tablero tab_con_gravedad2 = T_aux.simular_gravedad();
+								Rey rey_aux = (tab_con_gravedad2.encontrar_rey(color));
+								if (!rey_aux.en_jaque(rey_aux.leer_posicion(), tab_con_gravedad2)) {
+									return true;
+								}
+								//Deshacemos nuestro movimiento para no cmbiar las codiciones iniciales la siguiente iteración
+								T_aux.cambiar_casilla(c_aux, f_aux);
+								T_aux.cambiar_casilla(c_mov, nullptr);
+							}
 						}
 					}
 				}

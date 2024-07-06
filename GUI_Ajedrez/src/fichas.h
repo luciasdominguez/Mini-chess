@@ -16,6 +16,7 @@ protected:
 	ENUM_TIPO campo_tipo ;
 	ENUM_PIEZA campo_pieza;
 	PIEZA_STRU pieza;
+	bool ha_movido = false;
 
 public:
 	ficha(casilla* _pos, ENUM_COLOR _color);
@@ -45,26 +46,28 @@ public:
 		return *this;
 	}
 	friend class gestor_movimientos;
+
+	void mod_ha_movido() { this->ha_movido = true; };
 };
 
 class Peon : public ficha {
 
 public:
-	Peon(const Peon &p){}
 	Peon(const ficha& F) : ficha(F) {	}
 	Peon(ENUM_COLOR color) { campo_color = color; }
 	Peon(casilla cas, ENUM_COLOR color) { posicion = &cas, campo_color = color;campo_tipo= peon; }
 	Peon() = default;
+	Peon(const Peon&) = default;
 	bool mover(casilla& casillas, const tablero& tablero) override;
-
-private:
-	bool ha_movido = false;
+	
+	
 };
 
 class Torre : public ficha {
 public:
 	bool mover(casilla& casillas, const tablero& tablero) override;
 	Torre() = default;
+	Torre(const Torre&) = default;
 	Torre(casilla cas, ENUM_COLOR color) { posicion = &cas, campo_color = color; campo_tipo=torre; }
 	Torre(const ficha& F) : ficha(F) {	}
 };
@@ -74,6 +77,7 @@ public:
 	bool mover(casilla& casillas, const tablero& tablero) override;
 	Caballo(const ficha& F) : ficha(F) {	}
 	Caballo() = default;
+	Caballo(const Caballo&) = default;
 	Caballo(casilla cas, ENUM_COLOR color) { posicion = &cas, campo_color = color;campo_tipo= caballo; }
 };
 
@@ -81,6 +85,7 @@ class Alfil : public ficha {
 public:
 	Alfil(const ficha& F) :  ficha(F) {	}
 	Alfil() = default;
+	Alfil(const Alfil&) = default;
 	Alfil(casilla cas, ENUM_COLOR color) { posicion = &cas, campo_color = color;campo_tipo= alfil; }
 	bool mover(casilla& casillas, const tablero& tablero) override;
 };
@@ -90,6 +95,7 @@ public:
 	bool mover(casilla& casillas, const tablero& tablero) override;
 	Reina(const ficha& F) :ficha(F) {	}
 	Reina() = default;
+	Reina(const Reina&) = default;
 	Reina(casilla cas, ENUM_COLOR color) { posicion = &cas, campo_color = color; campo_tipo=reina; }
 };
 
@@ -104,9 +110,12 @@ public:
 
 	Rey() = default;
 	Rey(const Rey&) = default;
-	Rey(casilla cas, ENUM_COLOR color) { posicion = &cas, campo_color = color; campo_tipo=rey; }
-	Rey(const ficha& F) 
+	Rey(casilla cas, ENUM_COLOR color) { posicion = &cas, campo_color = color; campo_tipo = rey; };
+	Rey(const ficha& F)
 	{
 		rey;
-	}
+	};
+
+	Rey(ficha* F) : ficha(*F)
+	{ campo_tipo = rey; }
 };
