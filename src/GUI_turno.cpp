@@ -51,9 +51,9 @@ void GUI_turno::calcula_Pos_turno(ENUM_JUGADOR trn)
 GUI_jaque::GUI_jaque()
 {
 	// Hacer y cambiar sprite jaque
-	string path_sprite_jaque = "imagenes/jaque_mate.png";
+	string path_sprite_jaque = "imagenes/jaque.png";
 	pos_x = 4;
-	pos_y = 4;
+	pos_y = 1.4;
 	ver_jaque = false;
 	const char* cstr = path_sprite_jaque.c_str();
 	sprite_jaque = new SpriteSequence(cstr, 1, 1, 100, true, pos_x, pos_y, 2, 2);
@@ -77,9 +77,9 @@ void GUI_jaque::dibuja_jaque()
 	glPopMatrix();
 }
 
-void GUI_jaque::set_ver_jaque(bool ver)
+void GUI_jaque::set_ver_jaque(bool ver_j)
 {
-	ver_jaque = ver;
+	ver_jaque = ver_j;
 }
 
 bool GUI_jaque::get_ver_jaque()
@@ -95,7 +95,7 @@ GUI_jaque_mate::GUI_jaque_mate()
 {
 	string path_sprite_jaque_mate = "imagenes/jaque_mate.png";
 	pos_x = 4;
-	pos_y = 4;
+	pos_y = 1.4;
 	ver_jaque_mate = false;
 	const char* cstr = path_sprite_jaque_mate.c_str();
 	sprite_jaque_mate = new SpriteSequence(cstr, 1, 1, 100, true, pos_x, pos_y, 2, 2);

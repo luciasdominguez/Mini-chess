@@ -10,6 +10,7 @@ Juego::Juego()
 	casilla_cursor = new GUI_marcador_cursor(f5, E);
 	turno = new GUI_turno;
 	Mns_jaque_mate = new GUI_jaque_mate;
+	Mns_jaque = new GUI_jaque;
 	gestor_de_partidas = new GUI_gestor_partidas;
 	estado_Partidas_Jugadas = new GUI_estado_P_J;
 	//casilla_lckd = new GUI_marcador_locked(f_ND, C_ND);
@@ -60,7 +61,7 @@ void Juego::carga_partida_al_GUI(int jugada_destino, bool en_la_ultima)
 		cont1++;
 	}
 	get_msg_jaque_mate()->set_ver_jaque_mate(jj.jaque_mate);
-	get_msg_jaque()->set_ver_jaque(jj.jaque);
+	//get_msg_jaque()->set_ver_jaque(jj.jaque);
 	if (en_la_ultima)
 		avanza_turno();
 }
@@ -78,6 +79,8 @@ void Juego::dibuja_juego()
 	turno->dibuja_turno(quien_mueve_ahora);
 	auto parti = get_partida_actual();
 	Mns_jaque_mate->dibuja_jaque_mate();
+	Mns_jaque->dibuja_jaque();
+
 	estado_Partidas_Jugadas->dibuja_seleccion_partida();
 	actualizar_piezas();
 	dibujar_piezas();

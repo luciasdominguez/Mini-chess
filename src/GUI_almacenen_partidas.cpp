@@ -32,7 +32,8 @@ GUI_gestor_partidas::GUI_gestor_partidas()
         fichero_json_partidas.close();
         partidas_json = nlohmann::json::parse(partidas_json_en_texto);
         //cout << partidas_json_datos;
-        cout << std::setw(4) << partidas_json << '\n';  //salida con formato
+
+        //cout << std::setw(4) << partidas_json << '\n';  //salida con formato
     }
     else cout << "Fichero JSON de partidas no se ha podido abrir";
     

@@ -40,7 +40,7 @@ class GUI_jaque
 {
 	/// posición según escala del sprite
 	float pos_x{}, pos_y{};
-	bool ver_jaque;
+	bool ver_jaque=false;
 protected:
 	SpriteSequence* sprite_jaque;
 
