@@ -352,7 +352,7 @@ void OnKeyboardDown(unsigned char key, int x_t, int y_t)
 								partida_act->borrar_jugada_ultima();
 							juego.get_msg_jaque_mate()->set_ver_jaque_mate(false);
 							juego.get_msg_jaque()->set_ver_jaque(false);
-							partida_act->borrar_jugada_ultima();
+							//partida_act->borrar_jugada_ultima();
 							juego.guarda_partida_actual();
 							juego.carga_partida_al_GUI(1, true);
 							ETSIDI::play("sonidos/disparo.wav");
