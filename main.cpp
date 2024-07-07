@@ -273,11 +273,15 @@ void OnKeyboardDown(unsigned char key, int x_t, int y_t)
 				
 				break;
 			case '0':  // ejecución del movimiento de la pieza seleccionada previamente
-
-				if (juego.get_pieza_locked() != nullptr && juego.get_msg_jaque_mate()->get_ver_jaque_mate()==false)
+				if (juego.get_pieza_locked() != nullptr && juego.get_msg_jaque_mate()->get_ver_jaque_mate()==false )
+					//&& jugada_final.get_lista_piezas_movidas().at(0) != nullptr)
 					// Que haya una pieza locked y no sea fin por jaque mate
 				{	//se carga la jugada en la posición de la partida en la que nos
 					// encontremos. Los movimientos que hubiera después son borrados.
+
+					auto pz_lock = juego.get_pieza_locked();
+					pz_lock->get_datosPieza();
+
 					auto aux = juego.get_casilla_locked()->get_estado_locked();
 					if (aux != ROJO) 
 						break;
@@ -324,6 +328,12 @@ void OnKeyboardDown(unsigned char key, int x_t, int y_t)
 						}
 					}
 
+					if ((pieza_localizada.c_fila == pieza_movida.c_fila)
+						&& (pieza_localizada.c_columna == pieza_movida.c_columna))
+						// si la posición origen y destino es la misma no hay que hacer nada
+						break;
+
+
 					//resultado_jugada = juego.logica.analiza_jugada((*partida_act), jugada_final, juego.jugada_gravedad, test_jugada_erronea);
 					int resultado_jugada = juego.logica.analiza_jugada(partida_act->get_tablero(), jugada_final, juego.jugada_gravedad, test_jugada_erronea);
 
@@ -335,7 +345,11 @@ void OnKeyboardDown(unsigned char key, int x_t, int y_t)
 						default: 
 							// JUGADA NO VALIDA
 							// se anula esta jugada y se vuelve a la anterior
+							// 
 							juego.jugada_gravedad.vaciar_jugada();
+							if ((pieza_localizada.c_fila != pieza_movida.c_fila)
+								|| (pieza_localizada.c_columna != pieza_movida.c_columna))
+								partida_act->borrar_jugada_ultima();
 							juego.get_msg_jaque_mate()->set_ver_jaque_mate(false);
 							juego.get_msg_jaque()->set_ver_jaque(false);
 							partida_act->borrar_jugada_ultima();
