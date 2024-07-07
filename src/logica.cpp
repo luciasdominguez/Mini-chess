@@ -45,8 +45,11 @@ int Cl_logica::analiza_jugada(vector<vector<PIEZA_STRU>> _TableroGUI_actual, GUI
 	tablero_aux.casillas_tablero[pieza_antes.c_columna - 1][pieza_antes.c_fila - 1].ocupacion = nullptr;
 
 	tablero tablero_con_gravedad_simulada = tablero_aux.simular_gravedad();
-	Rey rey_aux = tablero_con_gravedad_simulada.encontrar_rey(pieza_actual.c_color);
-
+	//Rey rey_aux = tablero_con_gravedad_simulada.encontrar_rey(pieza_actual.c_color);
+	Rey rey_aux = tablero_con_gravedad_simulada.encontrar_pos_rey(pieza_actual.c_color).ocupacion;
+	casilla cas_aux = tablero_con_gravedad_simulada.encontrar_pos_rey(pieza_actual.c_color);
+	rey_aux.set_casilla(&cas_aux);
+	//rey_aux.set_casilla(&tablero_con_gravedad_simulada.encontrar_pos_rey(pieza_actual.c_color));
 	// Si con el movimiento a realizar el rey queda en jaque, se evalúa como jugada ilegal
 	if (rey_aux.en_jaque(rey_aux.leer_posicion(), tablero_con_gravedad_simulada)) {
 		tablero_aux.casillas_tablero[pieza_antes.c_columna - 1][pieza_antes.c_fila - 1].ocupacion = tablero_aux.casillas_tablero[pieza_actual.c_columna - 1][pieza_actual.c_fila - 1].ocupacion;

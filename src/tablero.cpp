@@ -63,9 +63,23 @@ void tablero::gravedad() {
 }
 
 
-ficha* tablero::encontrar_rey(const ENUM_COLOR& c) const {
+ficha* tablero:: encontrar_rey(const ENUM_COLOR& c) const {
     ficha* aux;
-
+    for (int i = 0; i < n_filas; i++) {
+        for (int j = 0; j < n_columnas; j++) {
+            aux = casillas_tablero.at(i).at(j).ocupacion;
+            if (casillas_tablero.at(i).at(j).ocupacion) {
+                aux->posicion = casillas_tablero.at(i).at(j).ocupacion->posicion;
+                if (aux->leer_color() == c && aux->leer_tipo() == rey) {
+                  //  aux->set_pos(casillas_tablero.at(i).at(j));
+                    return aux;
+                }
+            }
+        }
+    }
+}
+casilla tablero::encontrar_pos_rey(const ENUM_COLOR& c) {
+    ficha* aux;
     for (int i = 0; i < n_filas; i++) {
         for (int j = 0; j < n_columnas; j++) {
             aux = casillas_tablero.at(i).at(j).ocupacion;
@@ -73,12 +87,13 @@ ficha* tablero::encontrar_rey(const ENUM_COLOR& c) const {
                 aux->posicion = casillas_tablero.at(i).at(j).ocupacion->posicion;
                 if (aux->leer_color() == c && aux->leer_tipo() == rey) {
 
-                    return aux;
+                    return casillas_tablero.at(i).at(j);
                 }
             }
         }
     }
 }
+
 
 tablero tablero::simular_gravedad() const {
     tablero tablero_con_gravedad = *this;
