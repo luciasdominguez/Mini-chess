@@ -33,15 +33,7 @@ tablero::tablero( int filas_, int columnas_){
 //    }
 //}
 
-tablero::~tablero() {
-    // Liberar la memoria del tablero
-   /* int t;
-    for (int i = 0; i < n_filas; ++i)
-    {
-        delete[] matriz[i];
-    }
-    delete[] matriz;*/
-}
+
 
 
 

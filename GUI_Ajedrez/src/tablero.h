@@ -31,5 +31,5 @@ public:
     ficha* encontrar_rey(const ENUM_COLOR& c) const;
 
     // Destructor de tablero
-    ~tablero();
+    ~tablero() = default;
 };

@@ -19,6 +19,7 @@ class Juego
 	GUI_Tablero miTablero;
 	GUI_turno* turno;
 	GUI_jaque_mate* Mns_jaque_mate;
+	GUI_jaque* Mns_jaque;
 	GUI_estado_P_J* estado_Partidas_Jugadas;
 	GUI_gestor_partidas* gestor_de_partidas;
 	GUI_partida partida_actual;		// una partida es una lista de jugadas.
@@ -72,6 +73,7 @@ public:
 	GUI_gestor_partidas get_almacen_partidas();
 	int get_N_jugadas_partida_actual();
 	GUI_jaque_mate* get_msg_jaque_mate();
+	GUI_jaque* get_msg_jaque();
 	//bbb void jaque_mate_partida_actual(bool jaque);
 
 	void avanza_turno();

@@ -10,6 +10,7 @@ Juego::Juego()
 	casilla_cursor = new GUI_marcador_cursor(f5, E);
 	turno = new GUI_turno;
 	Mns_jaque_mate = new GUI_jaque_mate;
+	Mns_jaque = new GUI_jaque;
 	gestor_de_partidas = new GUI_gestor_partidas;
 	estado_Partidas_Jugadas = new GUI_estado_P_J;
 	//casilla_lckd = new GUI_marcador_locked(f_ND, C_ND);
@@ -60,6 +61,7 @@ void Juego::carga_partida_al_GUI(int jugada_destino, bool en_la_ultima)
 		cont1++;
 	}
 	get_msg_jaque_mate()->set_ver_jaque_mate(jj.jaque_mate);
+	//get_msg_jaque()->set_ver_jaque(jj.jaque);
 	if (en_la_ultima)
 		avanza_turno();
 }
@@ -68,19 +70,17 @@ void Juego::carga_partida_al_GUI(int jugada_destino, bool en_la_ultima)
 void Juego::guarda_partida_actual()
 {
 	auto aux = partida_actual;
-	//bbb auto jq = aux.get_jaque_mate();
-	//gestor_de_partidas->insert_update_partida(aux.get_nombre_partida(), aux.get_jugadas(), aux.get_jaque_mate());
 	gestor_de_partidas->insert_update_partida(aux.get_nombre_partida(), aux.get_jugadas());
 }
 
 void Juego::dibuja_juego()
 {
 	miTablero.dibuja_tablero();
-	//turno->dibuja_turno(jugada_actual.jugador);
-	//turno->dibuja_turno(turno_para_);
 	turno->dibuja_turno(quien_mueve_ahora);
 	auto parti = get_partida_actual();
 	Mns_jaque_mate->dibuja_jaque_mate();
+	Mns_jaque->dibuja_jaque();
+
 	estado_Partidas_Jugadas->dibuja_seleccion_partida();
 	actualizar_piezas();
 	dibujar_piezas();
@@ -92,14 +92,15 @@ void Juego::dibuja_juego()
 	listado_jugadas.set_lineas_partida(partida_actual.get_lista_movimientos());
 	listado_jugadas.set_nombre_partida(partida_actual.get_nombre_partida());
 	listado_jugadas.imprime_jugadas();
+
+	ETSIDI::setTextColor(255, 0, 0);
+	ETSIDI::printxy("Para volver al menu pulse: m", -9, 19);
 }
 
 
 ENUM_JUGADOR Juego::get_jugador_actual()
 {
-	//jugada_actual.jugador = quien_mueve_ahora;
 	return quien_mueve_ahora;
-	//return jugada_actual.jugador;
 }
 
 void Juego::cargar_partida(string nombre)
@@ -122,7 +123,7 @@ GUI_partida* Juego::get_partida_actual()
 }
 
 void Juego::check_pieza_movible()
-{  // verifica si la casilla del cursor tiene una pieza movible
+{   // verifica si la casilla del cursor tiene una pieza movible
 	//Si es así, se almacena que pieza tiene y la casilla podra ser Locked
 
 	if (casilla_lckd != nullptr)
@@ -156,7 +157,6 @@ void Juego::check_pieza_movible()
 					break; // Si encuentro la casilla con una pieza salgo
 				}
 				else {
-					// 
 					casilla_lckd->set_Can_Lock(false);
 					casilla_lckd->set_estado_locked(TRANS, nullptr);
 				}
@@ -187,7 +187,6 @@ void Juego::cambia_selector_partidas_jugadas()
 		estado_Partidas_Jugadas->set_partidas_o_jugadas(modo_juego);
 	else
 		estado_Partidas_Jugadas->set_partidas_o_jugadas(modo_seleccion_partida);
-
 }
 
 T_listado_partidas Juego::get_listado_partidas()
@@ -224,10 +223,10 @@ GUI_jaque_mate* Juego::get_msg_jaque_mate()
 	return Mns_jaque_mate;
 }
 
-////////void Juego::jaque_mate_partida_actual(bool jaque)
-////////{
-////////	partida_actual.set_jaque_mate(jaque);
-////////}
+GUI_jaque* Juego::get_msg_jaque()
+{
+	return Mns_jaque;
+}
 
 void Juego::avanza_turno()
 {
@@ -253,7 +252,6 @@ void Juego::dibuja_lista_partidas()
 	gestor_de_partidas;
 }
 
-
 void Juego::generar_piezas()
 {
 	// Aqui pondremos un bucle para generar el vector de GUI_pieza (solo se ejecuta al principio)
@@ -275,7 +273,6 @@ void Juego::actualizar_piezas()
 	}
 
 	PIEZA_STRU pieza{};
-
 	for (auto it_in = todas_piezas_LISTA.begin(); it_in != todas_piezas_LISTA.end(); ++it_in)
 	{
 		auto tipo_in = (*it_in).c_tipo;
@@ -293,7 +290,7 @@ void Juego::actualizar_piezas()
 				(*it_pz)._datos_pieza.c_fila = fila_in;
 				(*it_pz)._datos_pieza.c_columna = columna_in;
 			}
-		};
+		}
 	}
 }
 void Juego::dibujar_piezas()
@@ -356,7 +353,6 @@ void Juego::add_jugada_libre(int n_posicion_jugada, vector<PIEZA_STRU> lista_Pie
 		n_posicion_jugada = 0;
 	partida_actual.borrar_jugadas_desde_N(n_posicion_jugada);
 	partida_actual.add_jugada_a_partida(jugada_actual);
-
 }
 
 Pieza_GUI* Juego::get_pieza_locked()
