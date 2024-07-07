@@ -330,7 +330,7 @@ void OnKeyboardDown(unsigned char key, int x_t, int y_t)
 
 					if ((pieza_localizada.c_fila == pieza_movida.c_fila)
 						&& (pieza_localizada.c_columna == pieza_movida.c_columna))
-						// si la posición origen y destino es la misma no hay que hacer nada
+						// si la posición origen y destino es la misma no hay que hacer nada. Nos salimos
 						break;
 
 
@@ -341,15 +341,17 @@ void OnKeyboardDown(unsigned char key, int x_t, int y_t)
 					// La función ha devuelto en la primera variable todas las piezas que se han movido debido al movimiento intruducida
 					// La función ha devuelto en la segunda variable todas las piezas que mueve la gravedad	
 				
+					// pieza localizada == pieza en la posición origen
+					// peza movida == pieza en la posición destino
 					switch (resultado_jugada) {
 						default: 
 							// JUGADA NO VALIDA
 							// se anula esta jugada y se vuelve a la anterior
 							// 
 							juego.jugada_gravedad.vaciar_jugada();
-							if ((pieza_localizada.c_fila != pieza_movida.c_fila)
-								|| (pieza_localizada.c_columna != pieza_movida.c_columna))
-								partida_act->borrar_jugada_ultima();
+							//if ((pieza_localizada.c_fila != pieza_movida.c_fila)
+							//	|| (pieza_localizada.c_columna != pieza_movida.c_columna))
+							//	partida_act->borrar_jugada_ultima();
 							juego.get_msg_jaque_mate()->set_ver_jaque_mate(false);
 							juego.get_msg_jaque()->set_ver_jaque(false);
 							partida_act->borrar_jugada_ultima();

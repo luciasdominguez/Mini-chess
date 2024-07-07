@@ -201,12 +201,19 @@ void Cl_logica::analiza_gravedad(vector<vector<PIEZA_STRU>> Tablero, GUI_jugada&
 	//Efecto sobre la columna de la casilla de origen de la jugada (afectará a las piezas situadas por encima de la pieza movida por dejar un hueco)
 	for (int idx_c = ((int)columna_origen);idx_c < 8;idx_c++)
 	{
+		bool add_pieza = true;
 		auto aux_pz = TableroGUI_actual.at((int)fila_origen - 1).at(idx_c);
 		if (aux_pz.c_color != color_NO)  // la pieza que hay encima pasa a la lista de piezas movidas por la gravedad
 		{
 			auto pz_superior = TableroGUI_actual.at((int)fila_origen - 1).at(idx_c);
 			pz_superior.c_columna = (ENUM_COLUMNA)(pz_superior.c_columna - 1);
-			jugada_gravedad.add_pieza_a_jugada(pz_superior);
+			if (jugada_propia.get_lista_piezas_movidas().size() >1)
+			{
+				auto pieza_comida = jugada_propia.get_lista_piezas_movidas().at(1);
+				if (pieza_comida.c_pieza == pz_superior.c_pieza && pieza_comida.c_color == pz_superior.c_color) 
+					add_pieza = false;  // si la pieza esta comida no se añade a la jugada de la gravedad
+			}
+			if (add_pieza) jugada_gravedad.add_pieza_a_jugada(pz_superior);
 		}
 	}
 
@@ -221,6 +228,7 @@ void Cl_logica::analiza_gravedad(vector<vector<PIEZA_STRU>> Tablero, GUI_jugada&
 	if ((fila_destino == fila_origen) && ((int)columna_destino>(int)columna_origen)) 
 		cuenta_vacias++;
 	pieza_movida.c_columna = (ENUM_COLUMNA)(pieza_movida.c_columna - cuenta_vacias);
+
 
 	jugada_gravedad.add_pieza_a_jugada(pieza_movida);
 }
