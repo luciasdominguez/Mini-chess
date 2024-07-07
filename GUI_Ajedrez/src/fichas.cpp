@@ -47,16 +47,6 @@ bool Peon::mover(casilla& Casilla, const tablero& Tablero) {
 		break;
 	}
 
-	/////*if (R.en_jaque(R.leer_posicion(), Tablero) == true) {
-	////		tablero t_aux = Tablero;
-	////		t_aux.cambiar_casilla(this->posicion, nullptr);
-	////		t_aux.cambiar_casilla(Casilla, this);
-	////		t_aux.gravedad();
-	////		if (R.en_jaque(R.leer_posicion(), t_aux) == true) {
-	////			return false;
-
-	////	}
-	////}*/
 	this->ha_movido = true;
 
 	return true;
@@ -82,18 +72,6 @@ bool Torre::mover(casilla& Casilla, const tablero& Tablero) {
 		return false;
 	}
 
-	//////	if (R.en_jaque(R.leer_posicion(), Tablero) == true) {
-	//////		tablero t_aux = Tablero;
-	//////		t_aux.cambiar_casilla(this->posicion, nullptr);
-	//////		t_aux.cambiar_casilla(Casilla, this);
-	//////		t_aux.gravedad();
-	//////		if (R.en_jaque(R.leer_posicion(), t_aux) == true) {
-	//////			return false;
-	//////		}
-	//////		//Mensaje error por jaque
-	//////}
-
-
 	return true;
 }
 
@@ -103,7 +81,7 @@ bool Caballo::mover(casilla& Casilla, const tablero& Tablero) {
 	colision f_casilla = gestor_movimientos::comprobar_ocupacion(this, Casilla);
 	Rey R = Rey(Tablero.encontrar_rey(this->campo_color)->leer_posicion(), Tablero.encontrar_rey(this->campo_color)->leer_color());
 
-	//Primer caso, numero de casiilas movidas ilegal
+	//Primer caso, numero de casillas movidas ilegal
 	if (mov_f != 2 && mov_c != 2) {
 		return false;
 	}
@@ -112,18 +90,6 @@ bool Caballo::mover(casilla& Casilla, const tablero& Tablero) {
 		//Mensaje error
 		return false;
 	}
-
-	//////	if (R.en_jaque(R.leer_posicion(), Tablero) == true) {
-	//////		tablero t_aux = Tablero;
-	//////		t_aux.cambiar_casilla(this->posicion, nullptr);
-	//////		t_aux.cambiar_casilla(Casilla, this);
-	//////		t_aux.gravedad();
-	//////		if (R.en_jaque(R.leer_posicion(), t_aux) == true) {
-	//////			return false;
-	//////		}
-	//////		//Mensaje error por jaque
-	//////}
-
 
 	return true;
 }
@@ -145,18 +111,6 @@ bool Alfil::mover(casilla& Casilla, const tablero& Tablero) {
 		return false;
 	}
 
-	//////	if (R.en_jaque(R.leer_posicion(), Tablero) == true) {
-	//////		tablero t_aux = Tablero;
-	//////		t_aux.cambiar_casilla(this->posicion, nullptr);
-	//////		t_aux.cambiar_casilla(Casilla, this);
-	//////		t_aux.gravedad();
-	//////		if (R.en_jaque(R.leer_posicion(), t_aux) == true) {
-	//////			return false;
-	//////		}
-	//////		//Mensaje error por jaque
-	//////}
-
-
 	return true;
 }
 
@@ -177,17 +131,6 @@ bool Reina::mover(casilla& Casilla, const tablero& Tablero) {
 		return false;
 	}
 
-	//////if (R.en_jaque(R.leer_posicion(), Tablero) == true) {
-	//////	tablero t_aux = Tablero;
-	//////	t_aux.cambiar_casilla(this->posicion, nullptr);
-	//////	t_aux.cambiar_casilla(Casilla, this);
-	//////	t_aux.gravedad();
-	//////	if (R.en_jaque(R.leer_posicion(), t_aux) == true) {
-	//////		return false;
-	//////		//Mensaje error por jaque
-	//////	}
-	//////}
-
 	return true;
 }
 
@@ -203,20 +146,8 @@ bool Rey::mover(casilla& casilla, const tablero& tablero) {
 		return false;
 	}
 
-	//////if (en_jaque(casilla, tablero) == true) {
-	//////	//Mensaje error por jaque
-	//////	return false;
-	//////}
-
 	return true;
 }
-
-
-
-//Probablemente podriamos acceder a la casilla que queremos desde la casilla de entrada (al estar todas en una matriz)
-//Por simpleza, accedemos desde el tablero
-//En la función hacemos muchas veces la misma comprobacion, puede ser interesante almacenarla en una funcion
-//La funcion podría ser "comprobar jaque", que se limitaría a valorar una casilla suelta
 
 void Rey::comprobar_jaque(bool& fin, bool& jaque, const tablero& tablero, int i, int columna, ENUM_TIPO t) {
 	
