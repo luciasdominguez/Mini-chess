@@ -26,19 +26,19 @@ int Cl_logica::analiza_jugada(vector<vector<PIEZA_STRU>> _TableroGUI_actual, GUI
 
 	auto pieza_actual = jugada_propia.get_lista_piezas_movidas().front();
 	auto pieza_antes = busca_posicion_anterior(pieza_actual);
-	genera_tablero_temporal(); //en base al TableroGUI_actual. Variable global, no es necesario pasarlo a la función.
+	genera_tablero_temporal(); //en base al TableroGUI_actual. Variable global, no es necesario pasarlo a la funciÃ³n.
 
 	casilla casilla_destino = tablero_temporal.casillas_tablero.at(pieza_actual.c_columna - 1).at(pieza_actual.c_fila - 1);
 	casilla casilla_origen = tablero_temporal.casillas_tablero.at(pieza_antes.c_columna - 1).at(pieza_antes.c_fila - 1);
 
 	jugada_valida = casilla_origen.ocupacion->mover(casilla_destino, tablero_temporal);
 	
-	//Comprobación de la legalidad de la jugada. Si es ilegal, se devuelve 0.
+	//ComprobaciÃ³n de la legalidad de la jugada. Si es ilegal, se devuelve 0.
 	if (jugada_valida == false) {
 		return 0;
 	}
 
-	//Comprobación de las consecuencias tras la gravedad
+	//ComprobaciÃ³n de las consecuencias tras la gravedad
 	tablero tablero_aux = tablero_temporal;
 
 	tablero_aux.casillas_tablero[pieza_actual.c_columna - 1][pieza_actual.c_fila - 1].ocupacion = tablero_temporal.casillas_tablero[pieza_antes.c_columna - 1][pieza_antes.c_fila - 1].ocupacion;
@@ -49,8 +49,8 @@ int Cl_logica::analiza_jugada(vector<vector<PIEZA_STRU>> _TableroGUI_actual, GUI
 	Rey rey_aux = tablero_con_gravedad_simulada.encontrar_pos_rey(pieza_actual.c_color).ocupacion;
 	casilla cas_aux = tablero_con_gravedad_simulada.encontrar_pos_rey(pieza_actual.c_color);
 	rey_aux.set_casilla(&cas_aux);
-	//rey_aux.set_casilla(&tablero_con_gravedad_simulada.encontrar_pos_rey(pieza_actual.c_color));
-	// Si con el movimiento a realizar el rey queda en jaque, se evalúa como jugada ilegal
+
+	// Si con el movimiento a realizar el rey queda en jaque, se evalÃºa como jugada ilegal
 	if (rey_aux.en_jaque(rey_aux.leer_posicion(), tablero_con_gravedad_simulada)) {
 		tablero_aux.casillas_tablero[pieza_antes.c_columna - 1][pieza_antes.c_fila - 1].ocupacion = tablero_aux.casillas_tablero[pieza_actual.c_columna - 1][pieza_actual.c_fila - 1].ocupacion;
 		tablero_aux.casillas_tablero[pieza_actual.c_columna - 1][pieza_actual.c_fila - 1].ocupacion = nullptr;
@@ -61,7 +61,7 @@ int Cl_logica::analiza_jugada(vector<vector<PIEZA_STRU>> _TableroGUI_actual, GUI
 	tablero_aux.casillas_tablero[pieza_actual.c_columna - 1][pieza_actual.c_fila - 1].ocupacion = nullptr;
 
 	//Ejecutamos el movimiento
-	if (casilla_destino.ocupacion != nullptr) // en el destino habia pieza del contrario y se añade como situada en el almacen 
+	if (casilla_destino.ocupacion != nullptr) // en el destino habia pieza del contrario y se aÃ±ade como situada en el almacen 
 											  // poniendola en la lista de piezas movidas
 	{
 		auto _color = casilla_destino.ocupacion->leer_color();
@@ -105,9 +105,9 @@ int Cl_logica::analiza_jugada(vector<vector<PIEZA_STRU>> _TableroGUI_actual, GUI
 	return 1;
 }
 
-PIEZA_STRU Cl_logica::busca_posicion_anterior(PIEZA_STRU pieza_jugada) { //se devuelve la pieza en la posición anterior del tablero
+PIEZA_STRU Cl_logica::busca_posicion_anterior(PIEZA_STRU pieza_jugada) { //se devuelve la pieza en la posiciÃ³n anterior del tablero
 
-	//// se busca la pieza en el tablero (según estaba antes de modificar el tablero)
+	//// se busca la pieza en el tablero (segÃºn estaba antes de modificar el tablero)
 	for (int ff = 0; ff < 8; ff++) {
 		for (int cc = 0; cc < 8; cc++) {
 			auto pp = TableroGUI_actual.at(ff).at(cc);
@@ -116,7 +116,7 @@ PIEZA_STRU Cl_logica::busca_posicion_anterior(PIEZA_STRU pieza_jugada) { //se de
 				return pp;
 			}
 		}
-	}// FIN de buscar la posición origen
+	}// FIN de buscar la posiciÃ³n origen
 	return pz_0; // si no se ha encontrado se devuelve pz_0
 }
 
@@ -135,7 +135,7 @@ void Cl_logica::genera_tablero_temporal() {
 			tablero_temporal.casillas_tablero.at(i).at(j).fila = j + 1;// tablero_GUI.at(j).at(i).c_fila;
 			ficha* ptemp = nullptr;
 
-			// se rellena el tablero con las piezas según se encuentren y los huecos quedan con nullptr por asignación por defecto.
+			// se rellena el tablero con las piezas segÃºn se encuentren y los huecos quedan con nullptr por asignaciÃ³n por defecto.
 			switch (tipo) {
 			case peon:
 				ptemp = new Peon(tablero_temporal.casillas_tablero.at(i).at(j), TableroGUI_actual.at(j).at(i).c_color);
@@ -168,7 +168,7 @@ void Cl_logica::genera_tablero_temporal() {
 				break;
 			}
 
-			// Asignación de la casilla al tablero
+			// AsignaciÃ³n de la casilla al tablero
 			tablero_temporal.casillas_tablero.at(i).at(j).ocupacion = ptemp;
 			tablero_temporal.casillas_tablero.at(i).at(j).ocupacion->set_casilla(&tablero_temporal.casillas_tablero.at(i).at(j));
 			tablero_temporal.casillas_tablero.at(i).at(j).columna = (j);
@@ -186,20 +186,20 @@ void Cl_logica::analiza_gravedad(vector<vector<PIEZA_STRU>> Tablero, GUI_jugada&
 
 	TableroGUI_actual = Tablero;
 
-	// Identificación de piezas
+	// IdentificaciÃ³n de piezas
 	auto pieza_movida = jugada_propia.get_lista_piezas_movidas().at(0);
 	auto pieza_origen = busca_posicion_anterior(pieza_movida);
 
-	// Identificación de la situación de las piezas
+	// IdentificaciÃ³n de la situaciÃ³n de las piezas
 	auto fila_origen = pieza_origen.c_fila;
 	auto columna_origen = pieza_origen.c_columna;
 	auto fila_destino = pieza_movida.c_fila;
 	auto columna_destino = pieza_movida.c_columna;
 
-	// Vacía la jugada de los restos de una jugada previa. No ha sido vaciado antes.
+	// VacÃ­a la jugada de los restos de una jugada previa. No ha sido vaciado antes.
 	jugada_gravedad.vaciar_jugada();
 
-	//Efecto sobre la columna de la casilla de origen de la jugada (afectará a las piezas situadas por encima de la pieza movida por dejar un hueco)
+	//Efecto sobre la columna de la casilla de origen de la jugada (afectarÃ¡ a las piezas situadas por encima de la pieza movida por dejar un hueco)
 	for (int idx_c = ((int)columna_origen);idx_c < 8;idx_c++)
 	{
 		bool add_pieza = true;
@@ -212,13 +212,13 @@ void Cl_logica::analiza_gravedad(vector<vector<PIEZA_STRU>> Tablero, GUI_jugada&
 			{
 				auto pieza_comida = jugada_propia.get_lista_piezas_movidas().at(1);
 				if (pieza_comida.c_pieza == pz_superior.c_pieza && pieza_comida.c_color == pz_superior.c_color) 
-					add_pieza = false;  // si la pieza esta comida no se añade a la jugada de la gravedad
+					add_pieza = false;  // si la pieza esta comida no se aÃ±ade a la jugada de la gravedad
 			}
 			if (add_pieza) jugada_gravedad.add_pieza_a_jugada(pz_superior);
 		}
 	}
 
-	//efecto sobre la columna de la casilla destino de la jugada (afectará únicamente a la pieza movida)
+	//efecto sobre la columna de la casilla destino de la jugada (afectarÃ¡ Ãºnicamente a la pieza movida)
 	int cuenta_vacias = 0;
 	for (int idx_c = ((int)columna_destino) - 1;idx_c >= 1;idx_c--)
 	{
