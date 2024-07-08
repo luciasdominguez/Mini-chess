@@ -1,37 +1,33 @@
 #pragma once
 #include "casillas.h"
 #include "clases.h"
+//#include "gestor_movimientos.h"
 #include "tablero.h"
 
+//enum tipo { vacio=-1, peon_=1, torre, caballo, alfil, reina, rey ,vacia=-2};
 
 class ficha
 {
 protected:
 	friend class casilla;
 	friend class tablero;
-	friend class gestor_movimientos;
-
 	casilla* posicion;
-
 	ENUM_COLOR campo_color;
 	ENUM_TIPO campo_tipo ;
 	ENUM_PIEZA campo_pieza;
-
 	PIEZA_STRU pieza;
-
 	bool ha_movido = false;
 
 public:
 	ficha(casilla* _pos, ENUM_COLOR _color);
 	ficha() = default;
 
+	//ficha(const ficha& F) = default;
+
+
 	virtual ENUM_COLOR leer_color() { return campo_color; }
 	int pos_fila() { return posicion->leer_fila(); };
 	int pos_columna() { return posicion->leer_columna(); };
-	casilla leer_posicion() const { return *posicion; };
-	virtual ENUM_TIPO leer_tipo() { return campo_tipo; }
-	virtual ENUM_PIEZA leer_pieza() { return campo_pieza; }
-
 	void set_columna(int colm) { posicion->columna = colm; }
 	void set_fila(int fil) { posicion->fila = fil; }
 	void set_pos(casilla* cas) { posicion = cas; }
@@ -39,17 +35,19 @@ public:
 	void set_casilla(casilla* cas) { if (this) { posicion = cas; } }
 	void set_tipo(ENUM_TIPO tipo) { campo_tipo = tipo; }
 	void set_pieza(ENUM_PIEZA pieza) { if (this) { campo_pieza = pieza; } }
-	
+	casilla leer_posicion() const { return *posicion; };
+	virtual ENUM_TIPO leer_tipo() { return campo_tipo; }
+	virtual ENUM_PIEZA leer_pieza() { return campo_pieza; }
 
 	virtual bool mover(casilla& casillas, const tablero& tablero) { return false; };
-	void mod_ha_movido() { this->ha_movido = true; };
-
 	ficha& operator =(ficha& f1) {
 		this->campo_color = f1.campo_color;
 		this->posicion = f1.posicion;
 		return *this;
 	}
-	
+	friend class gestor_movimientos;
+
+	void mod_ha_movido() { this->ha_movido = true; };
 };
 
 class Peon : public ficha {
@@ -60,7 +58,6 @@ public:
 	Peon(casilla cas, ENUM_COLOR color) { posicion = &cas, campo_color = color;campo_tipo= peon; }
 	Peon() = default;
 	Peon(const Peon&) = default;
-
 	bool mover(casilla& casillas, const tablero& tablero) override;
 	
 	
@@ -69,7 +66,6 @@ public:
 class Torre : public ficha {
 public:
 	bool mover(casilla& casillas, const tablero& tablero) override;
-
 	Torre() = default;
 	Torre(const Torre&) = default;
 	Torre(casilla cas, ENUM_COLOR color) { posicion = &cas, campo_color = color; campo_tipo=torre; }
@@ -79,7 +75,6 @@ public:
 class Caballo : public ficha {
 public:
 	bool mover(casilla& casillas, const tablero& tablero) override;
-
 	Caballo(const ficha& F) : ficha(F) {	}
 	Caballo() = default;
 	Caballo(const Caballo&) = default;
@@ -92,14 +87,12 @@ public:
 	Alfil() = default;
 	Alfil(const Alfil&) = default;
 	Alfil(casilla cas, ENUM_COLOR color) { posicion = &cas, campo_color = color;campo_tipo= alfil; }
-
 	bool mover(casilla& casillas, const tablero& tablero) override;
 };
 
 class Reina : public ficha {
 public:
 	bool mover(casilla& casillas, const tablero& tablero) override;
-
 	Reina(const ficha& F) :ficha(F) {	}
 	Reina() = default;
 	Reina(const Reina&) = default;

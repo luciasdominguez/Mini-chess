@@ -42,6 +42,9 @@ class Cl_logica
 	vector<vector<PIEZA_STRU>> TableroGUI_actual;
 	PIEZA_STRU busca_posicion_anterior(PIEZA_STRU pieza_jugada);
 
+
+	//void analiza_gravedad();  // por hacer...............
+
 	void genera_tablero_temporal();
 
 public:

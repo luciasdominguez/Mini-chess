@@ -4,7 +4,17 @@
 
 Cl_logica::Cl_logica()
 {
-
+	//Tablero_actual_= {// vector de 2 dimesiones de 8x8
+	//	{ pz_0,pz_0,pz_0,pz_0,pz_0,pz_0,pz_0,pz_0 },
+	//	{ pz_0,pz_0,pz_0,pz_0,pz_0,pz_0,pz_0,pz_0 },
+	//	{ pz_0,pz_0,pz_0,pz_0,pz_0,pz_0,pz_0,pz_0 },
+	//	{ pz_0,pz_0,pz_0,pz_0,pz_0,pz_0,pz_0,pz_0 },
+	//	{ pz_0,pz_0,pz_0,pz_0,pz_0,pz_0,pz_0,pz_0 },
+	//	{ pz_0,pz_0,pz_0,pz_0,pz_0,pz_0,pz_0,pz_0 },
+	//	{ pz_0,pz_0,pz_0,pz_0,pz_0,pz_0,pz_0,pz_0 },
+	//	{ pz_0,pz_0,pz_0,pz_0,pz_0,pz_0,pz_0,pz_0 }
+	//};
+	//Tablero_temp = Tablero_actual_;
 }
 
 
@@ -35,8 +45,11 @@ int Cl_logica::analiza_jugada(vector<vector<PIEZA_STRU>> _TableroGUI_actual, GUI
 	tablero_aux.casillas_tablero[pieza_antes.c_columna - 1][pieza_antes.c_fila - 1].ocupacion = nullptr;
 
 	tablero tablero_con_gravedad_simulada = tablero_aux.simular_gravedad();
-	Rey rey_aux = tablero_con_gravedad_simulada.encontrar_rey(pieza_actual.c_color);
-
+	//Rey rey_aux = tablero_con_gravedad_simulada.encontrar_rey(pieza_actual.c_color);
+	Rey rey_aux = tablero_con_gravedad_simulada.encontrar_pos_rey(pieza_actual.c_color).ocupacion;
+	casilla cas_aux = tablero_con_gravedad_simulada.encontrar_pos_rey(pieza_actual.c_color);
+	rey_aux.set_casilla(&cas_aux);
+	//rey_aux.set_casilla(&tablero_con_gravedad_simulada.encontrar_pos_rey(pieza_actual.c_color));
 	// Si con el movimiento a realizar el rey queda en jaque, se evalúa como jugada ilegal
 	if (rey_aux.en_jaque(rey_aux.leer_posicion(), tablero_con_gravedad_simulada)) {
 		tablero_aux.casillas_tablero[pieza_antes.c_columna - 1][pieza_antes.c_fila - 1].ocupacion = tablero_aux.casillas_tablero[pieza_actual.c_columna - 1][pieza_actual.c_fila - 1].ocupacion;
@@ -73,19 +86,20 @@ int Cl_logica::analiza_jugada(vector<vector<PIEZA_STRU>> _TableroGUI_actual, GUI
 	if (gestor_jaques::comprobar_mate(tablero_con_gravedad_simulada)) {
 		return 3;
 	}
-
 	//JAQUES
 	Rey Rey_Blanco = tablero_con_gravedad_simulada.encontrar_rey(blanca);
 	Rey Rey_Negro = tablero_con_gravedad_simulada.encontrar_rey(negra);
 
 	// Si el rey contrario queda en jaque tras el movimiento, se indica devolviendo un 2.
 	if (Rey_Blanco.en_jaque(Rey_Blanco.leer_posicion(), tablero_con_gravedad_simulada)) {
-		return 2;
+			return 2;
 	}
 	if (Rey_Negro.en_jaque(Rey_Negro.leer_posicion(), tablero_con_gravedad_simulada)) {
 		//Comprobamo mate a las negras
-		return 2;
+			return 2;
 	}
+
+	
 
 	// Si la jugada es legal y el rey no queda ni en jaque ni en jaque mate, se devuelve un 1.
 	return 1;
@@ -188,12 +202,19 @@ void Cl_logica::analiza_gravedad(vector<vector<PIEZA_STRU>> Tablero, GUI_jugada&
 	//Efecto sobre la columna de la casilla de origen de la jugada (afectará a las piezas situadas por encima de la pieza movida por dejar un hueco)
 	for (int idx_c = ((int)columna_origen);idx_c < 8;idx_c++)
 	{
+		bool add_pieza = true;
 		auto aux_pz = TableroGUI_actual.at((int)fila_origen - 1).at(idx_c);
 		if (aux_pz.c_color != color_NO)  // la pieza que hay encima pasa a la lista de piezas movidas por la gravedad
 		{
 			auto pz_superior = TableroGUI_actual.at((int)fila_origen - 1).at(idx_c);
 			pz_superior.c_columna = (ENUM_COLUMNA)(pz_superior.c_columna - 1);
-			jugada_gravedad.add_pieza_a_jugada(pz_superior);
+			if (jugada_propia.get_lista_piezas_movidas().size() >1)
+			{
+				auto pieza_comida = jugada_propia.get_lista_piezas_movidas().at(1);
+				if (pieza_comida.c_pieza == pz_superior.c_pieza && pieza_comida.c_color == pz_superior.c_color) 
+					add_pieza = false;  // si la pieza esta comida no se añade a la jugada de la gravedad
+			}
+			if (add_pieza) jugada_gravedad.add_pieza_a_jugada(pz_superior);
 		}
 	}
 
@@ -208,6 +229,7 @@ void Cl_logica::analiza_gravedad(vector<vector<PIEZA_STRU>> Tablero, GUI_jugada&
 	if ((fila_destino == fila_origen) && ((int)columna_destino>(int)columna_origen)) 
 		cuenta_vacias++;
 	pieza_movida.c_columna = (ENUM_COLUMNA)(pieza_movida.c_columna - cuenta_vacias);
+
 
 	jugada_gravedad.add_pieza_a_jugada(pieza_movida);
 }

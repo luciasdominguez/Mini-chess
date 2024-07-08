@@ -94,7 +94,7 @@ void Juego::dibuja_juego()
 	listado_jugadas.imprime_jugadas();
 
 	ETSIDI::setTextColor(255, 0, 0);
-	ETSIDI::printxy("Para volver al menu pulse: m", -9, 19);
+	ETSIDI::printxy("Para volver al menu pulse: m", 5, 19);
 }
 
 

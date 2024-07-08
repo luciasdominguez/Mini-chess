@@ -58,8 +58,8 @@ bool gestor_movimientos::comprobar_colision(const ficha& p1, const casilla& cas,
 		signo_dif_f = (dif_f / abs(dif_f));
 		signo_dif_c = (dif_c / abs(dif_c));
 
-		for (int i = signo_dif_f; abs(i) < abs(dif_f) && colision != true; i += signo_dif_f) {
-			for (int j = signo_dif_c; abs(j) < abs(dif_f); j += signo_dif_c) {
+		for (int i = signo_dif_f; abs(i) < abs(dif_f) && colision != true; i = abs(dif_f)) {
+			for (int j = signo_dif_c; abs(j) < abs(dif_f); j += signo_dif_c, i += signo_dif_f) {
 				aux = T.leer_casilla(i + p1_f, j + p1_c);
 				colision = aux.leer_ocupacion();
 			}
