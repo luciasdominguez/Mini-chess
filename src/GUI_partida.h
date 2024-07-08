@@ -110,8 +110,6 @@ public:
 	void borrar_jugada_ultima();
 	void add_jugada_a_partida(GUI_jugada jug);
 	void set_nombre_de_partida(string);
-	//bbb void set_jaque_mate(bool mate);
-	//bbb bool get_jaque_mate();
 
 	void set_jugadas_de_partida(vector<GUI_jugada> lista_jugadas);
 	vector<string> get_lista_movimientos(); //todas las jugadas con las piezas de cada una.

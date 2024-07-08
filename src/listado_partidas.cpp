@@ -1,5 +1,5 @@
 #include "listado_partidas.h"
-using namespace std::string_literals; // enables s-suffix for std::string literals
+using namespace std::string_literals;
 
 T_listado_partidas::T_listado_partidas() {
 
@@ -9,13 +9,7 @@ T_listado_partidas::T_listado_partidas() {
 
 void T_listado_partidas::imprime_nombres()
 {
-	//ETSIDI::setFont("fuentes/Bitwise.ttf", 12);  // la primera
-	//ETSIDI::setFont("fuentes/Paintingwithchocolate.ttf", 12);
-	//ETSIDI::setFont("fuentes/AaahSpeed.ttf", 12);
-	//ETSIDI::setFont("fuentes/AtoZ.ttf", 12);
-	ETSIDI::setFont("fuentes/SwanseaBold.ttf", 12);  //esta va bien
-
-	//----------------------
+	ETSIDI::setFont("fuentes/SwanseaBold.ttf", 12); 
 	ETSIDI::setTextColor(0, 1, 0);
 	float Pos_partida_1 = 18;
 	int offset_linea = 0;

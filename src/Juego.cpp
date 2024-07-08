@@ -110,13 +110,6 @@ void Juego::cargar_partida(string nombre)
 
 }
 
-void Juego::cargar_partida_ejemplo()
-{
-	partida_actual = gestor_de_partidas->get_partida_ejemplo();
-	jugada_ultima = partida_actual.get_jugadas().back(); //el ultimo movimiento de la partida
-
-}
-
 GUI_partida* Juego::get_partida_actual()
 {
 	return &partida_actual;
@@ -194,20 +187,6 @@ T_listado_partidas Juego::get_listado_partidas()
 	return listado_partidas;
 }
 
-T_listado_jugadas Juego::get_listado_jugadas()
-{
-	auto jugadas = partida_actual.get_jugadas();
-	for (auto it_jugada = jugadas.begin(); it_jugada != (jugadas.end()); ++it_jugada)
-	{
-		auto piezas = (*it_jugada).get_lista_piezas_movidas();
-		for (auto it_pz = piezas.begin(); it_pz != (piezas.end()); ++it_pz)
-		{
-			(*it_pz).c_color;
-		}
-	}
-	return listado_jugadas;
-}
-
 GUI_gestor_partidas Juego::get_almacen_partidas()
 {
 	return (*gestor_de_partidas);
@@ -245,11 +224,6 @@ void Juego::calcula_siguiente_turno()
 	case GRAVEDAD_B:	turno_para_ = NEGRAS;		break;
 	default:			turno_para_ = GRAVEDAD_N;	break;
 	};
-}
-
-void Juego::dibuja_lista_partidas()
-{
-	gestor_de_partidas;
 }
 
 void Juego::generar_piezas()
@@ -301,12 +275,6 @@ void Juego::dibujar_piezas()
 		todas_piezas_GUI[i].dibuja_pieza();
 	}
 }
-
-void Juego::incrementa_cursor(int inc_f, int inc_c)
-{
-	get_casilla_cursor()->incrementa_posicion(inc_f, inc_c);
-}
-
 
 void Juego::mueve_pieza_locked(int n_posicion_jugada) // se debe añadir la pieza marcada a la partida
 { // Este función solamente añade la pieza marcada sin atender a ninguna regla del juego

@@ -5,18 +5,6 @@
 
 GUI_gestor_partidas::GUI_gestor_partidas()
 {
-    //string line;
-    //ifstream fichero_text("nada.txt");
-    //if (fichero_text.is_open())
-    //{
-    //    while (getline(fichero_text, line))
-    //    {
-    //        cout << line << '\n';
-    //    }
-    //    fichero_text.close();
-    //}
-    //else cout << "Fichero de test no se ha podido abrir";
-
     string line;
 
     std::ifstream fichero_json_partidas("lista_de_partidas_jq_v2.json");
@@ -111,8 +99,6 @@ void GUI_gestor_partidas::actualiza_objeto_json()
         auto jugadas = (*it_part).get_jugadas();
         string nombre_partida=(*it_part).get_nombre_partida();
         js_nombre_partida = nombre_partida;
-        //bbb bool jaque = (*it_part).get_jaque_mate();
-        //bbb js_jaque_mate = jaque;
 
         js_jugadas.clear();
         int n_jugada = 1;
@@ -175,7 +161,6 @@ bool GUI_gestor_partidas::insert_update_partida(string nombre_partida, vector<GU
     GUI_partida _partida;
     _partida.set_nombre_de_partida(nombre_partida);
     _partida.set_jugadas_de_partida(lista_jugadas);
-    //bbb _partida.set_jaque_mate(jaque_mate);
     if (!partida_existe) {  // si no existe se inserta al final de la lista. Si esta llena se borra la primera
         if (almacen_de_partidas.size() >= 9) // si ya hay nueve partidas == está lleno se borra la primera
             almacen_de_partidas.erase(almacen_de_partidas.begin());
@@ -185,37 +170,15 @@ bool GUI_gestor_partidas::insert_update_partida(string nombre_partida, vector<GU
     else {  //Si YA existe se devuelve FALSE y se actualiza la lista de jugadas
         almacen_de_partidas.pop_back();
         almacen_de_partidas.push_back(_partida);
-        //auto a = almacen_de_partidas.end();
-        //auto b = almacen_de_partidas.end() - 1;
-        //almacen_de_partidas.erase(a-1);
-
         return false;
     }
 
 }
 
-
-void GUI_gestor_partidas::nueva_jugada(vector<PIEZA_STRU> posiciones)
-{
-}
-
-
-
 GUI_partida GUI_gestor_partidas::get_or_new_partida(string _nombre)
 {    // se busca la partida en la lista de partida y se devuelve si existe.
     vector<GUI_jugada> aux;
     bool existe_la_partida=false;
-
-    //int ii;
-    //GUI_partida aux2;
-    //for (ii = 0;ii < almacen_de_partidas.size();ii++)
-    //{
-    //    if (almacen_de_partidas.at(ii).get_nombre_partida() == _nombre) 
-    //    {
-    //        aux2 = almacen_de_partidas.at(ii);
-    //    };
-    //}
-    //return &aux2;
 
     for (auto it_in = almacen_de_partidas.begin(); it_in != almacen_de_partidas.end(); ++it_in) 
     {   // (*it_in) es una partida,
@@ -241,22 +204,6 @@ GUI_partida GUI_gestor_partidas::get_or_new_partida(string _nombre)
         return nueva_partida;
     }
  
-}
-
-GUI_partida GUI_gestor_partidas::get_partida_ejemplo()
-{
-    GUI_partida nueva_partida;
-    GUI_jugada jugada;
-    jugada.ejemplo_jugada_01(); // se añade un movimiento
-    nueva_partida.add_jugada_a_partida(jugada);
-    jugada.ejemplo_jugada_02(); // se añade un movimiento
-    nueva_partida.add_jugada_a_partida(jugada);
-    jugada.ejemplo_jugada_03(); // se añade un movimiento
-    nueva_partida.add_jugada_a_partida(jugada);
-    jugada.ejemplo_jugada_04(); // se añade un movimiento
-    nueva_partida.add_jugada_a_partida(jugada);
-
-    return nueva_partida;
 }
 
 vector<string> GUI_gestor_partidas::get_nombres_partidas()

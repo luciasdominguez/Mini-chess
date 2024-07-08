@@ -10,7 +10,6 @@ Pieza_GUI::Pieza_GUI()
 
 }
 
-
 Pieza_GUI::Pieza_GUI(PIEZA_STRU d)
 {
 	_datos_pieza = d;
@@ -35,14 +34,6 @@ void Pieza_GUI::dibuja_pieza()
 	Pieza_GUI::calculaPos();
 
 	sprite->flip(false, false);
-	//sprite.flip(true, false);
-	//animación. Si no hay velocidad fotograma 0
-	//si no, hace uso del ciclo automatico 1-4
-	/*if ((velocidad.x < 0.01) && (velocidad.x > -0.01))
-		sprite.setState(0);
-	else if (sprite.getState() == 0)
-		sprite.setState(1, false);*/
-
 	sprite->setPos(pos_x, pos_y);
 
 	if (_datos_pieza.c_fila != f_ND && _datos_pieza.c_columna != C_ND)
@@ -52,7 +43,8 @@ void Pieza_GUI::dibuja_pieza()
 	else
 	{
 		sprite->setSize(1, 2);
-	};
+	}
+
 	if (animada)
 	{
 		sprite->loop();
@@ -159,15 +151,11 @@ void Pieza_GUI::calculaPos()
 			pos_x = 5 * inc_desposito + ref_x + offset_color;
 			break;
 		};
-
 	};
-
 }
 
 void Pieza_GUI::calculaTextura()
 {
-
-	//char textura[] = "imagenes/wario.png"; // Valor por defecto
 	string toad = "imagenes/toad.png";
 	string luigi = "imagenes/luigi.png";
 	string yoshi = "imagenes/yoshi.png";
@@ -238,11 +226,6 @@ void Pieza_GUI::calculaTextura()
 		break;
 	}
 
-}
-
-void Pieza_GUI::set_datosPieza(PIEZA_STRU datos)
-{
-	_datos_pieza = datos;
 }
 
 PIEZA_STRU Pieza_GUI::get_datosPieza()

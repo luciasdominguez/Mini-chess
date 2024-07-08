@@ -39,11 +39,6 @@ void GUI_jugada::vaciar_jugada()
 	lista_PiezasMovidas.erase(lista_PiezasMovidas.begin(), lista_PiezasMovidas.end());
 }
 
-void GUI_jugada::nueva_jugada()
-{
-
-}
-
 void GUI_jugada::add_pieza_a_jugada(PIEZA_STRU pz)
 {
 	lista_PiezasMovidas.push_back(pz);
@@ -139,41 +134,4 @@ void GUI_jugada::inicio_partida()
 	pieza.c_tipo = rey; //////////////////
 	pieza.c_pieza = PZ_rey;
 	pieza.c_columna = E;	pieza.c_fila = f8; lista_PiezasMovidas.push_back(pieza);
-}
-
-void GUI_jugada::ejemplo_jugada_01()
-{
-	PIEZA_STRU pieza{};
-	pieza.c_color = blanca;
-	pieza.c_tipo = peon;
-	pieza.c_pieza = PZ_peon_torre_reina;
-	pieza.c_columna = A;	pieza.c_fila = f2; lista_PiezasMovidas.push_back(pieza);
-}
-
-void GUI_jugada::ejemplo_jugada_02()
-{
-	PIEZA_STRU pieza{};
-	pieza.c_color = blanca;
-	pieza.c_tipo = peon;
-	pieza.c_pieza = PZ_peon_caballo_reina;
-	pieza.c_columna = B;	pieza.c_fila = f2; lista_PiezasMovidas.push_back(pieza);
-
-}
-
-void GUI_jugada::ejemplo_jugada_03()
-{
-	PIEZA_STRU pieza{};
-	pieza.c_color = blanca;
-	pieza.c_tipo = peon;
-	pieza.c_pieza = PZ_peon_alfil_reina;
-	pieza.c_columna = C;	pieza.c_fila = f2; lista_PiezasMovidas.push_back(pieza);
-}
-
-void GUI_jugada::ejemplo_jugada_04()
-{
-	PIEZA_STRU pieza{};
-	pieza.c_color = negra;
-	pieza.c_tipo = peon;
-	pieza.c_pieza = PZ_peon_reina;
-	pieza.c_columna = D;	pieza.c_fila = f2; lista_PiezasMovidas.push_back(pieza);
 }

@@ -34,18 +34,7 @@ void GUI_marcador::dibuja_sprite()
 
 	// Dónde va el marcador (en coordenadas del tablero)
 	GUI_marcador::calculaPos();
-
-	//sprite_tp_Cursor->flip(false, false);
 	sprite_1->flip(false, false);
-	//sprite.flip(true, false);
-	//animación. Si no hay velocidad fotograma 0
-	//si no, hace uso del ciclo automatico 1-4
-	/*if ((velocidad.x < 0.01) && (velocidad.x > -0.01))
-		sprite.setState(0);
-	else if (sprite.getState() == 0)
-		sprite.setState(1, false);*/
-	//sprite_tp_Cursor->setPos(pos_x, pos_y);
-	//sprite_tp_Locked->setPos(pos_x, pos_y);
 	sprite_1->setPos(pos_x, pos_y);
 
 	switch (estado_marcador)
@@ -61,19 +50,6 @@ void GUI_marcador::dibuja_sprite()
 	sprite_1->loop();
 	sprite_1->pause(false);
 	sprite_1->draw();
-	//case tp_Cursor:
-	//	sprite_tp_Cursor->setSize(tam_casilla, tam_casilla);
-	//	sprite_tp_Locked->setSize(0, 0);
-	//	break;
-	//case tp_Locked:
-	//	sprite_tp_Cursor->setSize(0, 0);
-	//	sprite_tp_Locked->setSize(tam_casilla, tam_casilla);
-	//	break;
-
-	//sprite_EnFoco->setSize(3, 3);
-
-	//sprite_tp_Cursor->draw(); sprite_tp_Locked->draw();
- //sprite->draw();
 	//fin del codigo incluido
 	///////////////////////////////////////////////////////
 	glPopMatrix();
@@ -176,23 +152,11 @@ void GUI_marcador_locked::set_estado_locked(ENUM_ESTADO_LOCKED est, Pieza_GUI* p
 
 }
 
-
-void GUI_marcador_locked::reset_pieza_locked()
-{
-	pieza_Locked = nullptr;
-}
-
-
 void GUI_marcador_locked::set_Can_Lock(bool C)
 {
 	Can_Lock_casilla = C;
 	if (C) estado_marcador = ON;
 	else estado_marcador = OFF;
-}
-
-bool GUI_marcador_locked::get_Can_Lock()
-{
-	return Can_Lock_casilla;
 }
 
 void GUI_marcador_locked::dibuja_sprite()

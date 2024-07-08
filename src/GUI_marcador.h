@@ -50,11 +50,7 @@ public:
 	GUI_marcador_locked( ENUM_FILA, ENUM_COLUMNA);
 	void set_estado_locked(ENUM_ESTADO_LOCKED, Pieza_GUI*);
 
-
-	void captura_pieza();   /////////?????????????
 	void set_Can_Lock(bool);
-	bool get_Can_Lock();
-	void reset_pieza_locked();
 	void dibuja_sprite();
 	ENUM_ESTADO_LOCKED get_estado_locked();
 };

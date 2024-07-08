@@ -19,7 +19,6 @@ public:
 	GUI_Tablero();
 	void dibuja_tablero();
 
-
 	friend class Juego;
 };
 

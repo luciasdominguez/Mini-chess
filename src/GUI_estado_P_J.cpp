@@ -4,7 +4,6 @@ void GUI_estado_P_J::calcula_Pos_Est_general(ESTADO_GENERAL est_gen)
 {
 	float inc_y = 0;
 	float ref_x = -9.5, ref_y = 13.7;
-	//enum ESTADO_GENERAL { en_select_partida = 0, en_jugadas};
 	switch (est_gen)
 	{
 	case modo_seleccion_partida:	

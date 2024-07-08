@@ -1,5 +1,6 @@
 #include "GUI_Tablero.h"
 
+
 GUI_Tablero::GUI_Tablero()
 {
 }

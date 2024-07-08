@@ -22,11 +22,7 @@ class T_listado_jugadas
 
 public:
 	T_listado_jugadas();
-	void genera_linea_print(); // genera linea con los datos de la pieza que se mueve
 	void imprime_jugadas();
 	void set_lineas_partida(vector<string> nombres);
 	void set_nombre_partida(string nombre);
-
-	//vector<string> get_nombres_jugadas();
-
 };

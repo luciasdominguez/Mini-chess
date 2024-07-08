@@ -47,7 +47,6 @@ public:
 
 	void dibuja_pieza();
 	void anima_pieza(bool anima);
-	void set_datosPieza(PIEZA_STRU datos);
 	PIEZA_STRU get_datosPieza();
 
 	friend class Juego;
