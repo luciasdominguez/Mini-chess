@@ -22,7 +22,7 @@ public:
 	ficha(casilla* _pos, ENUM_COLOR _color);
 	ficha() = default;
 
-	//ficha(const ficha& F) = default;
+	
 
 
 	virtual ENUM_COLOR leer_color() { return campo_color; }
@@ -103,7 +103,7 @@ class Rey : public ficha {
 public:
 	bool mover(casilla& casillas, const tablero& tablero) override;
 
-	bool en_jaque(const casilla& c, const tablero& t); //Pide posiciÛn para poder comprobar tambiÈn si se dar· jaque en posiciones futuras
+	bool en_jaque(const casilla& c, const tablero& t); //Pide posici√≥n para poder comprobar tambi√©n si se dar√° jaque en posiciones futuras
 	void comprobar_jaque(bool& fin, bool& jaque, const tablero& tablero, int i, int columna, ENUM_TIPO t);
 	bool en_jaque_mate(const casilla& c, const tablero& t);
 
