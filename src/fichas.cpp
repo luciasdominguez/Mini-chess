@@ -389,6 +389,46 @@ bool Rey::en_jaque(const casilla& cas, const tablero& tablero) {
 	}
 	fin = false;
 
+
+	
+	//Comprobacion peones
+	if (this->campo_color == blanca) {
+		c_aux = tablero.leer_casilla(fila + 1, columna +1);
+		f_aux = c_aux.leer_ocupacion();
+		
+		if (f_aux) {
+			if (f_aux->leer_tipo() != t_NO) {
+			
+				if (f_aux->leer_tipo() == peon && f_aux->leer_color() == negra)
+					return true;
+			}
+		}
+		c_aux = tablero.leer_casilla(fila - 1, columna + 1);
+		f_aux = c_aux.leer_ocupacion();
+		if (f_aux) {
+			if (f_aux->leer_tipo() != t_NO) {
+				if (f_aux->leer_tipo() == peon && f_aux->leer_color() == negra)
+					return true;
+				}
+			}
+	}
+	if (this->campo_color == negra) {
+		c_aux = tablero.leer_casilla(fila - 1, columna - 1);
+		f_aux = c_aux.leer_ocupacion();
+		if (f_aux) {
+			if (f_aux->leer_tipo() == peon && f_aux->leer_color() == blanca)
+				return true;
+		}
+		c_aux = tablero.leer_casilla(fila + 1, columna - 1);
+		f_aux = c_aux.leer_ocupacion();
+		if (f_aux) {
+			if (f_aux->leer_tipo() == peon && f_aux->leer_color() == blanca)
+				return true;
+		}
+
+	}
+	
+
 	return false;
 }
 

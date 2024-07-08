@@ -86,7 +86,6 @@ int Cl_logica::analiza_jugada(vector<vector<PIEZA_STRU>> _TableroGUI_actual, GUI
 	if (gestor_jaques::comprobar_mate(tablero_con_gravedad_simulada)) {
 		return 3;
 	}
-
 	//JAQUES
 	Rey Rey_Blanco = tablero_con_gravedad_simulada.encontrar_rey(blanca);
 	Rey Rey_Negro = tablero_con_gravedad_simulada.encontrar_rey(negra);
@@ -100,6 +99,7 @@ int Cl_logica::analiza_jugada(vector<vector<PIEZA_STRU>> _TableroGUI_actual, GUI
 			return 2;
 	}
 
+	
 
 	// Si la jugada es legal y el rey no queda ni en jaque ni en jaque mate, se devuelve un 1.
 	return 1;

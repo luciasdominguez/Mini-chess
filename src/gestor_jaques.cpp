@@ -46,6 +46,8 @@ bool gestor_jaques::comprobar_mov_posibles(const tablero& T, const ENUM_COLOR& c
 								//Creamos un tablero nuevo con gravedad para la nueva situación
 								tablero tab_con_gravedad2 = T_aux.simular_gravedad();
 								Rey rey_aux = (tab_con_gravedad2.encontrar_rey(color));
+								casilla cas_aux = tab_con_gravedad2.encontrar_pos_rey(rey_aux.leer_color());
+								rey_aux.set_casilla(&cas_aux);
 								if (!rey_aux.en_jaque(rey_aux.leer_posicion(), tab_con_gravedad2)) {
 									return true;
 								}
