@@ -2,9 +2,9 @@
     {
         "jugadas": [
             {
+                "jaque_mate": false,
                 "jugada": 1,
                 "jugador": "BLANCAS",
-				"jaque_mate": false,
                 "piezas": [
                     {
                         "color": "blanca",
@@ -23,9 +23,9 @@
                 ]
             },
             {
+                "jaque_mate": false,
                 "jugada": 2,
                 "jugador": "NEGRAS",
-				"jaque_mate": false,
                 "piezas": [
                     {
                         "color": "negra",
@@ -42,9 +42,9 @@
     {
         "jugadas": [
             {
+                "jaque_mate": false,
                 "jugada": 1,
                 "jugador": "NEGRAS",
-				"jaque_mate": false,
                 "piezas": [
                     {
                         "color": "negra",
@@ -68,9 +68,9 @@
     {
         "jugadas": [
             {
+                "jaque_mate": false,
                 "jugada": 1,
                 "jugador": "NEGRAS",
-				"jaque_mate": false,
                 "piezas": [
                     {
                         "color": "negra",
@@ -89,9 +89,9 @@
                 ]
             },
             {
+                "jaque_mate": false,
                 "jugada": 2,
                 "jugador": "NEGRAS",
-				"jaque_mate": false,
                 "piezas": [
                     {
                         "color": "negra",
@@ -104,5 +104,1457 @@
             }
         ],
         "nombre": "P2"
+    },
+    {
+        "jugadas": [
+            {
+                "jaque_mate": false,
+                "jugada": 1,
+                "jugador": "GRAVEDAD_N",
+                "piezas": [
+                    {
+                        "color": "blanca",
+                        "columna": "A",
+                        "fila": "f2",
+                        "pieza": "PZ_peon_torre_reina",
+                        "tipo": "peon"
+                    },
+                    {
+                        "color": "blanca",
+                        "columna": "B",
+                        "fila": "f2",
+                        "pieza": "PZ_peon_caballo_reina",
+                        "tipo": "peon"
+                    },
+                    {
+                        "color": "blanca",
+                        "columna": "C",
+                        "fila": "f2",
+                        "pieza": "PZ_peon_alfil_reina",
+                        "tipo": "peon"
+                    },
+                    {
+                        "color": "blanca",
+                        "columna": "D",
+                        "fila": "f2",
+                        "pieza": "PZ_peon_reina",
+                        "tipo": "peon"
+                    },
+                    {
+                        "color": "blanca",
+                        "columna": "E",
+                        "fila": "f2",
+                        "pieza": "PZ_peon_rey",
+                        "tipo": "peon"
+                    },
+                    {
+                        "color": "blanca",
+                        "columna": "F",
+                        "fila": "f2",
+                        "pieza": "PZ_peon_alfil_rey",
+                        "tipo": "peon"
+                    },
+                    {
+                        "color": "blanca",
+                        "columna": "G",
+                        "fila": "f2",
+                        "pieza": "PZ_peon_caballo_rey",
+                        "tipo": "peon"
+                    },
+                    {
+                        "color": "blanca",
+                        "columna": "H",
+                        "fila": "f2",
+                        "pieza": "PZ_peon_torre_rey",
+                        "tipo": "peon"
+                    },
+                    {
+                        "color": "blanca",
+                        "columna": "A",
+                        "fila": "f1",
+                        "pieza": "PZ_torre_reina",
+                        "tipo": "torre"
+                    },
+                    {
+                        "color": "blanca",
+                        "columna": "H",
+                        "fila": "f1",
+                        "pieza": "PZ_torre_rey",
+                        "tipo": "torre"
+                    },
+                    {
+                        "color": "blanca",
+                        "columna": "B",
+                        "fila": "f1",
+                        "pieza": "PZ_caballo_reina",
+                        "tipo": "caballo"
+                    },
+                    {
+                        "color": "blanca",
+                        "columna": "G",
+                        "fila": "f1",
+                        "pieza": "PZ_caballo_rey",
+                        "tipo": "caballo"
+                    },
+                    {
+                        "color": "blanca",
+                        "columna": "C",
+                        "fila": "f1",
+                        "pieza": "PZ_alfil_reina",
+                        "tipo": "alfil"
+                    },
+                    {
+                        "color": "blanca",
+                        "columna": "F",
+                        "fila": "f1",
+                        "pieza": "PZ_alfil_rey",
+                        "tipo": "alfil"
+                    },
+                    {
+                        "color": "blanca",
+                        "columna": "D",
+                        "fila": "f1",
+                        "pieza": "PZ_reina",
+                        "tipo": "reina"
+                    },
+                    {
+                        "color": "blanca",
+                        "columna": "E",
+                        "fila": "f1",
+                        "pieza": "PZ_rey",
+                        "tipo": "rey"
+                    },
+                    {
+                        "color": "negra",
+                        "columna": "A",
+                        "fila": "f7",
+                        "pieza": "PZ_peon_torre_reina",
+                        "tipo": "peon"
+                    },
+                    {
+                        "color": "negra",
+                        "columna": "B",
+                        "fila": "f7",
+                        "pieza": "PZ_peon_caballo_reina",
+                        "tipo": "peon"
+                    },
+                    {
+                        "color": "negra",
+                        "columna": "C",
+                        "fila": "f7",
+                        "pieza": "PZ_peon_alfil_reina",
+                        "tipo": "peon"
+                    },
+                    {
+                        "color": "negra",
+                        "columna": "D",
+                        "fila": "f7",
+                        "pieza": "PZ_peon_reina",
+                        "tipo": "peon"
+                    },
+                    {
+                        "color": "negra",
+                        "columna": "E",
+                        "fila": "f7",
+                        "pieza": "PZ_peon_rey",
+                        "tipo": "peon"
+                    },
+                    {
+                        "color": "negra",
+                        "columna": "F",
+                        "fila": "f7",
+                        "pieza": "PZ_peon_alfil_rey",
+                        "tipo": "peon"
+                    },
+                    {
+                        "color": "negra",
+                        "columna": "G",
+                        "fila": "f7",
+                        "pieza": "PZ_peon_caballo_rey",
+                        "tipo": "peon"
+                    },
+                    {
+                        "color": "negra",
+                        "columna": "H",
+                        "fila": "f7",
+                        "pieza": "PZ_peon_torre_rey",
+                        "tipo": "peon"
+                    },
+                    {
+                        "color": "negra",
+                        "columna": "A",
+                        "fila": "f8",
+                        "pieza": "PZ_torre_reina",
+                        "tipo": "torre"
+                    },
+                    {
+                        "color": "negra",
+                        "columna": "H",
+                        "fila": "f8",
+                        "pieza": "PZ_torre_rey",
+                        "tipo": "torre"
+                    },
+                    {
+                        "color": "negra",
+                        "columna": "B",
+                        "fila": "f8",
+                        "pieza": "PZ_caballo_reina",
+                        "tipo": "caballo"
+                    },
+                    {
+                        "color": "negra",
+                        "columna": "G",
+                        "fila": "f8",
+                        "pieza": "PZ_caballo_rey",
+                        "tipo": "caballo"
+                    },
+                    {
+                        "color": "negra",
+                        "columna": "C",
+                        "fila": "f8",
+                        "pieza": "PZ_alfil_reina",
+                        "tipo": "alfil"
+                    },
+                    {
+                        "color": "negra",
+                        "columna": "F",
+                        "fila": "f8",
+                        "pieza": "PZ_alfil_rey",
+                        "tipo": "alfil"
+                    },
+                    {
+                        "color": "negra",
+                        "columna": "D",
+                        "fila": "f8",
+                        "pieza": "PZ_reina",
+                        "tipo": "reina"
+                    },
+                    {
+                        "color": "negra",
+                        "columna": "E",
+                        "fila": "f8",
+                        "pieza": "PZ_rey",
+                        "tipo": "rey"
+                    }
+                ]
+            },
+            {
+                "jaque_mate": false,
+                "jugada": 2,
+                "jugador": "BLANCAS",
+                "piezas": [
+                    {
+                        "color": "blanca",
+                        "columna": "E",
+                        "fila": "f4",
+                        "pieza": "PZ_peon_rey",
+                        "tipo": "peon"
+                    }
+                ]
+            },
+            {
+                "jaque_mate": false,
+                "jugada": 3,
+                "jugador": "GRAVEDAD_B",
+                "piezas": [
+                    {
+                        "color": "blanca",
+                        "columna": "E",
+                        "fila": "f2",
+                        "pieza": "PZ_peon_alfil_rey",
+                        "tipo": "peon"
+                    },
+                    {
+                        "color": "blanca",
+                        "columna": "F",
+                        "fila": "f2",
+                        "pieza": "PZ_peon_caballo_rey",
+                        "tipo": "peon"
+                    },
+                    {
+                        "color": "blanca",
+                        "columna": "G",
+                        "fila": "f2",
+                        "pieza": "PZ_peon_torre_rey",
+                        "tipo": "peon"
+                    },
+                    {
+                        "color": "blanca",
+                        "columna": "A",
+                        "fila": "f4",
+                        "pieza": "PZ_peon_rey",
+                        "tipo": "peon"
+                    }
+                ]
+            },
+            {
+                "jaque_mate": false,
+                "jugada": 4,
+                "jugador": "NEGRAS",
+                "piezas": [
+                    {
+                        "color": "negra",
+                        "columna": "E",
+                        "fila": "f5",
+                        "pieza": "PZ_peon_rey",
+                        "tipo": "peon"
+                    }
+                ]
+            },
+            {
+                "jaque_mate": false,
+                "jugada": 5,
+                "jugador": "GRAVEDAD_N",
+                "piezas": [
+                    {
+                        "color": "negra",
+                        "columna": "E",
+                        "fila": "f7",
+                        "pieza": "PZ_peon_alfil_rey",
+                        "tipo": "peon"
+                    },
+                    {
+                        "color": "negra",
+                        "columna": "F",
+                        "fila": "f7",
+                        "pieza": "PZ_peon_caballo_rey",
+                        "tipo": "peon"
+                    },
+                    {
+                        "color": "negra",
+                        "columna": "G",
+                        "fila": "f7",
+                        "pieza": "PZ_peon_torre_rey",
+                        "tipo": "peon"
+                    },
+                    {
+                        "color": "negra",
+                        "columna": "A",
+                        "fila": "f5",
+                        "pieza": "PZ_peon_rey",
+                        "tipo": "peon"
+                    }
+                ]
+            },
+            {
+                "jaque_mate": false,
+                "jugada": 6,
+                "jugador": "BLANCAS",
+                "piezas": [
+                    {
+                        "color": "blanca",
+                        "columna": "E",
+                        "fila": "f3",
+                        "pieza": "PZ_peon_alfil_rey",
+                        "tipo": "peon"
+                    }
+                ]
+            },
+            {
+                "jaque_mate": false,
+                "jugada": 7,
+                "jugador": "GRAVEDAD_B",
+                "piezas": [
+                    {
+                        "color": "blanca",
+                        "columna": "E",
+                        "fila": "f2",
+                        "pieza": "PZ_peon_caballo_rey",
+                        "tipo": "peon"
+                    },
+                    {
+                        "color": "blanca",
+                        "columna": "F",
+                        "fila": "f2",
+                        "pieza": "PZ_peon_torre_rey",
+                        "tipo": "peon"
+                    },
+                    {
+                        "color": "blanca",
+                        "columna": "A",
+                        "fila": "f3",
+                        "pieza": "PZ_peon_alfil_rey",
+                        "tipo": "peon"
+                    }
+                ]
+            },
+            {
+                "jaque_mate": false,
+                "jugada": 8,
+                "jugador": "NEGRAS",
+                "piezas": [
+                    {
+                        "color": "negra",
+                        "columna": "E",
+                        "fila": "f6",
+                        "pieza": "PZ_peon_alfil_rey",
+                        "tipo": "peon"
+                    }
+                ]
+            },
+            {
+                "jaque_mate": false,
+                "jugada": 9,
+                "jugador": "GRAVEDAD_N",
+                "piezas": [
+                    {
+                        "color": "negra",
+                        "columna": "E",
+                        "fila": "f7",
+                        "pieza": "PZ_peon_caballo_rey",
+                        "tipo": "peon"
+                    },
+                    {
+                        "color": "negra",
+                        "columna": "F",
+                        "fila": "f7",
+                        "pieza": "PZ_peon_torre_rey",
+                        "tipo": "peon"
+                    },
+                    {
+                        "color": "negra",
+                        "columna": "A",
+                        "fila": "f6",
+                        "pieza": "PZ_peon_alfil_rey",
+                        "tipo": "peon"
+                    }
+                ]
+            },
+            {
+                "jaque_mate": false,
+                "jugada": 10,
+                "jugador": "BLANCAS",
+                "piezas": [
+                    {
+                        "color": "blanca",
+                        "columna": "E",
+                        "fila": "f3",
+                        "pieza": "PZ_peon_caballo_rey",
+                        "tipo": "peon"
+                    }
+                ]
+            },
+            {
+                "jaque_mate": false,
+                "jugada": 11,
+                "jugador": "GRAVEDAD_B",
+                "piezas": [
+                    {
+                        "color": "blanca",
+                        "columna": "E",
+                        "fila": "f2",
+                        "pieza": "PZ_peon_torre_rey",
+                        "tipo": "peon"
+                    },
+                    {
+                        "color": "blanca",
+                        "columna": "B",
+                        "fila": "f3",
+                        "pieza": "PZ_peon_caballo_rey",
+                        "tipo": "peon"
+                    }
+                ]
+            },
+            {
+                "jaque_mate": false,
+                "jugada": 12,
+                "jugador": "NEGRAS",
+                "piezas": [
+                    {
+                        "color": "negra",
+                        "columna": "F",
+                        "fila": "f6",
+                        "pieza": "PZ_caballo_rey",
+                        "tipo": "caballo"
+                    }
+                ]
+            },
+            {
+                "jaque_mate": false,
+                "jugada": 13,
+                "jugador": "GRAVEDAD_N",
+                "piezas": [
+                    {
+                        "color": "negra",
+                        "columna": "G",
+                        "fila": "f8",
+                        "pieza": "PZ_torre_rey",
+                        "tipo": "torre"
+                    },
+                    {
+                        "color": "negra",
+                        "columna": "B",
+                        "fila": "f6",
+                        "pieza": "PZ_caballo_rey",
+                        "tipo": "caballo"
+                    }
+                ]
+            },
+            {
+                "jaque_mate": false,
+                "jugada": 14,
+                "jugador": "BLANCAS",
+                "piezas": [
+                    {
+                        "color": "blanca",
+                        "columna": "E",
+                        "fila": "f3",
+                        "pieza": "PZ_peon_torre_rey",
+                        "tipo": "peon"
+                    }
+                ]
+            },
+            {
+                "jaque_mate": false,
+                "jugada": 15,
+                "jugador": "GRAVEDAD_B",
+                "piezas": [
+                    {
+                        "color": "blanca",
+                        "columna": "C",
+                        "fila": "f3",
+                        "pieza": "PZ_peon_torre_rey",
+                        "tipo": "peon"
+                    }
+                ]
+            },
+            {
+                "jaque_mate": false,
+                "jugada": 16,
+                "jugador": "NEGRAS",
+                "piezas": [
+                    {
+                        "color": "negra",
+                        "columna": "H",
+                        "fila": "f8",
+                        "pieza": "PZ_torre_rey",
+                        "tipo": "torre"
+                    }
+                ]
+            },
+            {
+                "jaque_mate": false,
+                "jugada": 17,
+                "jugador": "GRAVEDAD_N",
+                "piezas": [
+                    {
+                        "color": "negra",
+                        "columna": "G",
+                        "fila": "f8",
+                        "pieza": "PZ_torre_rey",
+                        "tipo": "torre"
+                    }
+                ]
+            },
+            {
+                "jaque_mate": false,
+                "jugada": 18,
+                "jugador": "BLANCAS",
+                "piezas": [
+                    {
+                        "color": "blanca",
+                        "columna": "F",
+                        "fila": "f3",
+                        "pieza": "PZ_reina",
+                        "tipo": "reina"
+                    }
+                ]
+            },
+            {
+                "jaque_mate": false,
+                "jugada": 19,
+                "jugador": "GRAVEDAD_B",
+                "piezas": [
+                    {
+                        "color": "blanca",
+                        "columna": "D",
+                        "fila": "f1",
+                        "pieza": "PZ_rey",
+                        "tipo": "rey"
+                    },
+                    {
+                        "color": "blanca",
+                        "columna": "E",
+                        "fila": "f1",
+                        "pieza": "PZ_alfil_rey",
+                        "tipo": "alfil"
+                    },
+                    {
+                        "color": "blanca",
+                        "columna": "F",
+                        "fila": "f1",
+                        "pieza": "PZ_caballo_rey",
+                        "tipo": "caballo"
+                    },
+                    {
+                        "color": "blanca",
+                        "columna": "G",
+                        "fila": "f1",
+                        "pieza": "PZ_torre_rey",
+                        "tipo": "torre"
+                    },
+                    {
+                        "color": "blanca",
+                        "columna": "D",
+                        "fila": "f3",
+                        "pieza": "PZ_reina",
+                        "tipo": "reina"
+                    }
+                ]
+            },
+            {
+                "jaque_mate": false,
+                "jugada": 20,
+                "jugador": "NEGRAS",
+                "piezas": [
+                    {
+                        "color": "negra",
+                        "columna": "H",
+                        "fila": "f8",
+                        "pieza": "PZ_torre_rey",
+                        "tipo": "torre"
+                    }
+                ]
+            },
+            {
+                "jaque_mate": false,
+                "jugada": 21,
+                "jugador": "GRAVEDAD_N",
+                "piezas": [
+                    {
+                        "color": "negra",
+                        "columna": "G",
+                        "fila": "f8",
+                        "pieza": "PZ_torre_rey",
+                        "tipo": "torre"
+                    }
+                ]
+            },
+            {
+                "jaque_mate": false,
+                "jugada": 22,
+                "jugador": "BLANCAS",
+                "piezas": [
+                    {
+                        "color": "blanca",
+                        "columna": "G",
+                        "fila": "f8",
+                        "pieza": "PZ_torre_rey",
+                        "tipo": "torre"
+                    },
+                    {
+                        "color": "negra",
+                        "columna": "C_ND",
+                        "fila": "f_ND",
+                        "pieza": "PZ_torre_rey",
+                        "tipo": "torre"
+                    }
+                ]
+            },
+            {
+                "jaque_mate": false,
+                "jugada": 23,
+                "jugador": "GRAVEDAD_B",
+                "piezas": [
+                    {
+                        "color": "blanca",
+                        "columna": "G",
+                        "fila": "f8",
+                        "pieza": "PZ_torre_rey",
+                        "tipo": "torre"
+                    }
+                ]
+            },
+            {
+                "jaque_mate": false,
+                "jugada": 24,
+                "jugador": "NEGRAS",
+                "piezas": [
+                    {
+                        "color": "negra",
+                        "columna": "D",
+                        "fila": "f5",
+                        "pieza": "PZ_caballo_rey",
+                        "tipo": "caballo"
+                    }
+                ]
+            },
+            {
+                "jaque_mate": false,
+                "jugada": 25,
+                "jugador": "GRAVEDAD_N",
+                "piezas": [
+                    {
+                        "color": "negra",
+                        "columna": "B",
+                        "fila": "f5",
+                        "pieza": "PZ_caballo_rey",
+                        "tipo": "caballo"
+                    }
+                ]
+            }
+        ],
+        "nombre": "2024/07/08_13:56:00"
+    },
+    {
+        "jugadas": [
+            {
+                "jaque_mate": false,
+                "jugada": 1,
+                "jugador": "GRAVEDAD_N",
+                "piezas": [
+                    {
+                        "color": "blanca",
+                        "columna": "A",
+                        "fila": "f2",
+                        "pieza": "PZ_peon_torre_reina",
+                        "tipo": "peon"
+                    },
+                    {
+                        "color": "blanca",
+                        "columna": "B",
+                        "fila": "f2",
+                        "pieza": "PZ_peon_caballo_reina",
+                        "tipo": "peon"
+                    },
+                    {
+                        "color": "blanca",
+                        "columna": "C",
+                        "fila": "f2",
+                        "pieza": "PZ_peon_alfil_reina",
+                        "tipo": "peon"
+                    },
+                    {
+                        "color": "blanca",
+                        "columna": "D",
+                        "fila": "f2",
+                        "pieza": "PZ_peon_reina",
+                        "tipo": "peon"
+                    },
+                    {
+                        "color": "blanca",
+                        "columna": "E",
+                        "fila": "f2",
+                        "pieza": "PZ_peon_rey",
+                        "tipo": "peon"
+                    },
+                    {
+                        "color": "blanca",
+                        "columna": "F",
+                        "fila": "f2",
+                        "pieza": "PZ_peon_alfil_rey",
+                        "tipo": "peon"
+                    },
+                    {
+                        "color": "blanca",
+                        "columna": "G",
+                        "fila": "f2",
+                        "pieza": "PZ_peon_caballo_rey",
+                        "tipo": "peon"
+                    },
+                    {
+                        "color": "blanca",
+                        "columna": "H",
+                        "fila": "f2",
+                        "pieza": "PZ_peon_torre_rey",
+                        "tipo": "peon"
+                    },
+                    {
+                        "color": "blanca",
+                        "columna": "A",
+                        "fila": "f1",
+                        "pieza": "PZ_torre_reina",
+                        "tipo": "torre"
+                    },
+                    {
+                        "color": "blanca",
+                        "columna": "H",
+                        "fila": "f1",
+                        "pieza": "PZ_torre_rey",
+                        "tipo": "torre"
+                    },
+                    {
+                        "color": "blanca",
+                        "columna": "B",
+                        "fila": "f1",
+                        "pieza": "PZ_caballo_reina",
+                        "tipo": "caballo"
+                    },
+                    {
+                        "color": "blanca",
+                        "columna": "G",
+                        "fila": "f1",
+                        "pieza": "PZ_caballo_rey",
+                        "tipo": "caballo"
+                    },
+                    {
+                        "color": "blanca",
+                        "columna": "C",
+                        "fila": "f1",
+                        "pieza": "PZ_alfil_reina",
+                        "tipo": "alfil"
+                    },
+                    {
+                        "color": "blanca",
+                        "columna": "F",
+                        "fila": "f1",
+                        "pieza": "PZ_alfil_rey",
+                        "tipo": "alfil"
+                    },
+                    {
+                        "color": "blanca",
+                        "columna": "D",
+                        "fila": "f1",
+                        "pieza": "PZ_reina",
+                        "tipo": "reina"
+                    },
+                    {
+                        "color": "blanca",
+                        "columna": "E",
+                        "fila": "f1",
+                        "pieza": "PZ_rey",
+                        "tipo": "rey"
+                    },
+                    {
+                        "color": "negra",
+                        "columna": "A",
+                        "fila": "f7",
+                        "pieza": "PZ_peon_torre_reina",
+                        "tipo": "peon"
+                    },
+                    {
+                        "color": "negra",
+                        "columna": "B",
+                        "fila": "f7",
+                        "pieza": "PZ_peon_caballo_reina",
+                        "tipo": "peon"
+                    },
+                    {
+                        "color": "negra",
+                        "columna": "C",
+                        "fila": "f7",
+                        "pieza": "PZ_peon_alfil_reina",
+                        "tipo": "peon"
+                    },
+                    {
+                        "color": "negra",
+                        "columna": "D",
+                        "fila": "f7",
+                        "pieza": "PZ_peon_reina",
+                        "tipo": "peon"
+                    },
+                    {
+                        "color": "negra",
+                        "columna": "E",
+                        "fila": "f7",
+                        "pieza": "PZ_peon_rey",
+                        "tipo": "peon"
+                    },
+                    {
+                        "color": "negra",
+                        "columna": "F",
+                        "fila": "f7",
+                        "pieza": "PZ_peon_alfil_rey",
+                        "tipo": "peon"
+                    },
+                    {
+                        "color": "negra",
+                        "columna": "G",
+                        "fila": "f7",
+                        "pieza": "PZ_peon_caballo_rey",
+                        "tipo": "peon"
+                    },
+                    {
+                        "color": "negra",
+                        "columna": "H",
+                        "fila": "f7",
+                        "pieza": "PZ_peon_torre_rey",
+                        "tipo": "peon"
+                    },
+                    {
+                        "color": "negra",
+                        "columna": "A",
+                        "fila": "f8",
+                        "pieza": "PZ_torre_reina",
+                        "tipo": "torre"
+                    },
+                    {
+                        "color": "negra",
+                        "columna": "H",
+                        "fila": "f8",
+                        "pieza": "PZ_torre_rey",
+                        "tipo": "torre"
+                    },
+                    {
+                        "color": "negra",
+                        "columna": "B",
+                        "fila": "f8",
+                        "pieza": "PZ_caballo_reina",
+                        "tipo": "caballo"
+                    },
+                    {
+                        "color": "negra",
+                        "columna": "G",
+                        "fila": "f8",
+                        "pieza": "PZ_caballo_rey",
+                        "tipo": "caballo"
+                    },
+                    {
+                        "color": "negra",
+                        "columna": "C",
+                        "fila": "f8",
+                        "pieza": "PZ_alfil_reina",
+                        "tipo": "alfil"
+                    },
+                    {
+                        "color": "negra",
+                        "columna": "F",
+                        "fila": "f8",
+                        "pieza": "PZ_alfil_rey",
+                        "tipo": "alfil"
+                    },
+                    {
+                        "color": "negra",
+                        "columna": "D",
+                        "fila": "f8",
+                        "pieza": "PZ_reina",
+                        "tipo": "reina"
+                    },
+                    {
+                        "color": "negra",
+                        "columna": "E",
+                        "fila": "f8",
+                        "pieza": "PZ_rey",
+                        "tipo": "rey"
+                    }
+                ]
+            },
+            {
+                "jaque_mate": false,
+                "jugada": 2,
+                "jugador": "BLANCAS",
+                "piezas": [
+                    {
+                        "color": "blanca",
+                        "columna": "D",
+                        "fila": "f4",
+                        "pieza": "PZ_peon_reina",
+                        "tipo": "peon"
+                    }
+                ]
+            },
+            {
+                "jaque_mate": false,
+                "jugada": 3,
+                "jugador": "GRAVEDAD_B",
+                "piezas": [
+                    {
+                        "color": "blanca",
+                        "columna": "D",
+                        "fila": "f2",
+                        "pieza": "PZ_peon_rey",
+                        "tipo": "peon"
+                    },
+                    {
+                        "color": "blanca",
+                        "columna": "E",
+                        "fila": "f2",
+                        "pieza": "PZ_peon_alfil_rey",
+                        "tipo": "peon"
+                    },
+                    {
+                        "color": "blanca",
+                        "columna": "F",
+                        "fila": "f2",
+                        "pieza": "PZ_peon_caballo_rey",
+                        "tipo": "peon"
+                    },
+                    {
+                        "color": "blanca",
+                        "columna": "G",
+                        "fila": "f2",
+                        "pieza": "PZ_peon_torre_rey",
+                        "tipo": "peon"
+                    },
+                    {
+                        "color": "blanca",
+                        "columna": "A",
+                        "fila": "f4",
+                        "pieza": "PZ_peon_reina",
+                        "tipo": "peon"
+                    }
+                ]
+            },
+            {
+                "jaque_mate": false,
+                "jugada": 4,
+                "jugador": "NEGRAS",
+                "piezas": [
+                    {
+                        "color": "negra",
+                        "columna": "D",
+                        "fila": "f5",
+                        "pieza": "PZ_peon_reina",
+                        "tipo": "peon"
+                    }
+                ]
+            },
+            {
+                "jaque_mate": false,
+                "jugada": 5,
+                "jugador": "GRAVEDAD_N",
+                "piezas": [
+                    {
+                        "color": "negra",
+                        "columna": "D",
+                        "fila": "f7",
+                        "pieza": "PZ_peon_rey",
+                        "tipo": "peon"
+                    },
+                    {
+                        "color": "negra",
+                        "columna": "E",
+                        "fila": "f7",
+                        "pieza": "PZ_peon_alfil_rey",
+                        "tipo": "peon"
+                    },
+                    {
+                        "color": "negra",
+                        "columna": "F",
+                        "fila": "f7",
+                        "pieza": "PZ_peon_caballo_rey",
+                        "tipo": "peon"
+                    },
+                    {
+                        "color": "negra",
+                        "columna": "G",
+                        "fila": "f7",
+                        "pieza": "PZ_peon_torre_rey",
+                        "tipo": "peon"
+                    },
+                    {
+                        "color": "negra",
+                        "columna": "A",
+                        "fila": "f5",
+                        "pieza": "PZ_peon_reina",
+                        "tipo": "peon"
+                    }
+                ]
+            },
+            {
+                "jaque_mate": false,
+                "jugada": 6,
+                "jugador": "BLANCAS",
+                "piezas": [
+                    {
+                        "color": "blanca",
+                        "columna": "D",
+                        "fila": "f3",
+                        "pieza": "PZ_peon_rey",
+                        "tipo": "peon"
+                    }
+                ]
+            },
+            {
+                "jaque_mate": false,
+                "jugada": 7,
+                "jugador": "GRAVEDAD_B",
+                "piezas": [
+                    {
+                        "color": "blanca",
+                        "columna": "D",
+                        "fila": "f2",
+                        "pieza": "PZ_peon_alfil_rey",
+                        "tipo": "peon"
+                    },
+                    {
+                        "color": "blanca",
+                        "columna": "E",
+                        "fila": "f2",
+                        "pieza": "PZ_peon_caballo_rey",
+                        "tipo": "peon"
+                    },
+                    {
+                        "color": "blanca",
+                        "columna": "F",
+                        "fila": "f2",
+                        "pieza": "PZ_peon_torre_rey",
+                        "tipo": "peon"
+                    },
+                    {
+                        "color": "blanca",
+                        "columna": "A",
+                        "fila": "f3",
+                        "pieza": "PZ_peon_rey",
+                        "tipo": "peon"
+                    }
+                ]
+            },
+            {
+                "jaque_mate": false,
+                "jugada": 8,
+                "jugador": "NEGRAS",
+                "piezas": [
+                    {
+                        "color": "negra",
+                        "columna": "D",
+                        "fila": "f6",
+                        "pieza": "PZ_peon_rey",
+                        "tipo": "peon"
+                    }
+                ]
+            },
+            {
+                "jaque_mate": false,
+                "jugada": 9,
+                "jugador": "GRAVEDAD_N",
+                "piezas": [
+                    {
+                        "color": "negra",
+                        "columna": "D",
+                        "fila": "f7",
+                        "pieza": "PZ_peon_alfil_rey",
+                        "tipo": "peon"
+                    },
+                    {
+                        "color": "negra",
+                        "columna": "E",
+                        "fila": "f7",
+                        "pieza": "PZ_peon_caballo_rey",
+                        "tipo": "peon"
+                    },
+                    {
+                        "color": "negra",
+                        "columna": "F",
+                        "fila": "f7",
+                        "pieza": "PZ_peon_torre_rey",
+                        "tipo": "peon"
+                    },
+                    {
+                        "color": "negra",
+                        "columna": "A",
+                        "fila": "f6",
+                        "pieza": "PZ_peon_rey",
+                        "tipo": "peon"
+                    }
+                ]
+            },
+            {
+                "jaque_mate": false,
+                "jugada": 10,
+                "jugador": "BLANCAS",
+                "piezas": [
+                    {
+                        "color": "blanca",
+                        "columna": "D",
+                        "fila": "f4",
+                        "pieza": "PZ_peon_alfil_rey",
+                        "tipo": "peon"
+                    }
+                ]
+            },
+            {
+                "jaque_mate": false,
+                "jugada": 11,
+                "jugador": "GRAVEDAD_B",
+                "piezas": [
+                    {
+                        "color": "blanca",
+                        "columna": "D",
+                        "fila": "f2",
+                        "pieza": "PZ_peon_caballo_rey",
+                        "tipo": "peon"
+                    },
+                    {
+                        "color": "blanca",
+                        "columna": "E",
+                        "fila": "f2",
+                        "pieza": "PZ_peon_torre_rey",
+                        "tipo": "peon"
+                    },
+                    {
+                        "color": "blanca",
+                        "columna": "B",
+                        "fila": "f4",
+                        "pieza": "PZ_peon_alfil_rey",
+                        "tipo": "peon"
+                    }
+                ]
+            },
+            {
+                "jaque_mate": false,
+                "jugada": 12,
+                "jugador": "NEGRAS",
+                "piezas": [
+                    {
+                        "color": "negra",
+                        "columna": "F",
+                        "fila": "f6",
+                        "pieza": "PZ_caballo_rey",
+                        "tipo": "caballo"
+                    }
+                ]
+            },
+            {
+                "jaque_mate": false,
+                "jugada": 13,
+                "jugador": "GRAVEDAD_N",
+                "piezas": [
+                    {
+                        "color": "negra",
+                        "columna": "G",
+                        "fila": "f8",
+                        "pieza": "PZ_torre_rey",
+                        "tipo": "torre"
+                    },
+                    {
+                        "color": "negra",
+                        "columna": "B",
+                        "fila": "f6",
+                        "pieza": "PZ_caballo_rey",
+                        "tipo": "caballo"
+                    }
+                ]
+            },
+            {
+                "jaque_mate": false,
+                "jugada": 14,
+                "jugador": "BLANCAS",
+                "piezas": [
+                    {
+                        "color": "blanca",
+                        "columna": "E",
+                        "fila": "f3",
+                        "pieza": "PZ_peon_torre_rey",
+                        "tipo": "peon"
+                    }
+                ]
+            },
+            {
+                "jaque_mate": false,
+                "jugada": 15,
+                "jugador": "GRAVEDAD_B",
+                "piezas": [
+                    {
+                        "color": "blanca",
+                        "columna": "B",
+                        "fila": "f3",
+                        "pieza": "PZ_peon_torre_rey",
+                        "tipo": "peon"
+                    }
+                ]
+            },
+            {
+                "jaque_mate": false,
+                "jugada": 16,
+                "jugador": "NEGRAS",
+                "piezas": [
+                    {
+                        "color": "negra",
+                        "columna": "H",
+                        "fila": "f8",
+                        "pieza": "PZ_torre_rey",
+                        "tipo": "torre"
+                    }
+                ]
+            },
+            {
+                "jaque_mate": false,
+                "jugada": 17,
+                "jugador": "GRAVEDAD_N",
+                "piezas": [
+                    {
+                        "color": "negra",
+                        "columna": "G",
+                        "fila": "f8",
+                        "pieza": "PZ_torre_rey",
+                        "tipo": "torre"
+                    }
+                ]
+            },
+            {
+                "jaque_mate": false,
+                "jugada": 18,
+                "jugador": "BLANCAS",
+                "piezas": [
+                    {
+                        "color": "blanca",
+                        "columna": "F",
+                        "fila": "f3",
+                        "pieza": "PZ_reina",
+                        "tipo": "reina"
+                    }
+                ]
+            },
+            {
+                "jaque_mate": false,
+                "jugada": 19,
+                "jugador": "GRAVEDAD_B",
+                "piezas": [
+                    {
+                        "color": "blanca",
+                        "columna": "D",
+                        "fila": "f1",
+                        "pieza": "PZ_rey",
+                        "tipo": "rey"
+                    },
+                    {
+                        "color": "blanca",
+                        "columna": "E",
+                        "fila": "f1",
+                        "pieza": "PZ_alfil_rey",
+                        "tipo": "alfil"
+                    },
+                    {
+                        "color": "blanca",
+                        "columna": "F",
+                        "fila": "f1",
+                        "pieza": "PZ_caballo_rey",
+                        "tipo": "caballo"
+                    },
+                    {
+                        "color": "blanca",
+                        "columna": "G",
+                        "fila": "f1",
+                        "pieza": "PZ_torre_rey",
+                        "tipo": "torre"
+                    },
+                    {
+                        "color": "blanca",
+                        "columna": "C",
+                        "fila": "f3",
+                        "pieza": "PZ_reina",
+                        "tipo": "reina"
+                    }
+                ]
+            },
+            {
+                "jaque_mate": false,
+                "jugada": 20,
+                "jugador": "NEGRAS",
+                "piezas": [
+                    {
+                        "color": "negra",
+                        "columna": "H",
+                        "fila": "f8",
+                        "pieza": "PZ_torre_rey",
+                        "tipo": "torre"
+                    }
+                ]
+            },
+            {
+                "jaque_mate": false,
+                "jugada": 21,
+                "jugador": "GRAVEDAD_N",
+                "piezas": [
+                    {
+                        "color": "negra",
+                        "columna": "G",
+                        "fila": "f8",
+                        "pieza": "PZ_torre_rey",
+                        "tipo": "torre"
+                    }
+                ]
+            },
+            {
+                "jaque_mate": false,
+                "jugada": 22,
+                "jugador": "BLANCAS",
+                "piezas": [
+                    {
+                        "color": "blanca",
+                        "columna": "H",
+                        "fila": "f8",
+                        "pieza": "PZ_reina",
+                        "tipo": "reina"
+                    }
+                ]
+            },
+            {
+                "jaque_mate": false,
+                "jugada": 23,
+                "jugador": "GRAVEDAD_B",
+                "piezas": [
+                    {
+                        "color": "blanca",
+                        "columna": "H",
+                        "fila": "f8",
+                        "pieza": "PZ_reina",
+                        "tipo": "reina"
+                    }
+                ]
+            },
+            {
+                "jaque_mate": false,
+                "jugada": 24,
+                "jugador": "NEGRAS",
+                "piezas": [
+                    {
+                        "color": "negra",
+                        "columna": "B",
+                        "fila": "f4",
+                        "pieza": "PZ_peon_reina",
+                        "tipo": "peon"
+                    },
+                    {
+                        "color": "blanca",
+                        "columna": "C_ND",
+                        "fila": "f_ND",
+                        "pieza": "PZ_peon_alfil_rey",
+                        "tipo": "peon"
+                    }
+                ]
+            },
+            {
+                "jaque_mate": false,
+                "jugada": 25,
+                "jugador": "GRAVEDAD_N",
+                "piezas": [
+                    {
+                        "color": "negra",
+                        "columna": "B",
+                        "fila": "f4",
+                        "pieza": "PZ_peon_reina",
+                        "tipo": "peon"
+                    }
+                ]
+            },
+            {
+                "jaque_mate": false,
+                "jugada": 26,
+                "jugador": "BLANCAS",
+                "piezas": [
+                    {
+                        "color": "blanca",
+                        "columna": "G",
+                        "fila": "f8",
+                        "pieza": "PZ_torre_rey",
+                        "tipo": "torre"
+                    },
+                    {
+                        "color": "negra",
+                        "columna": "C_ND",
+                        "fila": "f_ND",
+                        "pieza": "PZ_torre_rey",
+                        "tipo": "torre"
+                    }
+                ]
+            },
+            {
+                "jaque_mate": false,
+                "jugada": 27,
+                "jugador": "GRAVEDAD_B",
+                "piezas": [
+                    {
+                        "color": "blanca",
+                        "columna": "G",
+                        "fila": "f8",
+                        "pieza": "PZ_torre_rey",
+                        "tipo": "torre"
+                    }
+                ]
+            }
+        ],
+        "nombre": "2024/07/08_13:57:34"
     }
 ]

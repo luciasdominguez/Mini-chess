@@ -49,7 +49,7 @@ void Mundo_menu::dibuja_controles()
 	ETSIDI::printxy("CONTROLES:", -12, 29);
 	ETSIDI::setTextColor(100, 0, 0);
 	ETSIDI::setFont("fuentes/SwanseaBold.ttf", 14);
-	ETSIDI::printxy("PARA VOLVER AL MENU PULSE m", -2, 0);
+	ETSIDI::printxy("PARA VOLVER AL MENU PULSE M", -2, 0);
 	//escritura de los controles
 	ETSIDI::setTextColor(50, 50, 0);
 	ETSIDI::setFont("fuentes/SwanseaBold.ttf", 14);
